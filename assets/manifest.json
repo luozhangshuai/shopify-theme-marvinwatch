@@ -1,0 +1,155 @@
+{
+  "frontend/entrypoints/_header-menu.css": {
+    "file": "_header-menu-BLvBz_M9.css",
+    "name": "_header-menu",
+    "names": [
+      "_header-menu.css"
+    ],
+    "src": "frontend/entrypoints/_header-menu.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/header-drawer.css": {
+    "file": "header-drawer-BjE2hPWu.css",
+    "name": "header-drawer",
+    "names": [
+      "header-drawer.css"
+    ],
+    "src": "frontend/entrypoints/header-drawer.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/intro-part.css": {
+    "file": "intro-part-Dsi7hthx.css",
+    "name": "intro-part",
+    "names": [
+      "intro-part.css"
+    ],
+    "src": "frontend/entrypoints/intro-part.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/main-carousel-slider.css": {
+    "file": "main-carousel-slider-BEhELea9.css",
+    "name": "main-carousel-slider",
+    "names": [
+      "main-carousel-slider.css"
+    ],
+    "src": "frontend/entrypoints/main-carousel-slider.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/main-carousel-slider.ts": {
+    "file": "main-carousel-slider-glv7CS5L.js",
+    "name": "main-carousel-slider",
+    "src": "frontend/entrypoints/main-carousel-slider.ts",
+    "isEntry": true
+  },
+  "frontend/entrypoints/main-dynamic-grid.css": {
+    "file": "main-dynamic-grid-w7Whtq5Z.css",
+    "name": "main-dynamic-grid",
+    "names": [
+      "main-dynamic-grid.css"
+    ],
+    "src": "frontend/entrypoints/main-dynamic-grid.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/main-dynamic-grid.ts": {
+    "file": "main-dynamic-grid-IcWpC1pz.js",
+    "name": "main-dynamic-grid",
+    "src": "frontend/entrypoints/main-dynamic-grid.ts",
+    "isEntry": true
+  },
+  "frontend/entrypoints/main-grid.css": {
+    "file": "main-grid-CaAHZOEe.css",
+    "name": "main-grid",
+    "names": [
+      "main-grid.css"
+    ],
+    "src": "frontend/entrypoints/main-grid.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/marvin-banner-group.css": {
+    "file": "marvin-banner-group-DBi-Yjq1.css",
+    "name": "marvin-banner-group",
+    "names": [
+      "marvin-banner-group.css"
+    ],
+    "src": "frontend/entrypoints/marvin-banner-group.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/marvin-footer.css": {
+    "file": "marvin-footer-DdERqT8f.css",
+    "name": "marvin-footer",
+    "names": [
+      "marvin-footer.css"
+    ],
+    "src": "frontend/entrypoints/marvin-footer.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/marvin-menu-nav.ts": {
+    "file": "marvin-menu-nav-B0qEi78O.js",
+    "name": "marvin-menu-nav",
+    "src": "frontend/entrypoints/marvin-menu-nav.ts",
+    "isEntry": true
+  },
+  "frontend/entrypoints/marvin-menu.css": {
+    "file": "marvin-menu-DmlT_zUb.css",
+    "name": "marvin-menu",
+    "names": [
+      "marvin-menu.css"
+    ],
+    "src": "frontend/entrypoints/marvin-menu.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/mega-menu-list.css": {
+    "file": "mega-menu-list-SosIncZa.css",
+    "name": "mega-menu-list",
+    "names": [
+      "mega-menu-list.css"
+    ],
+    "src": "frontend/entrypoints/mega-menu-list.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/mega-menu-list.ts": {
+    "file": "mega-menu-list-Cw0CV0NP.js",
+    "name": "mega-menu-list",
+    "src": "frontend/entrypoints/mega-menu-list.ts",
+    "isEntry": true
+  },
+  "frontend/entrypoints/page-menu.css": {
+    "file": "page-menu-w7RElOor.css",
+    "name": "page-menu",
+    "names": [
+      "page-menu.css"
+    ],
+    "src": "frontend/entrypoints/page-menu.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/product-accordion.css": {
+    "file": "product-accordion-p-fqClJL.css",
+    "name": "product-accordion",
+    "names": [
+      "product-accordion.css"
+    ],
+    "src": "frontend/entrypoints/product-accordion.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/product-accordion.ts": {
+    "file": "product-accordion-CNkwnibh.js",
+    "name": "product-accordion",
+    "src": "frontend/entrypoints/product-accordion.ts",
+    "isEntry": true
+  },
+  "frontend/entrypoints/theme.css": {
+    "file": "theme-DmuTIyaU.css",
+    "name": "theme",
+    "names": [
+      "theme.css"
+    ],
+    "src": "frontend/entrypoints/theme.css",
+    "isEntry": true
+  },
+  "frontend/entrypoints/theme.ts": {
+    "file": "theme-ehuGI2Lx.js",
+    "name": "theme",
+    "src": "frontend/entrypoints/theme.ts",
+    "isEntry": true
+  }
+}

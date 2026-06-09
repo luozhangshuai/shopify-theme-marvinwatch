@@ -1,0 +1,59 @@
+{% comment %}
+  接收参数:
+  - bgimg: 图像对象
+  - content_img: 图像对象
+  - content_text: 多行文本 (预计为3行)
+  - text_color: 颜色代码
+  - pos: 布局位置 ('left' 或 'right')
+{% endcomment %}
+
+{% render 'vite-tag', entry: 'intro-part.css' %}
+<div class="intro-block">
+  {%- if bgimg != blank -%}
+    <div class="intro-bgimg">
+      <img
+        src="{{ bgimg | image_url: width: 2000 }}"
+        loading="lazy"
+        alt="{{ bgimg.alt | escape }}"
+        width="2000"
+        height=""
+      >
+    </div>
+  {%- endif -%}
+
+  <div class="intro-inner">
+    <div class="intro-content layout-{{ pos | default: 'left' }}">
+      {%- if content_img != blank -%}
+        <div class="intro-img">
+          <img
+            src="{{ content_img | image_url: width: 800 }}"
+            loading="lazy"
+            alt="Content Image"
+            width="800"
+            height=""
+          >
+        </div>
+      {%- endif -%}
+
+      {%- if content_text != blank -%}
+        <div class="intro-text" style="color: {{ text_color | default: '#fff' }};">
+          {%- assign lines = content_text | newline_to_br | split: '<br />' -%}
+
+          {%- if lines[0] != blank -%}
+            <p class="intro-p-top">{{ lines[0] | strip }}</p>
+          {%- endif -%}
+
+          {%- if lines[1] != blank -%}
+            <h3 class="intro-h3-middle">
+              <strong>{{ lines[1] | strip }}</strong>
+            </h3>
+          {%- endif -%}
+
+          {%- if lines[2] != blank -%}
+            <p class="intro-p-bottom">{{ lines[2] | strip }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

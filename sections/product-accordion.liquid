@@ -1,0 +1,68 @@
+{% schema %}
+{
+  "name": "Product Accordion",
+  "tag": "section",
+  "class": "section-product-accordion",
+  "blocks": [{ "type": "accordion" }, { "type": "_accordion-row" }],
+  "settings": [
+    {
+      "type": "text",
+      "id": "accordion_header",
+      "label": "Accordion Header"
+    },
+    {
+      "type": "text",
+      "id": "accordion_desc",
+      "label": "Accordion Description"
+    },
+    {
+      "type": "image_picker",
+      "id": "accordion_img",
+      "label": "Accordion Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Accordion",
+      "blocks": [{ "type": "accordion" }]
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'vite-tag', entry: 'product-accordion.css' %}
+{% render 'vite-tag', entry: 'product-accordion.ts' %}
+
+{% liquid
+  assign header = section.settings.accordion_header
+  assign desc = section.settings.accordion_desc
+  assign ac_img = section.settings.accordion_img
+%}
+<div class="accordion-container" id="accordion-{{ section.id }}">
+  {% if header != blank %}
+    <div class="accordion-header">{{ header }}</div>
+  {% endif %}
+
+  {% if desc != blank %}
+    <div class="accordion-desc">{{ desc }}</div>
+  {% endif %}
+
+  <div class="accordion-wrapper">
+    <div class="accordion-img overflow-hidden">
+      {%- if ac_img != blank -%}
+      <img
+          src="{{ ac_img | image_url }}"
+          width="" height="" alt=""
+          loading="lazy"
+          class="w-full h-full object-cover">
+      {%- endif -%}
+    </div>
+
+    <div class="accordion-rows">
+      {% capture children %}
+        {% content_for 'blocks' %}
+      {% endcapture %}
+      {% render 'section', section: section, children: children %}
+    </div>
+  </div>
+</div>

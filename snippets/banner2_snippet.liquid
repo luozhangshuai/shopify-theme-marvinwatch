@@ -1,0 +1,176 @@
+{%- liquid
+  # 唯一 ID
+  assign id = key
+  # 将 data 赋值给一个变量
+  assign data = data
+  # 通过 data.group.value 获取到循环需要的数据
+  assign group = data.group.value
+  # 是否自动播放
+  assign autoplay = autoplay | default: false
+  # 图片比例（PC端）
+  assign ratio_pc = data.ratio | default: 100
+  # 图片比例（移动端）
+  assign ratio_mobile = data.ratio_mobile | default: 133
+
+  # 轮播每页显示数量（PC端）
+  assign col_pc = data.col | default: 3.5
+  assign gap_pc = data.gap | default: 10
+  assign gap_pc_double = gap_pc | times: 2
+  # 轮播每页显示数量（移动端）
+  assign col_mobile = data.col_mobile | default: 1.2
+  assign gap_mobile = data.gap_mobile | default: 10
+  assign gap_mobile_double = gap_mobile | times: 2
+-%}
+
+{%- unless group == blank -%}
+  <style>
+    #{{ id }} {
+      --f-carousel-spacing: {{ gap_pc | append:'px' }};
+      --f-carousel-slide-width: calc((100% - {{ gap_pc_double | append: 'px' }}) / {{ col_pc }});
+    }
+    @media screen and (max-width: 768px) {
+      #{{ id }} {
+        --f-carousel-spacing: {{ gap_mobile | append:'px' }};
+        --f-carousel-slide-width: calc((100% - {{ gap_mobile_double | append: 'px' }}) / {{ col_mobile }});
+      }
+    }
+  </style>
+  <div class="{{ class }}" style="background: {{ bg }};">
+    <div x-data="fancyCarousel">
+      <!-- 用 script 标签包含数据 -->
+      <script type="application/json" x-ref="datas">
+        {
+          "targetId": "{{ id }}",
+          "options": {
+            "Autoplay": false,
+            "center": false,
+            "transitionDuration": 30,
+            "Dots": "false",
+            "Navigation": true,
+            "infinite": false,
+            "transition": "crossfade"
+          }
+        }
+      </script>
+
+      <div class="flex flex-col">
+        <div class="f-carousel w-full relative" id="{{ id }}">
+          <div class="f-carousel__viewport">
+            <div class="f-carousel__track items-baseline">
+              {%- for item in group -%}
+                {%- liquid
+                  # 按钮链接
+                  assign button_url = blank
+                  # 样式设置
+                  assign style_object = item.style.value
+                  # 按钮链接类型
+                  assign button_type = style_object.button_type
+                  # 根据按钮链接类型获取链接
+                  case button_type
+                    when 'variant'
+                      assign button_url = style_object.button_variant.value.url
+                    when 'collection'
+                      assign button_url = style_object.button_collection.value.url
+                    when 'url'
+                      assign button_url = style_object.button_url.value
+                  endcase
+                  # 按钮文本
+                  assign button_text = style_object.button_text
+                  # 内容文本
+                  # 大标题
+                  assign title = style_object.title | metafield_tag
+                  # 小标题
+                  assign subtitle = style_object.subtitle | metafield_tag
+                  # 内容文本
+                  assign content = style_object.content | metafield_tag
+                  # 背景颜色
+                  assign bg = style_object.bg | default: blank
+                  # 文本颜色
+                  assign text_color = style_object.text_color | default: blank
+                  # 按钮背景颜色
+                  assign button_bg = style_object.button_bg | default: blank
+                  # 按钮文本颜色
+                  assign button_text_color = style_object.button_text_color | default: blank
+
+                  # 媒体
+                  assign banner = item.banner.value
+                -%}
+
+                <div class="f-carousel__slide w-full">
+                  {% comment %} PC {% endcomment %}
+                  <div
+                    class="flex flex-col gap-2 group relative"
+                  >
+                    <div class="relative w-full" style="padding-top: {{ ratio_pc | append: '%' }};">
+                      <div class="absolute inset-0 w-full h-full">
+                        {% if banner != blank %}
+                          {%- if banner.media_type == 'video' -%}
+                            {%- liquid
+                              assign preview_media_url = banner.sources[0].url
+                              assign media_url = banner.sources[0].url
+                              assign suffix = media_url | split: '?' | split: '.' | last
+                              if suffix != 'mp4'
+                                assign preview_media_url = banner.sources[1].url
+                                assign media_url = banner.sources[1].url
+                              endif
+                            -%}
+                            <video
+                              autoplay
+                              loop
+                              muted
+                              playsinline
+                              class="w-full h-full object-cover"
+                              poster="{{ banner.preview_image | image_url: width: 800 }}"
+                              src="{{ preview_media_url }}"
+                            />
+                          {%- else -%}
+                            <img
+                              class="w-full h-full object-cover"
+                              src="{{ banner | image_url: width: 1980 }}"
+                              alt=""
+                              width="1980"
+                              height=""
+                            >
+                          {%- endif -%}
+                        {% endif %}
+                      </div>
+
+                      <div
+                        class="absolute inset-0 w-full h-full flex flex-col justify-center items-center gap-6 text-center text-xl"
+                        style="color:{{ text_color }};background: {{ bg }};"
+                      >
+                        {%- unless subtitle == blank -%}
+                          <div class="text-[0.6em] opacity-30 tracking-[0.75em]">
+                            {{ subtitle }}
+                          </div>
+                        {% endunless %}
+                        <div class="opacity-80 text-[2.5em]">
+                          {{ title }}
+                        </div>
+                        <div class="mx-[25vw] text-[0.7em] opacity-60">
+                          {{ content }}
+                        </div>
+                        {%- unless button_text == blank -%}
+                          <div>
+                            <a
+                              class="mw-btn mw-btn-primary uppercase rounded-none px-6"
+                              style="color: {{ button_text_color }}; background: {{ button_bg }};"
+                              href="{{  button_url }}"
+                              title="{{  button_text }}"
+                            >
+                              {{ button_text }}
+                            </a>
+                          </div>
+                        {%- endunless -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endunless -%}

@@ -1,0 +1,140 @@
+{% schema %}
+{
+  "name": "Pages",
+
+  "settings": [],
+  "presets": [
+    {
+      "name": "Pages",
+      "category": "Pages"
+    }
+  ]
+}
+{% endschema %}
+
+{% comment %} 全局js {% endcomment %}
+<script src="{{ 'main.js' | asset_url }}" type="module"></script>
+{% comment %} 打包样式 {% endcomment %}
+{{ 'main.css' | asset_url | stylesheet_tag }}
+{% comment %} 实时样式 {% endcomment %}
+{{ 'style.css' | asset_url | stylesheet_tag }}
+{% comment %} 轮播 {% endcomment %}
+{{ 'fancybox.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'component-fancy-carousel.js' | asset_url }}" type="module" defer></script>
+
+<script>
+   document.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('resize', () => {
+      // 更新 fancy carousel 的视口
+      const viewport = document.querySelector('.f-carousel__viewport');
+      if (viewport) {
+        viewport.style.height = 'auto';
+        console.log(
+          'Window resized: .f-carousel__viewport height set to auto'
+        );
+      }
+    })
+
+    {% comment %} 启动 Alpine {% endcomment %}
+    Alpine.start();
+  });
+</script>
+
+{%- liquid
+  # 获取 page 详情
+  assign details = page.metafields.custom.details.value
+  if details == blank
+    break
+  endif
+  # 唯一标识符
+  assign key = section.id
+-%}
+
+{%- unless details == blank -%}
+  {% for item in details %}
+    {%- liquid
+      # 详情类型
+      assign type = item.type | replace: ' ', '_'
+      # PC 端唯一标识符
+      assign key_pc = key | append: forloop.index0 | append: '_pc'
+      # 移动端唯一标识符
+      assign key_mobile = key | append: forloop.index0 | append: '_mobile'
+    -%}
+
+    {% case type %}
+      {% when 'banner' %}
+        {% comment %} 居中-内嵌文本-subtitle红色 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'banner_snippet', data: item, key: key_pc %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'banner_mobile_snippet', data: item, key: key_mobile %}
+        </div>
+      {% when 'banner2' %}
+        {% comment %} 居中-垂直-纯文本 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'banner2_snippet', data: item, key: key_pc %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'banner2_mobile_snippet', data: item, key: key_mobile %}
+        </div>
+      {% when 'banner3' %}
+        {% comment %} 左右对齐-纯文本 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'banner3_snippet', data: item, key: key_pc %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'banner3_mobile_snippet', data: item, key: key_mobile %}
+        </div>
+      {% when 'anchors' %}
+        {% comment %} 设置跳转链接 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'anchors_snippet', data: item, key: key_pc %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'anchors_mobile_snippet', data: item, key: key_mobile %}
+        </div>
+      {% when 'header' %}
+        {% comment %} 带 id 支持快速跳转锚点 {% endcomment %}
+        {% render 'header_snippet', data: item, key: key %}
+      {% when 'table' %}
+        {% comment %} 表格 {% endcomment %}
+        {% render 'table_snippet', data: item, key: key %}
+      {% when 'poster' %}
+        {% comment %} 垂直-左对齐-白底-九宫格卡片 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'poster_snippet', data: item, key: key_pc, class: 'px-[10vw] py-8' %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'poster_mobile_snippet', data: item, key: key_mobile, class: 'px-[10px]' %}
+        </div>
+      {% when 'poster2' %}
+        {% comment %} 列表-左文右图-白底卡片 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'poster2_snippet', data: item, key: key_pc, class: 'px-[10vw] py-8' %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'poster2_mobile_snippet', data: item, key: key_mobile, class: 'px-[10px]' %}
+        </div>
+      {% when 'poster3' %}
+        {% comment %} 垂直-左对齐-透明（可滚动）卡片 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'poster3_snippet', data: item, key: key_pc, class: 'px-[10vw] py-8' %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'poster3_mobile_snippet', data: item, key: key_mobile, class: 'px-[10px] pb-4' %}
+        </div>
+      {% when 'poster4' %}
+        {% comment %} 垂直-居中-半透明卡片 {% endcomment %}
+        <div class="block sm:!hidden md:!hidden">
+          {% render 'poster4_snippet', data: item, key: key_pc, class: 'px-[10vw] py-8' %}
+        </div>
+        <div class="hidden sm:!block md:!block">
+          {% render 'poster4_mobile_snippet', data: item, key: key_mobile, class: 'px-[10px] py-4' %}
+        </div>
+      {% else %}
+
+    {% endcase %}
+  {% endfor %}
+{%- endunless -%}

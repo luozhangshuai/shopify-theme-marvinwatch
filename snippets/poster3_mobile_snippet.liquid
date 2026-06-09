@@ -1,0 +1,101 @@
+{%- liquid
+  # 唯一 ID
+  assign id = key
+  # 将 data 赋值给一个变量
+  assign data = data
+  # 通过 data.group.value 获取到循环需要的数据
+  assign group = data.group.value
+  # 是否自动播放
+  assign autoplay = autoplay | default: false
+  # 图片比例（PC端）
+  assign ratio_pc = data.ratio | default: 100
+  # 图片比例（移动端）
+  assign ratio_mobile = data.ratio_mobile | default: 133
+
+  # 轮播每页显示数量（PC端）
+  assign col_pc = data.col | default: 3
+  assign gap_pc = data.gap | default: 10
+  assign gap_pc_double = gap_pc | times: 2
+  # 轮播每页显示数量（移动端）
+  assign col_mobile = data.col_mobile | default: 3
+  assign gap_mobile = data.gap_mobile | default: 10
+  assign gap_mobile_double = gap_mobile | times: 2
+  # 背景颜色
+  assign bg = data.bg | default: '#d93636'
+-%}
+
+{%- unless group == blank -%}
+  <style>
+    #{{ id }} {
+      --f-carousel-spacing: {{ gap_pc | append:'px' }};
+      --f-carousel-slide-width: calc((100% - {{ gap_pc_double | append: 'px' }}) / {{ col_pc }});
+    }
+    @media screen and (max-width: 768px) {
+      #{{ id }} {
+        --f-carousel-spacing: {{ gap_mobile | append:'px' }};
+        --f-carousel-slide-width: calc((100% - {{ gap_mobile_double | append: 'px' }}) / {{ col_mobile }});
+      }
+    }
+  </style>
+
+  <div x-data="fancyCarousel" class="{{ class }}" style="background: {{ bg }};">
+    <!-- 用 script 标签包含数据 -->
+    <script type="application/json" x-ref="datas">
+      {
+        "targetId": "{{ id }}",
+        "options": {
+          "Autoplay": false,
+          "center": false,
+          "transitionDuration": 30,
+          "Dots": "false",
+          "Navigation": true,
+          "infinite": false,
+          "transition": "crossfade"
+        }
+      }
+    </script>
+
+    <div class="f-carousel" id="{{ id }}">
+      <div class="f-carousel__viewport">
+        <div class="f-carousel__track items-baseline">
+          {%- for item in group -%}
+            <div class="f-carousel__slide w-full">
+              <div class="flex flex-col gap-2 tracking-normal">
+                {%- liquid
+                  # 海报
+                  assign poster = item.poster.value
+                  assign tag = item.tag
+                  assign city = item.city
+                  assign title = item.title | metafield_tag
+                  assign content = item.content | metafield_tag
+                -%}
+                <div class="w-full text-sm sm:text-xs md:text-xs">
+                  <div class="relative" style="padding-top: {{ ratio_mobile | append: '%' }}">
+                    <div class="absolute inset-0">
+                      <img
+                        src="{{ poster | image_url: width: 800 }}"
+                        class="w-full h-full object-cover"
+                        alt=""
+                        width="800"
+                        height=""
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="flex-[1] flex flex-col gap-0 text-white text-lg p-4 sm:p-2 md:p-2">
+                  <div class="text-[1.3em] sm:text-[1em] md:text-[1em] leading-[1] font-semibold text-[#b71c35]">{{ tag }}</div>
+                  <div class="text-[1.3em] sm:text-[1em] md:text-[1em] leading-[1] font-semibold">
+                    {{ title }}
+                  </div>
+                  <div class="text-[0.8em] sm:text-[0.6em] md:text-[0.6em] leading-[1.2] opacity-50 text-pretty *:flex *:flex-col *:gap-0">
+                    {{ content }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endunless -%}

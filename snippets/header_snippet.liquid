@@ -1,0 +1,41 @@
+{%- liquid
+  # 唯一 ID
+  assign id = key
+  # 将 data 赋值给一个变量
+  assign data = data
+  # 标题
+  assign title = data.title | metafield_tag
+  # 副标题
+  assign subtitle = data.subtitle | metafield_tag
+  # 唯一标识符
+  assign anchor = data.anchor
+  # 背景颜色
+  assign bg = data.bg | default: '#ffffff'
+  # 文本颜色
+  assign text_color = data.color | default: '#000000'
+  # 小标题颜色
+  assign subtitle_color = '#636a75'
+  # 分割线颜色
+  assign divider_color = data.divider_color | default: blank
+-%}
+
+<div
+  class="flex flex-col gap-4 sm:gap-2 md:gap-2 py-8 sm:py-4 md:py-4 justify-center items-center text-center text-xl sm:text-2xs md:text-2xs"
+  id="{{ anchor }}"
+  style="background-color: {{ bg }};color: {{ text_color }};"
+>
+  <div class="font-semibold text-[2.5em] leading-[1.5]">
+    {{ title }}
+  </div>
+  {% unless subtitle == blank %}
+    <div class="text-[0.95em] italic tracking-tight" style="color: {{ subtitle_color }};">
+      {{ subtitle }}
+    </div>
+  {% endunless %}
+  {%- unless divider_color == blank -%}
+    <div
+      class="h-[2px] sm:h-px md:h-px w-[50vw] sm:w-[70vw] md:w-[70vw] my-4"
+      style="background: linear-gradient(to right,transparent,{{ divider_color }},transparent);"
+    ></div>
+  {%- endunless -%}
+</div>

@@ -1,0 +1,94 @@
+{% schema %}
+{
+  "name": "Main Dynamic Grid",
+  "settings": [
+    {
+      "type": "range",
+      "id": "cols",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop Columns"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "default": 10,
+      "unit": "px",
+      "label": "Grid Gap"
+    }
+  ],
+  "presets": [{ "name": "Main Dynamic Grid" }]
+}
+{% endschema %}
+
+{% assign grid_tiles = metaobjects.dynamic_grid.values | sort: 'system.handle' %}
+
+{% render 'vite-tag', entry: 'main-dynamic-grid.css' %}
+
+<section class="main-dynamic-grid" id="section-{{ section.id }}">
+  <div class="dynamic-grid-container"
+       style="--desktop-cols: {{ section.settings.cols }};
+           --gap: {{ section.settings.gap }}px;
+           ">
+    {% for tile in grid_tiles %}
+      {% liquid
+        assign cta_obj = tile.url.value
+        assign final_url = "#"
+
+        if cta_obj != blank
+          if cta_obj.product.value != blank
+            assign final_url = cta_obj.product.value.url
+          elsif cta_obj.collection.value != blank
+            assign final_url = cta_obj.collection.value.url
+          elsif cta_obj.page.value != blank
+            assign final_url = cta_obj.page.value.url
+          endif
+        endif
+
+        assign pos = tile.position.value | default: 'center'
+        assign r_span = tile.row_span.value | default: 1
+        assign c_span = tile.col_span.value | default: 1
+      %}
+
+      <div class="tile-item group"
+           data-position="{{ pos }}"
+           style="--c-span: {{ c_span }}; --r-span: {{ r_span }};"
+      >
+        {% if tile.bgimg.value != blank %}
+          {% assign focal_point = title.bgimg.value.presentation.focal_point | default: 'center' %}
+          {% capture img_style %}object-position: {{ focal_point }};{% endcapture %}
+          <img src="{{ tile.bgimg.value | image_url }}"
+               width="" height="" alt="" loading="lazy"
+               class="group-hover:scale-110"
+               style="{{ img_style }}">
+        {% else %}
+          <div class="tile-placeholder">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+        {% endif %}
+
+        <div class="tile-content-wrapper">
+          <div class="tile-content"
+               style="--tile-text-color: {{ tile.content_color.value | default: '#ffffff' }};">
+            {% if tile.title.value != blank %}
+              <p class="tile-title">{{ tile.title.value }}</p>
+            {% endif %}
+
+            {% if tile.context.value != blank %}
+              <p class="tile-context">{{ tile.context.value }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <a href="{{ final_url }}" class="tile-a">
+          <span class="sr-only">View Detail {{ forloop.index }}</span>
+        </a>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>

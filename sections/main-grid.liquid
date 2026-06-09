@@ -1,0 +1,102 @@
+{% schema %}
+{
+  "name": "Main Grid",
+  "tag": "section",
+  "blocks": [
+    { "type": "@app" },
+    { "type": "@theme" },
+    { "type": "button" }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "collection",
+      "label": "Collection title",
+      "default": "COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "THE ULTIMATE OUTDOOR WATCH"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "metaobject",
+      "id": "media_list",
+      "label": "Metaobject with Media",
+      "metaobject_type": "temp6"
+    }
+  ],
+  "presets": [{
+      "name": "Main Grid Media",
+      "blocks": [{ "type": "button" }]
+    }]
+}
+{% endschema %}
+
+{% assign metaobject = section.settings.media_list %}
+
+{% render 'vite-tag', entry: 'main-grid.css' %}
+
+<div class="main-grid-container relative w-full overflow-hidden ame section-{{ section.id }}">
+  <div class="main-grid-media grid-cols-2 w-full">
+    {%- if metaobject != blank -%}
+      {%- for i in (1..6) -%}
+        {%- liquid
+          assign pic_key = 'pic' | append: i
+          assign prod_key = 'product' | append: i
+          assign img = metaobject[pic_key].value
+          assign prod = metaobject[prod_key].value
+        -%}
+
+        {%- if img and prod -%}
+          <a href="{{ prod.url }}"
+             class="group relative block overflow-hidden aspect-square"
+             aria-label="{{ prod.title }}">
+            {{ img | image_url: width: 800, height: 800 | image_tag:
+                loading: 'lazy',
+                class: 'w-full h-full object-cover transition-all duration-700 ease-in-out'
+            }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div class="col-span-full py-32 text-center bg-gray-100 text-gray-500 font-medium">
+          Please select a valid Metaobject with id: temp6
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <div class="main-grid_content">
+    {%- if section.settings.collection != blank -%}
+      <p class="main-grid__coll">
+        {{ section.settings.collection }}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.title != blank -%}
+      <p class="main-grid__title">
+        {{ section.settings.title }}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="main-grid__desc text-lg text-gray-700 leading-relaxed mb-10 max-w-md mx-auto">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+
+    <div class="main-grid_blocks">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+
+  <div class="absolute inset-0 bg-black/5 pointer-events-none z-10"></div>
+</div>

@@ -1,0 +1,29 @@
+{%- liquid
+  # 唯一 ID
+  assign id = key
+  # 将 data 赋值给一个变量
+  assign data = data
+  # 通过 data.group.value 获取到循环需要的数据
+  assign group_title = data.group_title.value
+  assign group_anchor = data.group_anchor.value
+
+  # 背景颜色
+  assign bg = data.bg | default: '#787878'
+  # 标题
+  assign title = data.title | metafield_tag
+-%}
+
+<div class="flex flex-col gap-2 justify-center items-center py-4 px-[5vw] text-sm" style="background: {{ bg }};">
+  <div class="text-[1em] text-white [&_strong]:text-primary">{{ title }}</div>
+  <div class="w-full flex flex-row justify-between uppercase">
+    {% for item in group_title %}
+      {%- liquid
+        assign index = forloop.index0
+        for anchor in group_anchor offset: index limit: 1
+          assign item_anchor = anchor | default: '#'
+        endfor
+      -%}
+      <a href="{{ item_anchor }}" class="text-[0.8em] text-white hover:underline" title="{{ item }}">{{ item }}</a>
+    {% endfor %}
+  </div>
+</div>

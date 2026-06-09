@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./assets/basic.css -o ./assets/basic.min.css --watch --minify",
+    "shopify": "shopify theme dev --store marvinwatch.myshopify.com --port 2233",
+    "dev": "shopify theme dev --store marvinwatch.myshopify.com --port 7788 --host=192.168.110.41",
+    "start": "shopify theme dev --legacy --store marvinwatch.myshopify.com --port 2233",
+    "device": "shopify theme dev --legacy --store marvinwatch.myshopify.com --port 2233 --host 0.0.0.0"
+  },
+  "name": "shopify-theme-marvinwatch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

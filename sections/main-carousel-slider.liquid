@@ -1,0 +1,146 @@
+{% schema %}
+{
+  "name": "Main Carousel Slider",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "carousel-text",
+      "label": "Carousel Slider"
+    },
+    {
+      "type": "metaobject",
+      "id": "products_list",
+      "label": "Metaobject with Products",
+      "metaobject_type": "main_carousel_slider"
+    },
+    {
+      "type": "header",
+      "content": "Carousel-Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "自动切换",
+      "default": false,
+      "info": "移动端固定自动切换"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "切换间隔时间",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "unit": "ms",
+      "default": 3000
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Navigation",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Carousel Slider"
+    }
+  ]
+}
+{% endschema %}
+
+{% render 'vite-tag', entry: 'main-carousel-slider.css' %}
+{% render 'vite-tag', entry: 'main-carousel-slider.ts' %}
+
+{% liquid
+  assign metaobject = section.settings.products_list
+  assign _products = metaobject.products.value
+%}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,700,0,10&icon_names=chevron_left,chevron_right" />
+<section class="main-carousel-slider py-10 ame" data-section-id="{{ section.id }}">
+  {% if section.settings.carousel-text != blank %}
+    <div class="main-slider__title text-center px-4 mb-4 uppercase">
+      <p class="font-bold">{{ section.settings.carousel-text }}</p>
+    </div>
+  {% endif %}
+
+  <div class="container"
+       data-auto-play="{{ section.settings.autoplay }}"
+       data-speed="{{ section.settings.speed }}">
+    {% if _products != blank %}
+      <div class="swiper main-carousel-container">
+        <div class="swiper-wrapper">
+          {% for _product in _products %}
+            <div class="swiper-slide group">
+              {% capture children %}
+                <div class="child-img">
+                  {% if _product.featured_media != blank %}
+                    {{ _product.featured_media | image_url: width: 1200 | image_tag: loading: 'lazy',
+                    class: 'trans-img'
+                    }}
+                  {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'text-gray-400 fill-gray-200 trans-img' }}
+                  {% endif %}
+                </div>
+
+                {%- assign product_content = _product.metafields.custom.suggest_content.value -%}
+                {% if product_content != blank %}
+                  <div class="trans-content">
+                    <div class="flex-1 pr-4 min-w-0">
+                      <h3 class="content-title">{{ product_content.title }}</h3>
+
+                      {% if product_content.sub != blank %}
+                        <p class="content-sub">{{ product_content.sub }}</p>
+                      {% endif %}
+                    </div>
+
+                    <a href="{{ _product.url }}"
+                       class="size-style button content-button"
+                       style="--size-style-width: fit-content;--size-style-height: ;--size-style-width-mobile: fit-content; --size-style-width-mobile-min: fit-content;"
+                    >{{ product_content.button }}</a>
+                  </div>
+                {% endif %}
+                <div class="swiper-lazy-preloader"></div>
+              {% endcapture %}
+
+              {% render 'product-card',
+                  product: _product,
+                  children: children,
+                  block: section %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if section.settings.show_pagination -%}
+          <div class="swiper-pagination bottom-0!"></div>
+        {%- endif -%}
+        {%- if section.settings.show_navigation -%}
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      {%- if request.design_mode -%}
+        <div class="text-center p-12 border-2 border-dashed border-gray-300 rounded-2xl text-gray-500 bg-gray-50">
+          <p class="text-lg font-medium">请在右侧选择包含产品的 Metaobject 数据源</p>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>

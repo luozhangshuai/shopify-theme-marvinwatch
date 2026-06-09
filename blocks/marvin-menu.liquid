@@ -1,0 +1,65 @@
+{% schema %}
+{
+  "name": "Marvin Menu",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "选择菜单",
+      "default": "main-menu"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "一级菜单字号",
+      "options": [
+        { "value": "h3", "label": "大" },
+        { "value": "h4", "label": "中" },
+        { "value": "h5", "label": "小" }
+      ],
+      "default": "h4"
+    }
+  ],
+  "presets": [{ "name": "Marvin Menu" }]
+}
+{% endschema %}
+
+
+{% render 'vite-tag', entry: 'marvin-menu.css' %}
+{% liquid
+  assign menu = block.settings.menu
+  assign heading_size = block.settings.heading_size | default: 'h4'
+%}
+
+{% if menu != blank %}
+  <div class="marvin-menu-container text-white">
+    {% for link in menu.links %}
+      <div class="marvin-menu-col">
+        <div class="marvin-menu__header {{ heading_size }}">
+          <a href="{{ link.url }}" class="pointer-events-none">{{ link.title }}</a>
+        </div>
+
+        {% if link.links != blank %}
+          <div class="marvin-menu__list list-unstyled">
+            {% for childlink in link.links %}
+              {% liquid
+                assign mapping_entry = shop.metaobjects.menu_icon_mapping[childlink.handle]
+                assign custom_icon = mapping_entry.icon
+              %}
+              <p class="marvin-menu__item">
+                <a href="{{ childlink.url }}" class="marvin-menu__link">
+                  {% if custom_icon != blank %}
+                    <span class="marvin-menu__icon">
+                      {{ custom_icon | image_url: width: 40 | image_tag: loading: 'lazy' }}
+                    </span>
+                  {% endif %}
+                  <span class="marvin-menu__text">{{ childlink.title }}</span>
+                </a>
+              </p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

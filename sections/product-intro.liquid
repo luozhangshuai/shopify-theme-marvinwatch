@@ -1,0 +1,33 @@
+
+{%- assign intro_list = product.metafields.custom.product_intros.value -%}
+
+{%- if intro_list != blank -%}
+  <section class="product-intro-section w-full overflow-hidden" id="section-{{ section.id }}">
+    {%- for item in intro_list -%}
+      {% render 'intro-part', 
+        bgimg: item.background_image, 
+        content_img: item.intro_image, 
+        content_text: item.intro_text, 
+        text_color: item.text_color,
+        pos: item.image_position
+      %}
+    {%- endfor -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product Intros",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "数据来源",
+      "info": "此部分自动从产品的 Metafield 中获取数据。"
+    }
+  ],
+  "presets": [
+    { "name": "Product Intros" }]
+}
+{% endschema %}

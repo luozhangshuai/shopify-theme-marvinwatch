@@ -1,0 +1,70 @@
+{%- liquid
+  # 唯一 ID
+  assign id = key
+  # 将 data 赋值给一个变量
+  assign data = data
+  # 通过 data.group.value 获取到循环需要的数据
+  assign group = data.group.value
+  # 图片比例（PC端）
+  assign ratio_pc = data.ratio | default: 50
+  # 图片比例（移动端）
+  assign ratio_mobile = data.ratio_mobile | default: 133
+  # PC端每行显示的列数
+  assign col_pc = data.col | default: 3 | floor
+  # 移动端每行显示的列数
+  assign col_mobile = data.col_mobile | default: 1 | floor
+  # PC端间距
+  assign gap_pc = data.gap | default: 12
+  # 移动端间距
+  assign gap_mobile = data.gap_mobile | default: 8
+  # 背景颜色
+  assign bg = data.bg | default: '#d93636'
+-%}
+
+{% comment %} todo: flex 布局，支持选择一行显示多少个，超过换行 {% endcomment %}
+<div
+  class="text-sm {{ class }}"
+  style="
+    --per-col: {{ col_mobile }};
+    --gap: {{ gap_mobile }}px;
+    background: {{ bg }};
+    display: grid;
+    grid-template-columns: repeat(var(--per-col), minmax(0, 1fr));
+    gap: var(--gap);
+  "
+>
+  {%- for item in group -%}
+    <div class="flex flex-col justify-center items-center gap-4 tracking-tight bg-white shadow-lg p-[1.5em] rounded-[4px]">
+      {%- liquid
+        # 海报
+        assign poster = item.poster.value
+        assign tag = item.tag
+        assign city = item.city
+        assign title = item.title | metafield_tag
+        assign content = item.content | metafield_tag
+      -%}
+      <div class="w-full px-4">
+        <div class="relative" style="padding-top: {{ ratio_mobile | append: '%' }}">
+          <div class="absolute inset-0">
+            <img
+              src="{{ poster | image_url: width: 800 }}"
+              class="w-full h-full object-cover"
+              alt=""
+              width="800"
+              height=""
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flex-[1] flex flex-col gap-4">
+        <div class="flex flex-row gap-[0.5em] text-[1.1em] font-semibold">
+          <div class="text-[#c21431]">{{ tag }}</div>
+          {{ title }}
+        </div>
+        <div class="flex-1 py-[0.5em] text-[0.9em] leading-[1.5] text-black/50 text-pretty *:flex *:flex-col *:gap-4">
+          {{ content }}
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
