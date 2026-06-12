@@ -1,1 +1,38 @@
-{"sections":{"hero_7dU47z":{"type":"hero","blocks":{"text_qjDY6c":{"type":"text","settings":{"text":"<p>{{ closest.page.title }}<\/p>","width":"fit-content","max_width":"narrow","alignment":"left","type_preset":"h1","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground-heading)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}}},"block_order":["text_qjDY6c"],"name":"t:names.hero","settings":{"media_type_1":"image","image_1":"shopify:\/\/shop_images\/cd3c142f40b4b5332f6363563aa4dbc9_17f204ca-dd07-4471-8b1c-41cfeb0f0941.jpg","media_type_2":"image","stack_media_on_mobile":false,"custom_mobile_media":false,"media_type_1_mobile":"image","media_type_2_mobile":"image","link":"","open_in_new_tab":false,"content_direction":"column","vertical_on_mobile":true,"horizontal_alignment":"flex-start","vertical_alignment":"center","align_baseline":false,"horizontal_alignment_flex_direction_column":"center","vertical_alignment_flex_direction_column":"center","gap":0,"section_width":"page-width","section_height":"small","section_height_custom":50,"color_scheme":"scheme-5","toggle_overlay":false,"overlay_color":"#00000026","overlay_style":"gradient","gradient_direction":"to top","blurred_reflection":false,"reflection_opacity":75,"padding-block-start":0,"padding-block-end":0}},"main":{"type":"main-page","blocks":{"heading":{"type":"text","name":"Title","settings":{"text":"<h1>{{ closest.page.title }}<\/h1>","width":"100%","max_width":"normal","alignment":"left","type_preset":"h2","font":"var(--font-body--family)","font_size":"1rem","line_height":"normal","letter_spacing":"normal","case":"none","wrap":"pretty","color":"var(--color-foreground)","background":false,"background_color":"#00000026","corner_radius":0,"padding-block-start":0,"padding-block-end":0,"padding-inline-start":0,"padding-inline-end":0},"blocks":{}},"page-content":{"type":"page-content","settings":{},"blocks":{}}},"block_order":["heading","page-content"],"settings":{"content_direction":"column","gap":59,"color_scheme":"","padding-block-start":40,"padding-block-end":80}}},"order":["hero_7dU47z","main"]}
+{
+  "sections": {
+    "main": {
+      "type": "muse-landing",
+      "settings": {
+        "background_color": "#040404",
+        "surface_color": "#090909",
+        "accent_color": "#c39a3f",
+        "text_color": "#ffffff",
+        "muted_text_color": "#c8c8c8",
+        "hero_badge_text": "MUSE Creative Awards",
+        "hero_caption": "Winner",
+        "hero_title": "MARVIN Smart Watch",
+        "hero_subtitle": "The standout feature is a single case system paired with two interchangeable modules.",
+        "hero_description": "<p>Upload your official campaign visuals into the image fields to recreate the full award landing page.</p>",
+        "about_caption": "About the Muse Design Awards",
+        "about_title": "The MUSE Design Awards celebrates excellence in creativity, innovation, and execution.",
+        "about_description": "<p>Use this area for the award introduction, jury recognition, and why the product stands out within the category.</p>",
+        "highlight_1_title": "Global recognition",
+        "highlight_1_text": "Celebrate outstanding design from around the world.",
+        "highlight_2_title": "Jury evaluated",
+        "highlight_2_text": "Judged by leading experts in architecture, design, and innovation.",
+        "highlight_3_title": "Excellence",
+        "highlight_3_text": "Honor design that shapes the future of the industry.",
+        "story_caption": "Design story",
+        "story_title": "MARVIN Smart Watch",
+        "story_subtitle": "Powered by HUAWEI Smart Movement",
+        "story_points": "HUAWEI Smart Movement head x Fluoroelastomer strap\nAutomatic head x Stainless-steel bracelet",
+        "brand_description": "<p>Marvin is a Swiss watch brand rooted in traditional watchmaking. Grounded in Swiss horology, it pairs mechanical craftsmanship with classic design and durable materials built for longevity.</p>",
+        "padding_top": 24,
+        "padding_bottom": 24
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

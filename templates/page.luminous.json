@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "main": {
+      "type": "luminous-landing",
+      "settings": {
+        "background_color": "#040708",
+        "surface_color": "#0a0f11",
+        "accent_color": "#11dfff",
+        "accent_secondary_color": "#f31245",
+        "text_color": "#f5f7f8",
+        "muted_text_color": "#c1c8cb",
+        "border_color": "#141a1d",
+        "hero_eyebrow": "Swiss technology",
+        "hero_title_line_1": "How does it",
+        "hero_title_line_2": "Work",
+        "hero_text": "<p>Swiss Super-LumiNova is the industry-leading technology that gives our Luminous dials their brilliant glow. It is a premium phosphorescent pigment applied in multiple precision layers that charges automatically from natural or artificial light as you wear your watch.</p><p>When fully charged, your Marvin watch will glow brightly in complete darkness for up to 8 hours, ensuring you can always read the time no matter how dark your surroundings.</p>",
+        "hero_tag": "Full luminosity",
+        "feature_title_line_1": "Full lume",
+        "feature_title_line_2": "Timepieces",
+        "feature_text": "<p>Our collection of full-lume watches have everything you need to view time seamlessly, day or night.</p>",
+        "feature_button_label": "Shop now",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "text": "Swiss Made"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "text": "8+ Hour Glow"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "text": "Automatic Movement"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "text": "Water Resistant"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

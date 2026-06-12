@@ -1,0 +1,210 @@
+{
+  "sections": {
+    "main": {
+      "type": "movement-landing",
+      "settings": {
+        "background_color": "#050505",
+        "surface_color": "#0a0a0a",
+        "surface_alt_color": "#111111",
+        "accent_color": "#caa354",
+        "accent_secondary_color": "#d70f37",
+        "text_color": "#f7f2e8",
+        "muted_text_color": "#b9b0a3",
+        "border_color": "#24201a",
+        "hero_eyebrow": "Crafted for precision",
+        "hero_title_line_1": "The engine",
+        "hero_title_line_2": "Behind time",
+        "hero_text": "<p>For over 170 years, Marvin has put finely tuned mechanics at the heart of every watch. From early hand-wound calibers to integrated automatic systems, our legacy breathes life into modern horology.</p>",
+        "hero_button_label": "Discover the craft",
+        "hero_secondary_label": "View movement archive",
+        "timeline_eyebrow": "Swiss horology journey",
+        "timeline_heading": "Mechanical timeline",
+        "timeline_intro": "<p>Trace how Marvin evolved from foundational pocket-watch engineering to refined mechanical calibers designed for the modern collector.</p>",
+        "archive_eyebrow": "Collector reference",
+        "archive_heading": "Movement archive",
+        "archive_intro": "<p>Reference the calibers, bridges, plates, and finishing details that define Marvin's mechanical language across decades.</p>",
+        "influence_eyebrow": "Cross-era inspiration",
+        "influence_heading": "Movement influence network",
+        "influence_intro": "<p>See how Marvin's engineering approach intersects with Swiss suppliers, finishing standards, and contemporary mechanical expectations.</p>",
+        "chart_caption": "Illustrative split of Marvin movement influence across heritage, finishing, architecture, and modern usability.",
+        "signature_eyebrow": "Engineering details",
+        "signature_heading": "Mechanical signatures",
+        "brand_eyebrow": "The Marvin caliber mark",
+        "brand_heading": "The Marvin caliber mark",
+        "brand_text": "<p>More than a visual cue, the Marvin caliber mark reflects our dedication to disciplined engineering, Swiss mechanical integrity, and distinctive finishing. It appears on movements that carry our standards forward.</p>",
+        "brand_badge": "Marvin caliber edition",
+        "cta_eyebrow": "Continue the journey",
+        "cta_heading": "Experience the engineering legacy",
+        "cta_text": "<p>Explore Marvin's modern watches powered by enduring mechanical philosophy and Swiss craft.</p>",
+        "cta_button_label": "Shop all mechanical watches",
+        "cta_secondary_label": "Download archive brochure",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "timeline_1": {
+          "type": "timeline_event",
+          "settings": {
+            "position": "left",
+            "year": "1890s - 1920s",
+            "title": "Foundation calibers",
+            "text": "Entry hand-wound movement platforms establish Marvin's functional architecture."
+          }
+        },
+        "timeline_2": {
+          "type": "timeline_event",
+          "settings": {
+            "position": "right",
+            "year": "1930s - 1940s",
+            "title": "Dress-watch refinement",
+            "text": "Slimmer proportions and improved finishing support elegant daily-wear designs."
+          }
+        },
+        "timeline_3": {
+          "type": "timeline_event",
+          "settings": {
+            "position": "left",
+            "year": "1950s - 1970s",
+            "title": "Automatic evolution",
+            "text": "Rotor-driven systems and improved shock protection modernize performance."
+          }
+        },
+        "timeline_4": {
+          "type": "timeline_event",
+          "settings": {
+            "position": "right",
+            "year": "Present day",
+            "title": "Restored legacy",
+            "text": "Modern Marvin designs reconnect archival engineering cues with today's enthusiasts."
+          }
+        },
+        "archive_1": {
+          "type": "archive_item",
+          "settings": {
+            "label": "Archive",
+            "title": "500 series",
+            "text": "Reliable hand-wound caliber language centered on clarity and durability."
+          }
+        },
+        "archive_2": {
+          "type": "archive_item",
+          "settings": {
+            "label": "Archive",
+            "title": "700 series",
+            "text": "Expanded bridge geometry and refined layout for improved visual symmetry."
+          }
+        },
+        "archive_3": {
+          "type": "archive_item",
+          "settings": {
+            "label": "Archive",
+            "title": "900 series",
+            "text": "A robust mechanical family balancing serviceability and elegant finishing."
+          }
+        },
+        "archive_4": {
+          "type": "archive_item",
+          "settings": {
+            "label": "Archive",
+            "title": "Auto evolution",
+            "text": "Automatic winding marks Marvin's transition into contemporary mechanical wear."
+          }
+        },
+        "archive_5": {
+          "type": "archive_item",
+          "settings": {
+            "label": "Archive",
+            "title": "Tour series",
+            "text": "Complexity-driven architecture with collector-focused details and layered finishing."
+          }
+        },
+        "archive_6": {
+          "type": "archive_item",
+          "settings": {
+            "label": "Archive",
+            "title": "Base series",
+            "text": "Foundational movements that informed later decorative and structural upgrades."
+          }
+        },
+        "influence_1": {
+          "type": "influence_card",
+          "settings": {
+            "label": "Influence",
+            "title": "Marvin x Zenith",
+            "text": "Shared Swiss movement vocabulary and overlapping finishing standards inform the visual genealogy."
+          }
+        },
+        "influence_2": {
+          "type": "influence_card",
+          "settings": {
+            "label": "Influence",
+            "title": "Marvin x Louis Moinet",
+            "text": "Mechanical architecture and collector presentation echo across modern enthusiast culture."
+          }
+        },
+        "influence_3": {
+          "type": "influence_card",
+          "settings": {
+            "label": "Influence",
+            "title": "Technical crossover",
+            "text": "Bridge shape, jewel placement, and finishing language reveal broader industry influence."
+          }
+        },
+        "signature_1": {
+          "type": "signature",
+          "settings": {
+            "icon_text": "S1",
+            "title": "Thin movement design",
+            "text": "Elegant proportions preserve visual balance without sacrificing structural clarity."
+          }
+        },
+        "signature_2": {
+          "type": "signature",
+          "settings": {
+            "icon_text": "S2",
+            "title": "Engraved markings",
+            "text": "Historic caliber markings reinforce traceability and collector authenticity."
+          }
+        },
+        "signature_3": {
+          "type": "signature",
+          "settings": {
+            "icon_text": "S3",
+            "title": "Clean architecture",
+            "text": "Bridge layout emphasizes legibility and disciplined engineering rhythm."
+          }
+        },
+        "signature_4": {
+          "type": "signature",
+          "settings": {
+            "icon_text": "S4",
+            "title": "Precision adjustment",
+            "text": "Fine regulation details support stable timekeeping and service longevity."
+          }
+        }
+      },
+      "block_order": [
+        "timeline_1",
+        "timeline_2",
+        "timeline_3",
+        "timeline_4",
+        "archive_1",
+        "archive_2",
+        "archive_3",
+        "archive_4",
+        "archive_5",
+        "archive_6",
+        "influence_1",
+        "influence_2",
+        "influence_3",
+        "signature_1",
+        "signature_2",
+        "signature_3",
+        "signature_4"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

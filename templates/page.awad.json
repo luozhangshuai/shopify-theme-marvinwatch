@@ -1,0 +1,154 @@
+{
+  "sections": {
+    "main": {
+      "type": "awad-landing",
+      "settings": {
+        "background_color": "#040404",
+        "surface_color": "#070707",
+        "surface_soft_color": "#0a0a0a",
+        "accent_color": "#c89e41",
+        "text_color": "#ffffff",
+        "muted_text_color": "#b8b8b8",
+        "border_color": "#3a2d10",
+        "hero_eyebrow": "Award winning",
+        "hero_title_line_1": "A statement",
+        "hero_title_line_2": "On",
+        "hero_title_accent": "your wrist",
+        "hero_text": "<p>Marvin Cuff Gold 2011 blends contemporary design with Swiss watchmaking heritage. Inspired by the bold elegance of jewelry, it transforms timekeeping into a distinctive expression of modern masculinity.</p>",
+        "hero_button_label": "Explore the collection",
+        "details_heading": "Details that define",
+        "recognition_title_line_1": "Recognized",
+        "recognition_title_line_2": "For",
+        "recognition_title_accent": "excellence",
+        "recognition_text": "<p>The Gold Winner of the 2011 Davey Awards in Advertising. Celebrated for its creative vision, elegance, and impact.</p>",
+        "recognition_button_label": "Learn more",
+        "cta_title": "Join a legacy of innovation",
+        "cta_text": "<p>Discover timepieces that blend heritage, creativity, and uncompromising quality.</p>",
+        "cta_button_label": "Discover Marvin",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "01",
+            "title": "Gold winner",
+            "text": "Davey Awards 2011"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "02",
+            "title": "Swiss made",
+            "text": "Precision and heritage"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "03",
+            "title": "Bold design",
+            "text": "Modern masculinity"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "04",
+            "title": "Timeless quality",
+            "text": "Crafted to endure"
+          }
+        },
+        "detail_1": {
+          "type": "detail_card",
+          "settings": {
+            "title": "Black tie optional"
+          }
+        },
+        "detail_2": {
+          "type": "detail_card",
+          "settings": {
+            "title": "Distinctive dial"
+          }
+        },
+        "detail_3": {
+          "type": "detail_card",
+          "settings": {
+            "title": "Designed with care"
+          }
+        },
+        "detail_4": {
+          "type": "detail_card",
+          "settings": {
+            "title": "Bold and refined"
+          }
+        },
+        "detail_5": {
+          "type": "detail_card",
+          "settings": {
+            "title": "Focus. Precision. Time."
+          }
+        },
+        "detail_6": {
+          "type": "detail_card",
+          "settings": {
+            "title": "Built to stand out"
+          }
+        },
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S1",
+            "title": "Free shipping",
+            "text": "On orders over $200"
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S2",
+            "title": "2-year warranty",
+            "text": "International coverage"
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S3",
+            "title": "30-day returns",
+            "text": "Shop with confidence"
+          }
+        },
+        "perk_4": {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S4",
+            "title": "Secure payment",
+            "text": "Protected checkout"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4",
+        "detail_1",
+        "detail_2",
+        "detail_3",
+        "detail_4",
+        "detail_5",
+        "detail_6",
+        "perk_1",
+        "perk_2",
+        "perk_3",
+        "perk_4"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

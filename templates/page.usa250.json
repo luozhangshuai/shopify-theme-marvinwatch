@@ -1,0 +1,288 @@
+{
+  "sections": {
+    "main": {
+      "type": "usa250-landing",
+      "settings": {
+        "background_color": "#040914",
+        "surface_color": "#07152c",
+        "surface_alt_color": "#0a2146",
+        "panel_color": "#0b1e3f",
+        "accent_color": "#ddb95d",
+        "text_color": "#ffffff",
+        "muted_text_color": "#cfd6e2",
+        "border_color": "#29446c",
+        "hero_eyebrow": "USA250",
+        "hero_title_line_1": "250 years of",
+        "hero_title_line_2": "Freedom.",
+        "hero_subtitle": "Built for the next adventure.",
+        "hero_text": "<p>Swiss Automatic Diver Watch. Celebrating the spirit of America since 1776.</p>",
+        "hero_button_label": "Shop now",
+        "hero_secondary_label": "Limited availability",
+        "intro_title_line_1": "America was",
+        "intro_title_line_2": "Built by explorers.",
+        "intro_text": "<p>250 years ago, a nation was born from courage, exploration, and the pursuit of freedom. Today, that same spirit lives in those who venture beyond the ordinary.</p>",
+        "story_title_line_1": "The watch of",
+        "story_title_line_2": "Modern explorers",
+        "story_text": "<p>Whether crossing oceans, building businesses, or creating your own legacy, the Bathyscaphe belongs on your wrist.</p>",
+        "story_kicker": "250 years. One American spirit.",
+        "timeline_title_line_1": "250 years.",
+        "timeline_title_line_2": "One American spirit.",
+        "timeline_start_year": "1776",
+        "timeline_end_year": "2026",
+        "value_points": "Freedom\nInnovation\nExploration\nPerseverance",
+        "value_text": "<p>These values shaped a nation. They also define every Marvin timepiece.</p>",
+        "heritage_heading": "Swiss heritage since 1850",
+        "design_heading": "Designed for depth",
+        "event_title_line_1": "America250",
+        "event_title_line_2": "Special event",
+        "countdown_title": "Ends soon",
+        "countdown_days": "06",
+        "countdown_hours": "23",
+        "countdown_minutes": "47",
+        "countdown_seconds": "18",
+        "event_button_label": "Shop now",
+        "scenes_heading": "On the wrist",
+        "testimonial_heading": "What collectors say",
+        "testimonial_stars": "★★★★★",
+        "testimonial_quote": "\"Feels like a watch twice the price. Tool watch looks, collector finish.\"",
+        "testimonial_author": "Marvin P.",
+        "compare_heading": "Bathyscaphe vs typical fashion watch",
+        "compare_left_title": "Bathyscaphe",
+        "compare_right_title": "Typical fashion watch",
+        "cta_title_line_1": "Own a piece of",
+        "cta_title_line_2": "Adventure.",
+        "cta_text": "<p>Celebrate 250 years of American spirit with Swiss mechanical excellence.</p>",
+        "cta_button_label": "Shop the Bathyscaphe",
+        "padding_top": 0,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "01",
+            "title": "Swiss automatic movement",
+            "text": "Powered by precision and heritage."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "02",
+            "title": "200M water resistance",
+            "text": "Built for adventure and everyday confidence."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "03",
+            "title": "Sapphire crystal",
+            "text": "Scratch-resistant protection designed to last."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon_text": "04",
+            "title": "Super-Luminova",
+            "text": "Functional visibility in every environment."
+          }
+        },
+        "heritage_1": {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "1850",
+            "title": "Marvin founded",
+            "text": "In La Chaux-de-Fonds, Switzerland."
+          }
+        },
+        "heritage_2": {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "1900s",
+            "title": "Global expansion",
+            "text": "Precision watches trusted worldwide."
+          }
+        },
+        "heritage_3": {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "WW",
+            "title": "World War era",
+            "text": "Trusted timekeeping for those who rely on precision."
+          }
+        },
+        "heritage_4": {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "Today",
+            "title": "Swiss legacy",
+            "text": "Mechanical tradition continues into the future."
+          }
+        },
+        "detail_1": {
+          "type": "design_detail",
+          "settings": {
+            "title": "Sapphire crystal",
+            "text": "Clear and durable."
+          }
+        },
+        "detail_2": {
+          "type": "design_detail",
+          "settings": {
+            "title": "Rotating diver bezel",
+            "text": "Ready for action."
+          }
+        },
+        "detail_3": {
+          "type": "design_detail",
+          "settings": {
+            "title": "Stainless steel case",
+            "text": "Built to endure."
+          }
+        },
+        "detail_4": {
+          "type": "design_detail",
+          "settings": {
+            "title": "Swiss automatic movement",
+            "text": "Precision within."
+          }
+        },
+        "detail_5": {
+          "type": "design_detail",
+          "settings": {
+            "title": "Screw down crown",
+            "text": "Confidence sealed."
+          }
+        },
+        "perk_1": {
+          "type": "perk",
+          "settings": {
+            "title": "Free shipping"
+          }
+        },
+        "perk_2": {
+          "type": "perk",
+          "settings": {
+            "title": "2-year warranty"
+          }
+        },
+        "perk_3": {
+          "type": "perk",
+          "settings": {
+            "title": "Easy returns"
+          }
+        },
+        "perk_4": {
+          "type": "perk",
+          "settings": {
+            "title": "Secure checkout"
+          }
+        },
+        "perk_5": {
+          "type": "perk",
+          "settings": {
+            "title": "Limited production"
+          }
+        },
+        "scene_1": {
+          "type": "scene",
+          "settings": {
+            "title": "Yacht"
+          }
+        },
+        "scene_2": {
+          "type": "scene",
+          "settings": {
+            "title": "Beach"
+          }
+        },
+        "scene_3": {
+          "type": "scene",
+          "settings": {
+            "title": "Office"
+          }
+        },
+        "scene_4": {
+          "type": "scene",
+          "settings": {
+            "title": "Weekend adventure"
+          }
+        },
+        "compare_1": {
+          "type": "compare_row",
+          "settings": {
+            "label": "Swiss automatic",
+            "left_value": "✓",
+            "right_value": "×"
+          }
+        },
+        "compare_2": {
+          "type": "compare_row",
+          "settings": {
+            "label": "Sapphire crystal",
+            "left_value": "✓",
+            "right_value": "×"
+          }
+        },
+        "compare_3": {
+          "type": "compare_row",
+          "settings": {
+            "label": "200M water resistance",
+            "left_value": "✓",
+            "right_value": "×"
+          }
+        },
+        "compare_4": {
+          "type": "compare_row",
+          "settings": {
+            "label": "Mechanical heritage",
+            "left_value": "✓",
+            "right_value": "×"
+          }
+        },
+        "compare_5": {
+          "type": "compare_row",
+          "settings": {
+            "label": "Collectible value",
+            "left_value": "✓",
+            "right_value": "~"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4",
+        "heritage_1",
+        "heritage_2",
+        "heritage_3",
+        "heritage_4",
+        "detail_1",
+        "detail_2",
+        "detail_3",
+        "detail_4",
+        "detail_5",
+        "perk_1",
+        "perk_2",
+        "perk_3",
+        "perk_4",
+        "perk_5",
+        "scene_1",
+        "scene_2",
+        "scene_3",
+        "scene_4",
+        "compare_1",
+        "compare_2",
+        "compare_3",
+        "compare_4",
+        "compare_5"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
