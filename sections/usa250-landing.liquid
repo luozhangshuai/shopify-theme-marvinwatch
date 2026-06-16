@@ -1,0 +1,2044 @@
+{% liquid
+  assign details = page.metafields.custom.details.value
+
+  assign value_points = section.settings.value_points | newline_to_br | split: '<br />'
+
+  for item in details
+    if item.name == 'usa250'
+      assign section1bg = item.section1bg
+      assign section2bg = item.section2bg
+      assign section31 = item.section31
+      assign section32 = item.section32
+      assign section33 = item.section33
+      assign section34 = item.section34
+      assign section4bg = item.section4bg
+      assign section5bg = item.section5bg
+      assign section51 = item.section51
+      assign section52 = item.section52
+      assign section53 = item.section53
+      assign section54 = item.section54
+      assign section6bg = item.section6bg
+      assign section61 = item.section61
+      assign section7 = item.section7
+      assign section71 = item.section71
+      assign section8 = item.section8
+      assign section9 = item.section9
+      assign section10bg = item.section10bg
+    endif
+  endfor
+%}
+
+<section
+  class="usa250-landing-root"
+  style="
+    --usa250-bg: {{ section.settings.background_color }};
+    --usa250-surface: {{ section.settings.surface_color }};
+    --usa250-surface-alt: {{ section.settings.surface_alt_color }};
+    --usa250-panel: {{ section.settings.panel_color }};
+    --usa250-accent: {{ section.settings.accent_color }};
+    --usa250-text: {{ section.settings.text_color }};
+    --usa250-muted: {{ section.settings.muted_text_color }};
+    --usa250-border: {{ section.settings.border_color }};
+    --usa250-top: {{ section.settings.padding_top }}px;
+    --usa250-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <style>
+    .usa250-landing-root {
+      background: var(--usa250-bg);
+      color: var(--usa250-text);
+      padding: var(--usa250-top) 0 var(--usa250-bottom);
+    }
+
+    .usa250-landing-container {
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .usa250-landing-hero-section,
+    .usa250-landing-intro-section,
+    .usa250-landing-features-section,
+    .usa250-landing-story-section,
+    .usa250-landing-values-section,
+    .usa250-landing-heritage-section,
+    .usa250-landing-detail-section,
+    .usa250-landing-scenes-section,
+    .usa250-landing-compare-section,
+    .usa250-landing-cta-section {
+      background: var(--usa250-surface);
+      border-top: 1px solid var(--usa250-border);
+      border-bottom: 1px solid var(--usa250-border);
+    }
+
+    .usa250-landing-hero-section {
+      position: relative;
+      min-height: 620px;
+      overflow: hidden;
+      background: radial-gradient(circle at 58% 25%, rgba(88, 132, 212, 0.28), transparent 24%),
+        linear-gradient(180deg, rgba(3, 12, 33, 0.2), rgba(3, 12, 33, 0.55)), #071127;
+      background-size: auto, auto, cover;
+      background-position: center, center, center;
+      background-repeat: no-repeat, no-repeat, no-repeat;
+    }
+
+    .usa250-landing-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(4, 11, 28, 0.86) 0%,
+        rgba(4, 11, 28, 0.45) 42%,
+        rgba(4, 11, 28, 0.1) 100%
+      );
+      z-index: 1;
+    }
+
+    .usa250-landing-hero-content {
+      position: relative;
+      z-index: 2;
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      padding: 48px 32px;
+    }
+
+    .usa250-landing-hero-copy {
+      width: 100%;
+    }
+
+    .usa250-landing-hero-eyebrow {
+      margin: 0 0 14px;
+      color: var(--usa250-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .usa250-landing-hero-title {
+      margin: 0;
+      color: var(--usa250-text);
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      line-height: 0.96;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .usa250-landing-hero-subtitle {
+      margin: 16px 0 0;
+      color: var(--usa250-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      font-weight: 700;
+    }
+
+    .usa250-landing-hero-text,
+    .usa250-landing-hero-text p,
+    .usa250-landing-intro-text,
+    .usa250-landing-intro-text p,
+    .usa250-landing-story-text,
+    .usa250-landing-story-text p,
+    .usa250-landing-values-text,
+    .usa250-landing-values-text p {
+      margin: 16px 0 0;
+      color: var(--usa250-text);
+      line-height: 1.7;
+      font-size: 1rem;
+    }
+
+    .usa250-landing-hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .usa250-landing-hero-primary-button,
+    .usa250-landing-hero-secondary-button,
+    .usa250-landing-event-button,
+    .usa250-landing-cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
+      border: 1px solid var(--usa250-accent);
+      background: transparent;
+      color: var(--usa250-accent);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.875rem;
+      font-weight: 700;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .usa250-landing-hero-primary-button,
+    .usa250-landing-event-button,
+    .usa250-landing-cta-button {
+      background: var(--usa250-accent);
+      color: #0b1731;
+    }
+
+      .usa250-landing-cta-button {
+      margin-top: 28px;
+    }
+
+    .usa250-landing-hero-primary-button:hover,
+    .usa250-landing-hero-secondary-button:hover,
+    .usa250-landing-event-button:hover,
+    .usa250-landing-cta-button:hover {
+      background: var(--usa250-accent);
+      color: #0b1731;
+    }
+
+    .usa250-landing-hero-inline-image {
+      margin-top: 28px;
+      max-width: 100%;
+    }
+
+    .usa250-landing-hero-inline-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .usa250-landing-intro-section {
+      display: flex;
+      flex-wrap: wrap;
+      background: linear-gradient(90deg, #f3efe5 0%, #f6f6f6 100%);
+      color: #122b53;
+    }
+
+    .usa250-landing-intro-media {
+      flex: 1 1 57%;
+      max-width: 57%;
+      position: relative;
+      background: #d9d9d9;
+      overflow: hidden;
+    }
+
+    .usa250-landing-intro-media img,
+    .usa250-landing-intro-watch img,
+    .usa250-landing-feature-media img,
+    .usa250-landing-story-media img,
+    .usa250-landing-timeline-image img,
+    .usa250-landing-heritage-photo img,
+    .usa250-landing-cta-media img,
+    .usa250-landing-scene-card img,
+    .usa250-landing-detail-asset img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .usa250-landing-intro-placeholder,
+    .usa250-landing-feature-placeholder,
+    .usa250-landing-story-placeholder,
+    .usa250-landing-heritage-placeholder,
+    .usa250-landing-scene-placeholder {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      color: var(--usa250-muted);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    }
+
+    .usa250-landing-intro-watch {
+      position: absolute;
+      width: min(34%, 220px);
+      right: 8%;
+      bottom: 0;
+      aspect-ratio: 0.7;
+    }
+
+    .usa250-landing-intro-copy {
+      flex: 1 1 43%;
+      max-width: 43%;
+      padding: 34px 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .usa250-landing-intro-title {
+      margin: 0;
+      color: #173f72;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1.03;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .usa250-landing-intro-text,
+    .usa250-landing-intro-text p {
+      color: #213c68;
+    }
+
+    .usa250-landing-features-section {
+      background: linear-gradient(180deg, #07142d 0%, #08152f 100%);
+      padding: 28px 0 0;
+    }
+
+    .usa250-landing-features-title {
+      margin: 0;
+      text-align: center;
+      padding: 0 18px 22px;
+      color: var(--usa250-accent);
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .usa250-landing-features-grid {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .usa250-landing-feature-card,
+    .usa250-landing-heritage-card,
+    .usa250-landing-detail-card {
+      padding: 24px 18px;
+      border-right: 1px solid var(--usa250-border);
+    }
+
+    .usa250-landing-feature-card {
+      flex: 0 0 25%;
+      max-width: 25%;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .usa250-landing-feature-copy {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .usa250-landing-feature-media {
+      width: 60px;
+      min-width: 60px;
+      height: 60px;
+      overflow: hidden;
+      border-radius: 50%;
+      background: #0d1b38;
+      flex-shrink: 0;
+    }
+
+    .usa250-landing-feature-card:last-child,
+    .usa250-landing-heritage-card:last-child,
+    .usa250-landing-detail-card:last-child {
+      border-right: 0;
+    }
+
+    .usa250-landing-feature-icon,
+    .usa250-landing-heritage-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(222, 188, 103, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--usa250-accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+    }
+
+    .usa250-landing-feature-title,
+    .usa250-landing-heritage-title,
+    .usa250-landing-detail-title {
+      margin: 0;
+      color: var(--usa250-accent);
+      font-size: 0.95rem;
+      line-height: 1.45;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .usa250-landing-feature-text,
+    .usa250-landing-heritage-text,
+    .usa250-landing-detail-text {
+      margin: 10px 0 0;
+      color: var(--usa250-muted);
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .usa250-landing-feature-text p {
+      margin: 0;
+    }
+
+    .usa250-landing-feature-text p + p {
+      margin-top: 4px;
+    }
+
+    .usa250-landing-story-section {
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, #081329 0%, #092241 100%);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .usa250-landing-story-copy {
+      padding: 36px 28px;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+    }
+
+    .usa250-landing-story-title {
+      margin: 0;
+      color: var(--usa250-text);
+      font-size: clamp(1.6rem, 2.8vw, 2.9rem);
+      line-height: 1.04;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .usa250-landing-story-kicker {
+      margin: 18px 0 0;
+      color: var(--usa250-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+    }
+
+    .usa250-landing-values-section {
+      display: flex;
+      flex-wrap: wrap;
+      background: linear-gradient(90deg, #f5f1e7 0%, #0b2349 0%);
+    }
+
+    .usa250-landing-timeline-panel {
+      flex: 1 1 54.5%;
+      max-width: 54.5%;
+      color: #3c2b13;
+    }
+
+    .usa250-landing-timeline-title {
+      margin: 0;
+      color: #3d2b18;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .usa250-landing-timeline-image {
+    }
+
+    .usa250-landing-timeline-line {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+      color: #722b1d;
+      font-weight: 700;
+    }
+
+    .usa250-landing-timeline-bar {
+      flex: 1 1 auto;
+      height: 2px;
+      background: linear-gradient(90deg, #cfa74e 0%, #234e88 100%);
+    }
+
+    .usa250-landing-values-panel {
+      background: linear-gradient(180deg, #082149 0%, #091936 100%);
+      color: var(--usa250-text);
+      display: flex;
+      flex: 1 1 45.5%;
+      max-width: 45.5%;
+    }
+
+    .usa250-landing-values-list {
+      flex: 1 1 52%;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .usa250-landing-value-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--usa250-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 1rem;
+    }
+
+    .usa250-landing-value-icon {
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      overflow: hidden;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .usa250-landing-value-icon img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .usa250-landing-value-mark {
+      width: 18px;
+      height: 18px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .usa250-landing-values-copy {
+      flex: 1 1 48%;
+      padding: 26px 20px 26px 0;
+      align-self: center;
+      color: var(--usa250-text);
+      line-height: 1.7;
+    }
+
+    .usa250-landing-heritage-section {
+      display: flex;
+      flex-wrap: wrap;
+      background: linear-gradient(180deg, #06172f 0%, #0b1d39 100%);
+    }
+
+    .usa250-landing-heritage-copy {
+      flex: 1;
+    }
+
+    .usa250-landing-heritage-copy-image {
+      overflow: hidden;
+    }
+
+    .usa250-landing-heritage-copy-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .usa250-landing-heritage-heading,
+    .usa250-landing-detail-heading,
+    .usa250-landing-scenes-heading {
+      margin: 0;
+      text-align: center;
+      color: var(--usa250-text);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: clamp(1.35rem, 2vw, 1.8rem);
+    }
+
+    .usa250-landing-detail-heading,
+    .usa250-landing-scenes-heading {
+      padding: 18px 16px;
+    }
+
+    .usa250-landing-heritage-grid {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 18px;
+      border-top: 1px solid var(--usa250-border);
+    }
+
+    .usa250-landing-heritage-photo {
+      flex: 1 1 30%;
+      max-width: 30%;
+      {% comment %} min-height: 240px; {% endcomment %}
+      background: #d4d4d4;
+    }
+
+    .usa250-landing-detail-section {
+      display: flex;
+      flex-wrap: wrap;
+      background: linear-gradient(180deg, #071a34 0%, #0c2246 100%);
+    }
+
+    .usa250-landing-detail-main {
+      flex: 1 1 72.5%;
+      max-width: 72.5%;
+      border-right: 1px solid var(--usa250-border);
+    }
+
+    .usa250-landing-detail-grid {
+      display: flex;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--usa250-border);
+    }
+
+    .usa250-landing-detail-image {
+    }
+
+    .usa250-landing-detail-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .usa250-landing-detail-asset {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .usa250-landing-detail-asset-placeholder {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--usa250-muted);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    }
+
+    .usa250-landing-detail-title,
+    .usa250-landing-detail-text {
+      text-align: center;
+    }
+
+    .usa250-landing-event-panel {
+      flex: 1 1 27.5%;
+      max-width: 27.5%;
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(180deg, #0b1e3f 0%, #0b1630 100%);
+    }
+
+    .usa250-landing-event-title {
+      margin: 0;
+      color: var(--usa250-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      font-size: 1.65rem;
+    }
+
+    .usa250-landing-event-list {
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--usa250-text);
+      font-size: 0.9rem;
+    }
+
+    .usa250-landing-countdown {
+      padding: 18px;
+      border: 1px solid var(--usa250-border);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+    }
+
+    .usa250-landing-countdown-title {
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.82rem;
+      margin: 0 0 12px;
+      text-align: center;
+    }
+
+    .usa250-landing-countdown-grid {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+    }
+
+    .usa250-landing-countdown-days-box,
+    .usa250-landing-countdown-hours-box,
+    .usa250-landing-countdown-minutes-box,
+    .usa250-landing-countdown-seconds-box {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: 10px 6px;
+      text-align: center;
+      background: transparent;
+    }
+
+    .usa250-landing-countdown-days-value,
+    .usa250-landing-countdown-hours-value,
+    .usa250-landing-countdown-minutes-value,
+    .usa250-landing-countdown-seconds-value {
+      display: block;
+      color: var(--usa250-accent);
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1;
+       border: 1px solid var(--usa250-border);
+       padding: 14px 0;
+       border-radius: 8px;
+    }
+
+    .usa250-landing-countdown-days-label,
+    .usa250-landing-countdown-hours-label,
+    .usa250-landing-countdown-minutes-label,
+    .usa250-landing-countdown-seconds-label {
+      display: block;
+      margin-top: 6px;
+      color: var(--usa250-muted);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .usa250-landing-event-button {
+      margin-top: 18px;
+      width: 70%;
+      align-self: center;
+    }
+
+    .usa250-landing-scenes-section {
+      background: linear-gradient(180deg, #071a35 0%, #0d2144 100%);
+    }
+
+    .usa250-landing-scenes-grid {
+
+    }
+
+    .usa250-landing-scene-card {
+      min-height: 180px;
+      position: relative;
+      border-right: 1px solid var(--usa250-border);
+      overflow: hidden;
+    }
+
+    .usa250-landing-scene-card:last-child {
+      border-right: 0;
+    }
+
+    .usa250-landing-scene-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 12px 10px;
+      background: linear-gradient(180deg, rgba(5, 18, 39, 0) 0%, rgba(5, 18, 39, 0.92) 100%);
+      color: var(--usa250-text);
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    .usa250-landing-compare-section {
+      background: #f8f8f6;
+      color: #223758;
+    }
+
+    .usa250-landing-testimonial-panel,
+    .usa250-landing-compare-table-panel {
+      padding: 24px 22px;
+    }
+
+    .usa250-landing-testimonial-panel {
+      border-right: 1px solid #d9d9d9;
+    }
+
+    .usa250-landing-testimonial-heading,
+    .usa250-landing-compare-heading {
+      margin: 0 0 14px;
+      color: #173f72;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 1.15rem;
+      text-align: center;
+    }
+
+    .usa250-landing-testimonial-stars {
+      color: var(--usa250-accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+    }
+
+    .usa250-landing-testimonial-quote {
+      margin: 0;
+      line-height: 1.7;
+      font-size: 0.98rem;
+      color: #223758;
+    }
+
+    .usa250-landing-testimonial-author {
+      margin-top: 14px;
+      color: #6a7384;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .usa250-landing-compare-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .usa250-landing-compare-table th,
+    .usa250-landing-compare-table td {
+      padding: 10px 8px;
+      border-bottom: 1px solid #d9d9d9;
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    .usa250-landing-compare-table th:first-child,
+    .usa250-landing-compare-table td:first-child {
+      text-align: left;
+    }
+
+    .usa250-landing-cta-section {
+      position: relative;
+      min-height: 250px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #081933 0%, #0b2147 100%);
+    }
+
+    .usa250-landing-cta-media,
+    .usa250-landing-cta-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .usa250-landing-cta-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(5, 17, 38, 0.82) 0%, rgba(5, 17, 38, 0.52) 100%);
+    }
+
+    .usa250-landing-cta-content {
+      position: relative;
+      z-index: 1;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .usa250-landing-cta-title {
+      margin: 0;
+      color: var(--usa250-text);
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .usa250-landing-cta-title-accent {
+      color: var(--usa250-accent);
+    }
+
+    .usa250-landing-cta-text,
+    .usa250-landing-cta-text p {
+      color: var(--usa250-muted);
+      line-height: 1.7;
+      margin: 12px 0 0;
+    }
+
+    @media screen and (max-width: 989px) {
+      .usa250-landing-intro-section,
+      .usa250-landing-story-section,
+      .usa250-landing-values-section,
+      .usa250-landing-heritage-section,
+      .usa250-landing-detail-section,
+      .usa250-landing-compare-section {
+        flex-direction: column;
+      }
+
+      .usa250-landing-intro-media,
+      .usa250-landing-intro-copy,
+      .usa250-landing-timeline-panel,
+      .usa250-landing-values-panel,
+      .usa250-landing-heritage-copy,
+      .usa250-landing-heritage-photo,
+      .usa250-landing-detail-main,
+      .usa250-landing-event-panel {
+        flex-basis: 100%;
+        max-width: 100%;
+      }
+
+      .usa250-landing-values-panel {
+        flex-direction: column;
+      }
+
+      .usa250-landing-values-copy {
+        padding: 0 24px 24px;
+      }
+
+      .usa250-landing-feature-card,
+      .usa250-landing-heritage-card,
+      .usa250-landing-detail-card {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+
+      .usa250-landing-feature-card:nth-child(2n),
+      .usa250-landing-heritage-card:nth-child(2n),
+      .usa250-landing-detail-card:nth-child(2n),
+      .usa250-landing-scene-card:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .usa250-landing-detail-main {
+        border-right: 0;
+      }
+
+      .usa250-landing-testimonial-panel {
+        border-right: 0;
+        border-bottom: 1px solid #d9d9d9;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .usa250-landing-hero-section,
+      .usa250-landing-hero-content {
+        min-height: 560px;
+      }
+
+      .usa250-landing-hero-content {
+        align-items: flex-end;
+        padding: 30px 18px;
+      }
+
+
+
+      .usa250-landing-intro-copy,
+      .usa250-landing-story-copy,
+      .usa250-landing-timeline-panel,
+      .usa250-landing-event-panel,
+      .usa250-landing-testimonial-panel,
+      .usa250-landing-compare-table-panel {
+        padding: 24px 18px;
+      }
+
+      .usa250-landing-features-grid,
+      .usa250-landing-heritage-grid,
+      .usa250-landing-detail-grid,
+      .usa250-landing-scenes-grid {
+        flex-direction: column;
+      }
+
+      .usa250-landing-feature-card,
+      .usa250-landing-heritage-card,
+      .usa250-landing-detail-card,
+      .usa250-landing-scene-card {
+        flex-basis: 100%;
+        max-width: 100%;
+        border-right: 0;
+        border-bottom: 1px solid var(--usa250-border);
+      }
+
+      .usa250-landing-scene-card {
+        min-height: 240px;
+      }
+
+      .usa250-landing-intro-watch {
+        width: min(38%, 160px);
+      }
+    }
+  </style>
+  <div class="usa250-landing-container">
+    <div
+      class="usa250-landing-hero-section"
+      {% if section1bg != blank %}
+        style="background-image: radial-gradient(circle at 58% 25%, rgba(88, 132, 212, 0.28), transparent 24%), linear-gradient(180deg, rgba(3, 12, 33, 0.2), rgba(3, 12, 33, 0.55)), url('{{ section1bg | image_url: width: 2400 }}');"
+      {% endif %}
+    >
+      <div class="usa250-landing-hero-overlay"></div>
+      <div class="usa250-landing-hero-content">
+        <div class="usa250-landing-hero-copy">
+          {% if section.settings.hero_title_line_1 != blank or section.settings.hero_title_line_2 != blank %}
+            <h1 class="usa250-landing-hero-title">
+              {{ section.settings.hero_title_line_1 -}}
+              <br>
+              {{ section.settings.hero_title_line_2 }}
+            </h1>
+          {% endif %}
+          <p class="usa250-landing-hero-subtitle">{{ section.settings.hero_subtitle }}</p>
+          <div class="usa250-landing-hero-text">{{ section.settings.hero_text1 }}</div>
+          <div class="usa250-landing-hero-text">{{ section.settings.hero_text2 }}</div>
+
+          <div class="usa250-landing-hero-buttons">
+            {% if section.settings.hero_button_label != blank %}
+              <a
+                class="usa250-landing-hero-secondary-button"
+                href="{{ section.settings.hero_button_link | default: '#' }}"
+              >
+                {{ section.settings.hero_button_label }}
+              </a>
+            {% endif %}
+            {% if section.settings.hero_secondary_label != blank %}
+              <a
+                class="usa250-landing-hero-secondary-button"
+                href="{{ section.settings.hero_secondary_link | default: '#' }}"
+              >
+                {{ section.settings.hero_secondary_label }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="usa250-landing-intro-section">
+      <div class="usa250-landing-intro-media">
+        {% if section2bg != blank %}
+          {{ section2bg | image_url: width: 1800 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="usa250-landing-intro-placeholder">Upload intro background image</div>
+        {% endif %}
+        {% if usa250_image_3 != blank %}
+          <div class="usa250-landing-intro-watch">
+            {{ usa250_image_3 | image_url: width: 800 | image_tag: loading: 'lazy' }}
+          </div>
+        {% endif %}
+      </div>
+      <div class="usa250-landing-intro-copy">
+        <div>
+          <h2 class="usa250-landing-intro-title">
+            {{ section.settings.intro_title_line_1 }}
+          </h2>
+          <h2 class="usa250-landing-intro-title">
+            {{ section.settings.intro_title_line_2 }}
+          </h2>
+          <div class="usa250-landing-intro-text">{{ section.settings.intro_text1 }}</div>
+          <div class="usa250-landing-intro-text">{{ section.settings.intro_text2 }}</div>
+          <div class="usa250-landing-intro-text">{{ section.settings.intro_text3 }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="usa250-landing-features-section">
+      {% if section.settings.features_heading != blank %}
+        <h2 class="usa250-landing-features-title">{{ section.settings.features_heading }}</h2>
+      {% endif %}
+      <div class="usa250-landing-features-grid">
+        <div class="usa250-landing-feature-card">
+          <div class="usa250-landing-feature-media">
+            {{ section31 | image_url: width: 120 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="usa250-landing-feature-copy">
+            <h3 class="usa250-landing-feature-title">Swiss automatic movement</h3>
+            <div class="usa250-landing-feature-text">
+              <p>Powered by precision</p>
+              <p>Swiss engineering.</p>
+              <p>No battery.</p>
+              <p>No shortcuts.</p>
+              <p>Just pure mechanical excellence.</p>
+            </div>
+          </div>
+        </div>
+        <div class="usa250-landing-feature-card">
+          <div class="usa250-landing-feature-media">
+            {{ section32 | image_url: width: 120 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="usa250-landing-feature-copy">
+            <h3 class="usa250-landing-feature-title">200M water resistance</h3>
+            <div class="usa250-landing-feature-text">
+              <p>Built for ocean</p>
+              <p>adventures and</p>
+              <p>everyday confidence.</p>
+            </div>
+          </div>
+        </div>
+        <div class="usa250-landing-feature-card">
+          <div class="usa250-landing-feature-media">
+            {{ section33 | image_url: width: 120 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="usa250-landing-feature-copy">
+            <h3 class="usa250-landing-feature-title">Sapphire crystal</h3>
+            <div class="usa250-landing-feature-text">
+              <p>Scratch-resistant</p>
+              <p>protection designed</p>
+              <p>to last generations.</p>
+            </div>
+          </div>
+        </div>
+        <div class="usa250-landing-feature-card">
+          <div class="usa250-landing-feature-media">
+            {{ section34 | image_url: width: 120 | image_tag: loading: 'lazy' }}
+          </div>
+          <div class="usa250-landing-feature-copy">
+            <h3 class="usa250-landing-feature-title">Super-Luminova</h3>
+            <div class="usa250-landing-feature-text">
+              <p>Exceptional visibility</p>
+              <p>in every</p>
+              <p>environment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="usa250-landing-story-section"
+      {% if section4bg != blank %}
+        style="background-image: linear-gradient(180deg, rgba(8, 19, 41, 0.72) 0%, rgba(9, 34, 65, 0.82) 100%), url('{{ section4bg | image_url: width: 2200 }}');"
+      {% endif %}
+    >
+      <div class="usa250-landing-story-copy">
+        <div>
+          {% if section.settings.story_title_line_1 != blank or section.settings.story_title_line_2 != blank %}
+            <h2 class="usa250-landing-story-title">
+              {{ section.settings.story_title_line_1 -}}
+              <br>
+              {{ section.settings.story_title_line_2 }}
+            </h2>
+          {% endif %}
+          {% if section.settings.story_text != blank %}
+            <div class="usa250-landing-story-text">{{ section.settings.story_text }}</div>
+          {% endif %}
+          {% if section.settings.story_kicker != blank %}
+            <p class="usa250-landing-story-kicker">{{ section.settings.story_kicker }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="usa250-landing-values-section">
+      <div class="usa250-landing-timeline-panel">
+        {% if section5bg != blank %}
+          <div class="usa250-landing-timeline-image">
+            {{ section5bg | image_url: width: 1600 | image_tag: loading: 'lazy' }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="usa250-landing-values-panel">
+        <div class="usa250-landing-values-list">
+          {% for point in value_points %}
+            {% assign value_text = point | strip %}
+            {% if value_text != blank %}
+              {% liquid
+                assign value_image = blank
+                case forloop.index
+                  when 1
+                    assign value_image = section51
+                  when 2
+                    assign value_image = section52
+                  when 3
+                    assign value_image = section53
+                  when 4
+                    assign value_image = section54
+                endcase
+              %}
+              <div class="usa250-landing-value-item">
+                {% if value_image != blank %}
+                  <span class="usa250-landing-value-icon">
+                    {{ value_image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+                  </span>
+                {% else %}
+                  <span class="usa250-landing-value-mark"></span>
+                {% endif %}
+                <span>{{ value_text }}</span>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="usa250-landing-values-copy">
+          {% if section.settings.value_text != blank %}
+            <div class="usa250-landing-values-text">{{ section.settings.value_text | replace: '. ', '.</p><p>' }}</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="usa250-landing-heritage-section">
+      <div class="usa250-landing-heritage-copy">
+        <div class="usa250-landing-heritage-copy-image">
+          {% if section61 != blank %}
+            {{ section61 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+          {% else %}
+            <div class="usa250-landing-heritage-placeholder">Upload heritage content image</div>
+          {% endif %}
+        </div>
+      </div>
+      <div class="usa250-landing-heritage-photo">
+        {% if section6bg != blank %}
+          {{ section6bg | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="usa250-landing-heritage-placeholder">Upload heritage building image</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="usa250-landing-detail-section">
+      <div class="usa250-landing-detail-main">
+        {% comment %}
+          {% if section.settings.design_heading != blank %}
+            <div class="usa250-landing-detail-heading">
+              {{ section.settings.design_heading }}
+            </div>
+          {% endif %}
+        {% endcomment %}
+        <div class="usa250-landing-detail-image">
+          {% if section7 != blank %}
+            {{ section7 | image_url: width: 1800 | image_tag: loading: 'lazy' }}
+          {% else %}
+            <div class="usa250-landing-detail-asset-placeholder">Upload detail image</div>
+          {% endif %}
+        </div>
+
+        <div class="usa250-landing-scenes-section">
+          {% if section.settings.scenes_heading != blank %}
+            <div class="usa250-landing-scenes-heading">
+              {{ section.settings.scenes_heading }}
+            </div>
+          {% endif %}
+          <div class="usa250-landing-scenes-grid">
+            {{ section8 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+          </div>
+        </div>
+      </div>
+
+      <aside class="usa250-landing-event-panel">
+        {{ section71 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+        <div
+          class="usa250-landing-countdown"
+          data-usa250-countdown
+          data-countdown-end-at="{{ section.settings.countdown_end_at | escape }}"
+        >
+          <p class="usa250-landing-countdown-title">{{ section.settings.countdown_title }}</p>
+          <div class="usa250-landing-countdown-grid">
+            <div class="usa250-landing-countdown-days-box">
+              <span class="usa250-landing-countdown-days-value" data-countdown-days>
+                {{- section.settings.countdown_days -}}
+              </span>
+              <span class="usa250-landing-countdown-days-label">Days</span>
+            </div>
+            <div class="usa250-landing-countdown-hours-box">
+              <span class="usa250-landing-countdown-hours-value" data-countdown-hours>
+                {{- section.settings.countdown_hours -}}
+              </span>
+              <span class="usa250-landing-countdown-hours-label">Hours</span>
+            </div>
+            <div class="usa250-landing-countdown-minutes-box">
+              <span class="usa250-landing-countdown-minutes-value" data-countdown-minutes>
+                {{- section.settings.countdown_minutes -}}
+              </span>
+              <span class="usa250-landing-countdown-minutes-label">Mins</span>
+            </div>
+            <div class="usa250-landing-countdown-seconds-box">
+              <span class="usa250-landing-countdown-seconds-value" data-countdown-seconds>
+                {{- section.settings.countdown_seconds -}}
+              </span>
+              <span class="usa250-landing-countdown-seconds-label">Secs</span>
+            </div>
+          </div>
+        </div>
+        {% if section.settings.event_button_label != blank %}
+          <a
+            class="usa250-landing-event-button"
+            href="{{ section.settings.event_button_link | default: '#' }}"
+          >
+            {{ section.settings.event_button_label }}
+          </a>
+        {% endif %}
+      </aside>
+    </div>
+
+    <div class="usa250-landing-compare-section">
+      {{ section9 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+    </div>
+
+    <div class="usa250-landing-cta-section">
+      {% if section10bg != blank %}
+        <div class="usa250-landing-cta-media">
+          {{ section10bg | image_url: width: 2200 | image_tag: loading: 'lazy' }}
+        </div>
+      {% endif %}
+      <div class="usa250-landing-cta-overlay"></div>
+      <div class="usa250-landing-cta-content">
+        <div>
+          <h2 class="usa250-landing-cta-title">
+            {{ section.settings.cta_title_line_1 }}
+          </h2>
+          {% if section.settings.cta_text != blank %}
+            <div class="usa250-landing-cta-text">{{ section.settings.cta_text }}</div>
+          {% endif %}
+          {% if section.settings.cta_button_label != blank %}
+            <a
+              class="usa250-landing-cta-button"
+              href="{{ section.settings.cta_button_link | default: '#' }}"
+            >
+              {{ section.settings.cta_button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    function normalizeCountdownDate(rawValue) {
+      if (!rawValue) return null;
+
+      var normalized = rawValue.trim();
+      if (!normalized) return null;
+
+      if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+        normalized += 'T23:59:59';
+      } else if (/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}$/.test(normalized)) {
+        normalized = normalized.replace(/\s+/, 'T') + ':00';
+      } else if (/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}$/.test(normalized)) {
+        normalized = normalized.replace(/\s+/, 'T');
+      }
+
+      var targetDate = new Date(normalized);
+      if (Number.isNaN(targetDate.getTime())) return null;
+      return targetDate;
+    }
+
+    function padCountdownValue(value) {
+      return String(value).padStart(2, '0');
+    }
+
+    function updateCountdown(countdownElement, targetDate) {
+      var daysEl = countdownElement.querySelector('[data-countdown-days]');
+      var hoursEl = countdownElement.querySelector('[data-countdown-hours]');
+      var minutesEl = countdownElement.querySelector('[data-countdown-minutes]');
+      var secondsEl = countdownElement.querySelector('[data-countdown-seconds]');
+      var timerId = null;
+
+      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return null;
+
+      function render() {
+        var remainingMs = targetDate.getTime() - Date.now();
+
+        if (remainingMs <= 0) {
+          daysEl.textContent = '00';
+          hoursEl.textContent = '00';
+          minutesEl.textContent = '00';
+          secondsEl.textContent = '00';
+          return false;
+        }
+
+        var totalSeconds = Math.floor(remainingMs / 1000);
+        var days = Math.floor(totalSeconds / 86400);
+        var hours = Math.floor((totalSeconds % 86400) / 3600);
+        var minutes = Math.floor((totalSeconds % 3600) / 60);
+        var seconds = totalSeconds % 60;
+
+        daysEl.textContent = padCountdownValue(days);
+        hoursEl.textContent = padCountdownValue(hours);
+        minutesEl.textContent = padCountdownValue(minutes);
+        secondsEl.textContent = padCountdownValue(seconds);
+        return true;
+      }
+
+      if (!render()) return null;
+
+      timerId = window.setInterval(function () {
+        if (!render()) {
+          window.clearInterval(timerId);
+        }
+      }, 1000);
+
+      return timerId;
+    }
+
+    document.querySelectorAll('[data-usa250-countdown]').forEach(function (countdownElement) {
+      var targetDate = normalizeCountdownDate(countdownElement.getAttribute('data-countdown-end-at'));
+      if (!targetDate) return;
+
+      var timerId = updateCountdown(countdownElement, targetDate);
+      if (!timerId) return;
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "USA250 landing",
+  "tag": "section",
+  "class": "section-wrapper",
+  "max_blocks": 30,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#040914"
+    },
+    {
+      "type": "color",
+      "id": "surface_color",
+      "label": "Surface",
+      "default": "#07152c"
+    },
+    {
+      "type": "color",
+      "id": "surface_alt_color",
+      "label": "Surface alt",
+      "default": "#0a2146"
+    },
+    {
+      "type": "color",
+      "id": "panel_color",
+      "label": "Panel",
+      "default": "#0b1e3f"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#ddb95d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text",
+      "default": "#cfd6e2"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#29446c"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line_1",
+      "label": "Hero title line 1",
+      "default": "250 years of"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line_2",
+      "label": "Hero title line 2",
+      "default": "FREEDOM"
+    },
+    {
+      "type": "text",
+      "id": "hero_subtitle",
+      "label": "Hero subtitle",
+      "default": "Built for the next adventure."
+    },
+    {
+      "type": "text",
+      "id": "hero_text1",
+      "label": "Hero text",
+      "default": "Swiss Automatic Diver Watch."
+    },
+    {
+      "type": "richtext",
+      "id": "hero_text2",
+      "label": "Hero text",
+      "default": "<p>Celebrating the spirit of America since <span >1776</span>.</p>"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_label",
+      "label": "Primary button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "hero_secondary_label",
+      "label": "Secondary button label",
+      "default": "Limited availability"
+    },
+    {
+      "type": "url",
+      "id": "hero_secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "header",
+      "content": "Intro split"
+    },
+    {
+      "type": "image_picker",
+      "id": "intro_background_image",
+      "label": "Intro background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "intro_watch_image",
+      "label": "Intro watch image"
+    },
+    {
+      "type": "text",
+      "id": "intro_title_line_1",
+      "label": "Intro title line 1",
+      "default": "America was"
+    },
+    {
+      "type": "text",
+      "id": "intro_title_line_2",
+      "label": "Intro title line 2",
+      "default": "Built by explorers."
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text1",
+      "label": "Intro text",
+      "default": "<p>250 years ago, a nation was born from courage,exploration, and the pursuit of freedom.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text2",
+      "label": "Intro text",
+      "default": "<p>Today, that same spirit lives on in those whoventure beyond the ordinary.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text3",
+      "label": "Intro text",
+      "default": "<p>The Marvin Bathyscaphe Automatic Diverhonors that legacy.</p>"
+    },
+    {
+      "type": "text",
+      "id": "features_heading",
+      "label": "Features heading",
+      "default": "WHY THE BATHYSCAPHE"
+    },
+    {
+      "type": "header",
+      "content": "Story"
+    },
+    {
+      "type": "text",
+      "id": "story_title_line_1",
+      "label": "Story title line 1",
+      "default": "The watch of"
+    },
+    {
+      "type": "text",
+      "id": "story_title_line_2",
+      "label": "Story title line 2",
+      "default": "Modern explorers"
+    },
+    {
+      "type": "richtext",
+      "id": "story_text",
+      "label": "Story text",
+      "default": "<p>Whether crossing oceans, building businesses, or creating your own legacy, the Bathyscaphe belongs on your wrist.</p>"
+    },
+    {
+      "type": "text",
+      "id": "story_kicker",
+      "label": "Story kicker",
+      "default": "250 years. One American spirit."
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image"
+    },
+    {
+      "type": "header",
+      "content": "Timeline and values"
+    },
+    {
+      "type": "text",
+      "id": "timeline_title_line_1",
+      "label": "Timeline title line 1",
+      "default": "250 years."
+    },
+    {
+      "type": "text",
+      "id": "timeline_title_line_2",
+      "label": "Timeline title line 2",
+      "default": "One American spirit."
+    },
+    {
+      "type": "image_picker",
+      "id": "timeline_image",
+      "label": "Timeline image"
+    },
+    {
+      "type": "text",
+      "id": "timeline_start_year",
+      "label": "Timeline start year",
+      "default": "1776"
+    },
+    {
+      "type": "text",
+      "id": "timeline_end_year",
+      "label": "Timeline end year",
+      "default": "2026"
+    },
+    {
+      "type": "textarea",
+      "id": "value_points",
+      "label": "Value points",
+      "default": "Freedom\nInnovation\nExploration\nPerseverance"
+    },
+    {
+      "type": "richtext",
+      "id": "value_text",
+      "label": "Value text",
+      "default": "<p>These values shaped a nation. They also define every Marvin timepiece.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Heritage"
+    },
+    {
+      "type": "text",
+      "id": "heritage_heading",
+      "label": "Heritage heading",
+      "default": "Swiss heritage since 1850"
+    },
+    {
+      "type": "image_picker",
+      "id": "heritage_image",
+      "label": "Heritage image"
+    },
+    {
+      "type": "header",
+      "content": "Design and event"
+    },
+    {
+      "type": "text",
+      "id": "design_heading",
+      "label": "Design heading",
+      "default": "Designed for depth"
+    },
+    {
+      "type": "text",
+      "id": "event_title_line_1",
+      "label": "Event title line 1",
+      "default": "America250"
+    },
+    {
+      "type": "text",
+      "id": "event_title_line_2",
+      "label": "Event title line 2",
+      "default": "Special event"
+    },
+    {
+      "type": "text",
+      "id": "countdown_title",
+      "label": "Countdown title",
+      "default": "Ends soon"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end_at",
+      "label": "Countdown end at",
+      "default": "2026-07-04 23:59:59"
+    },
+    {
+      "type": "text",
+      "id": "countdown_days",
+      "label": "Days",
+      "default": "06"
+    },
+    {
+      "type": "text",
+      "id": "countdown_hours",
+      "label": "Hours",
+      "default": "23"
+    },
+    {
+      "type": "text",
+      "id": "countdown_minutes",
+      "label": "Minutes",
+      "default": "47"
+    },
+    {
+      "type": "text",
+      "id": "countdown_seconds",
+      "label": "Seconds",
+      "default": "18"
+    },
+    {
+      "type": "text",
+      "id": "event_button_label",
+      "label": "Event button label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "event_button_link",
+      "label": "Event button link"
+    },
+    {
+      "type": "header",
+      "content": "Scenes"
+    },
+    {
+      "type": "text",
+      "id": "scenes_heading",
+      "label": "Scenes heading",
+      "default": "On the wrist"
+    },
+    {
+      "type": "header",
+      "content": "Testimonial and compare"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_heading",
+      "label": "Testimonial heading",
+      "default": "What collectors say"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_stars",
+      "label": "Testimonial stars",
+      "default": "★★★★★"
+    },
+    {
+      "type": "textarea",
+      "id": "testimonial_quote",
+      "label": "Testimonial quote",
+      "default": "\"Feels like a watch twice the price. Tool watch looks, collector finish.\""
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author",
+      "label": "Testimonial author",
+      "default": "Marvin P."
+    },
+    {
+      "type": "text",
+      "id": "compare_heading",
+      "label": "Compare heading",
+      "default": "Bathyscaphe vs typical fashion watch"
+    },
+    {
+      "type": "text",
+      "id": "compare_left_title",
+      "label": "Compare left title",
+      "default": "Bathyscaphe"
+    },
+    {
+      "type": "text",
+      "id": "compare_right_title",
+      "label": "Compare right title",
+      "default": "Typical fashion watch"
+    },
+    {
+      "type": "header",
+      "content": "Bottom CTA"
+    },
+    {
+      "type": "image_picker",
+      "id": "cta_image",
+      "label": "CTA background image"
+    },
+    {
+      "type": "text",
+      "id": "cta_title_line_1",
+      "label": "CTA title line 1",
+      "default": "Own a piece of Adventure."
+    },
+    {
+      "type": "richtext",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "<p>Celebrate 250 years of American spirit with Swiss mechanical excellence.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "CTA button label",
+      "default": "Shop the Bathyscaphe"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA button link"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon text",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Swiss automatic movement"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Powered by precision/Swiss engineering./No battery./No shortcuts./Just pure mechanicalexcellence."
+        }
+      ]
+    },
+    {
+      "type": "heritage",
+      "name": "Heritage item",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon text",
+          "default": "1850"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Marvin founded"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "In La Chaux-de-Fonds, Switzerland."
+        }
+      ]
+    },
+    {
+      "type": "design_detail",
+      "name": "Design detail",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sapphire crystal"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Built for clarity."
+        }
+      ]
+    },
+    {
+      "type": "perk",
+      "name": "Perk",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free shipping"
+        }
+      ]
+    },
+    {
+      "type": "scene",
+      "name": "Scene",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Yacht"
+        }
+      ]
+    },
+    {
+      "type": "compare_row",
+      "name": "Compare row",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Swiss automatic"
+        },
+        {
+          "type": "text",
+          "id": "left_value",
+          "label": "Left value",
+          "default": "✓"
+        },
+        {
+          "type": "text",
+          "id": "right_value",
+          "label": "Right value",
+          "default": "×"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "USA250 landing",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "01",
+            "title": "Swiss automatic movement",
+            "text": "Powered by precision/Swiss engineering./No battery./No shortcuts./Just pure mechanicalexcellence."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "02",
+            "title": "200M water resistance",
+            "text": "Bullt for ocean/adventures and/everyday confidence."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "03",
+            "title": "Sapphire crystal",
+            "text": "Scratch-resistant/protection designed/to last generations."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "04",
+            "title": "Super-Luminova",
+            "text": "Exceptional visibility/in every/environment."
+          }
+        },
+        {
+          "type": "heritage",
+          "settings": { "icon_text": "1850", "title": "Marvin founded", "text": "In La Chaux-de-Fonds, Switzerland." }
+        },
+        {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "1900s",
+            "title": "Global expansion",
+            "text": "Precision watches trusted worldwide."
+          }
+        },
+        {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "WW",
+            "title": "World War era",
+            "text": "Trusted timekeeping for those who rely on precision."
+          }
+        },
+        {
+          "type": "heritage",
+          "settings": {
+            "icon_text": "Today",
+            "title": "Swiss legacy",
+            "text": "Mechanical tradition continues into the future."
+          }
+        },
+        { "type": "design_detail", "settings": { "title": "Sapphire crystal", "text": "Clear and durable." } },
+        { "type": "design_detail", "settings": { "title": "Rotating diver bezel", "text": "Ready for action." } },
+        { "type": "design_detail", "settings": { "title": "Stainless steel case", "text": "Built to endure." } },
+        { "type": "design_detail", "settings": { "title": "Swiss automatic movement", "text": "Precision within." } },
+        { "type": "design_detail", "settings": { "title": "Screw down crown", "text": "Confidence sealed." } },
+        { "type": "perk", "settings": { "title": "Free shipping" } },
+        { "type": "perk", "settings": { "title": "2-year warranty" } },
+        { "type": "perk", "settings": { "title": "Easy returns" } },
+        { "type": "perk", "settings": { "title": "Secure checkout" } },
+        { "type": "perk", "settings": { "title": "Limited production" } },
+        { "type": "scene", "settings": { "title": "Yacht" } },
+        { "type": "scene", "settings": { "title": "Beach" } },
+        { "type": "scene", "settings": { "title": "Office" } },
+        { "type": "scene", "settings": { "title": "Weekend adventure" } },
+        { "type": "compare_row", "settings": { "label": "Swiss automatic", "left_value": "✓", "right_value": "×" } },
+        { "type": "compare_row", "settings": { "label": "Sapphire crystal", "left_value": "✓", "right_value": "×" } },
+        {
+          "type": "compare_row",
+          "settings": { "label": "200M water resistance", "left_value": "✓", "right_value": "×" }
+        },
+        {
+          "type": "compare_row",
+          "settings": { "label": "Mechanical heritage", "left_value": "✓", "right_value": "×" }
+        },
+        { "type": "compare_row", "settings": { "label": "Collectible value", "left_value": "✓", "right_value": "~" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

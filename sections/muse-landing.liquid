@@ -490,8 +490,8 @@
             <h2 class="muse-awards-landing__subtitle">{{ section.settings.hero_subtitle }}</h2>
           {% endif %}
 
-          {% if section.settings.hero_description != blank %}
-            <div class="muse-awards-landing__copy">{{ section.settings.hero_description }}</div>
+          {% if section.settings.hero_desc != blank %}
+            <div class="muse-awards-landing__copy">{{ section.settings.hero_desc }}</div>
           {% endif %}
         </div>
         <div class="muse-awards-landing__hero-media">
@@ -513,16 +513,9 @@
 
       <div class="muse-awards-landing__about muse-awards-landing__panel">
         <div class="muse-awards-landing__content">
-          {% if section.settings.about_caption != blank %}
-            <p class="muse-awards-landing__eyebrow">{{ section.settings.about_caption }}</p>
-          {% endif %}
-
-          {% if section.settings.about_title != blank %}
-            <h2 class="muse-awards-landing__section-title">{{ section.settings.about_title }}</h2>
-          {% endif %}
-
-          {% if section.settings.about_description != blank %}
-            <div class="muse-awards-landing__copy">{{ section.settings.about_description }}</div>
+          <p class="muse-awards-landing__eyebrow">{{ section.settings.about_caption }}</p>
+           {% if section.settings.about_desc != blank %}
+            <div class="muse-awards-landing__copy">{{ section.settings.about_desc }}</div>
           {% endif %}
 
           <div class="muse-awards-landing__highlights">
@@ -704,7 +697,6 @@
       "type": "header",
       "content": "Hero"
     },
-
     {
       "type": "text",
       "id": "hero_subtitle",
@@ -713,9 +705,9 @@
     },
     {
       "type": "richtext",
-      "id": "hero_description",
+      "id": "hero_desc",
       "label": "Hero description",
-      "default": "<p>Use this landing page to introduce the award, product story, and core selling points with a premium visual layout.</p>"
+      "default": "<p>The standout feature is a single case system paired with two interchangeable modules.</p>"
     },
     {
       "type": "image_picker",
@@ -735,55 +727,49 @@
       "type": "text",
       "id": "about_caption",
       "label": "About caption",
-      "default": "About the Muse Design Awards"
-    },
-    {
-      "type": "text",
-      "id": "about_title",
-      "label": "About title",
-      "default": "The MUSE Design Awards celebrates excellence in creativity, innovation, and execution."
+      "default": "ABOUT THE MUSE DESIGN AWARDS"
     },
     {
       "type": "richtext",
-      "id": "about_description",
+      "id": "about_desc",
       "label": "About description",
-      "default": "<p>Introduce the award background here. This area is designed for a short brand story with three supporting highlight points below.</p>"
+      "default": "<p>The MUSE Design Awards is an international competition that honorsexcellence in creativity. innovation and execution in design acrossa wide range of industries. Winners are selected by a panel of world-class professionals who evaluate entries on their ability to inspire,innovate and elevate the human experience.</p>"
     },
     {
       "type": "text",
       "id": "highlight_1_title",
       "label": "Highlight 1 title",
-      "default": "Global recognition",
+      "default": "GLOBAL RECOGNITION",
     },
     {
       "type": "text",
       "id": "highlight_1_text",
       "label": "Highlight 1 text",
-      "default": "Celebrate outstanding design from around the world."
+      "default": "Celebrating outstanding design from around the world."
     },
     {
       "type": "text",
       "id": "highlight_2_title",
       "label": "Highlight 2 title",
-      "default": "Jury evaluated"
+      "default": "JURY EVALUATED"
     },
     {
       "type": "text",
       "id": "highlight_2_text",
       "label": "Highlight 2 text",
-      "default": "Judged by leading experts in architecture, design, and innovation."
+      "default": "Judged by leading experts architecture, design and innovation."
     },
     {
       "type": "text",
       "id": "highlight_3_title",
       "label": "Highlight 3 title",
-      "default": "Excellence"
+      "default": "EXCELLENCE"
     },
     {
       "type": "text",
       "id": "highlight_3_text",
       "label": "Highlight 3 text",
-      "default": "Honor design that shapes the future of the industry."
+      "default": "Honoring creativity that shapes the future of design."
     },
     {
       "type": "header",
@@ -793,25 +779,25 @@
       "type": "text",
       "id": "story_caption",
       "label": "Story caption",
-      "default": "Design story"
+      "default": "DESIGN STORY"
     },
     {
       "type": "text",
       "id": "story_title",
       "label": "Story title",
-      "default": "MARVIN Smart Watch"
+      "default": "MARVIN Smartwatch"
     },
     {
       "type": "text",
       "id": "story_subtitle",
       "label": "Story subtitle",
-      "default": "Powered by HUAWEI Smart Movement"
+      "default": "Powered By HUAWEI Smart Movement"
     },
     {
       "type": "textarea",
       "id": "story_points",
       "label": "Story points",
-      "default": "HUAWEI Smart Movement head x Fluoroelastomer strap\nAutomatic head x Stainless-steel bracelet"
+      "default": "HUAWEI Smart Movement head X Fluoroelastomer strap\nAutomatic head X Stainless-steel bracelet"
     },
     {
       "type": "image_picker",
@@ -831,7 +817,7 @@
       "type": "richtext",
       "id": "brand_description",
       "label": "Brand description",
-      "default": "<p>Marvin is a Swiss watch brand rooted in traditional watchmaking. Grounded in Swiss horology, it pairs mechanical craftsmanship with classic design and durable materials built for longevity.</p>"
+      "default": "<p>Marvin is a Swiss watch brand rooted in traditional watchmaking.Grounded in Swiss horology, it pairs mechanical craftsmanshipwith classic design. Refined details and durable materials defineeach piece-crafted for longevity.</p>"
     },
     {
       "type": "image_picker",
@@ -861,7 +847,7 @@
       "type": "text",
       "id": "bottom_cta_title",
       "label": "Bottom CTA title",
-      "default": "Experience the award-winning collection"
+      "default": "EXPERIENCE THE AWARD-WINNING COLLECTION"
     },
     {
       "type": "richtext",
