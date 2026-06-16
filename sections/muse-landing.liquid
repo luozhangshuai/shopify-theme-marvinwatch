@@ -1,5 +1,6 @@
 {% liquid
   assign details = page.metafields.custom.details.value
+  assign muse_landing_target_url = '/products/saint-patrick-worldtimer-automatic-x-huawei-smart-movement'
 
   assign story_points = section.settings.story_points | newline_to_br | split: '<br />'
 
@@ -106,6 +107,12 @@
       background:
         radial-gradient(circle at center, rgba(0, 166, 158, 0.22), transparent 48%),
         linear-gradient(90deg, #082421 0%, #074f4c 42%, #021617 100%);
+    }
+
+    .muse-awards-landing__hero-link {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
     }
 
     .muse-awards-landing__hero-copy {
@@ -482,7 +489,10 @@
 
   <div class="muse-awards-landing__container">
     <div class="muse-awards-landing__grid">
-      <div class="muse-awards-landing__hero muse-awards-landing__panel">
+      <a
+        class="muse-awards-landing__hero muse-awards-landing__panel muse-awards-landing__hero-link"
+        href="{{ muse_landing_target_url }}"
+      >
         <div class="muse-awards-landing__content muse-awards-landing__hero-copy">
           {{ usa250_image_1 | image_url: width: 800 | image_tag: loading: 'lazy' }}
 
@@ -501,7 +511,7 @@
             <div class="muse-awards-landing__placeholder">Upload hero product image</div>
           {% endif %}
         </div>
-      </div>
+      </a>
 
       <div class="muse-awards-landing__award muse-awards-landing__panel muse-awards-landing__media">
         {% if usa250_image_3 != blank %}
@@ -641,7 +651,7 @@
             {% if section.settings.bottom_cta_button_label != blank %}
               <a
                 class="muse-awards-landing__button"
-                href="{{ section.settings.bottom_cta_button_link | default: '#' }}"
+                href="{{ muse_landing_target_url }}"
               >
                 {{ section.settings.bottom_cta_button_label }}
               </a>

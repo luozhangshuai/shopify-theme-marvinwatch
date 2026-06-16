@@ -1,5 +1,6 @@
 {% liquid
   assign details = page.metafields.custom.details.value
+  assign usa250_target_url = '/products/bathyscaphe-automatic-diver'
 
   assign value_points = section.settings.value_points | newline_to_br | split: '<br />'
 
@@ -1102,7 +1103,7 @@
             {% if section.settings.hero_button_label != blank %}
               <a
                 class="usa250-landing-hero-secondary-button"
-                href="{{ section.settings.hero_button_link | default: '#' }}"
+                href="{{ usa250_target_url }}"
               >
                 {{ section.settings.hero_button_label }}
               </a>
@@ -1110,7 +1111,7 @@
             {% if section.settings.hero_secondary_label != blank %}
               <a
                 class="usa250-landing-hero-secondary-button"
-                href="{{ section.settings.hero_secondary_link | default: '#' }}"
+                href="{{ usa250_target_url }}"
               >
                 {{ section.settings.hero_secondary_label }}
               </a>
@@ -1380,7 +1381,7 @@
         {% if section.settings.event_button_label != blank %}
           <a
             class="usa250-landing-event-button"
-            href="{{ section.settings.event_button_link | default: '#' }}"
+            href="{{ usa250_target_url }}"
           >
             {{ section.settings.event_button_label }}
           </a>
@@ -1416,7 +1417,7 @@
           {% if section.settings.cta_button_label != blank %}
             <a
               class="usa250-landing-cta-button"
-              href="{{ section.settings.cta_button_link | default: '#' }}"
+              href="{{ usa250_target_url }}"
             >
               {{ section.settings.cta_button_label }}
             </a>
