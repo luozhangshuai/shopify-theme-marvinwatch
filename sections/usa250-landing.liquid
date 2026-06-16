@@ -7,6 +7,7 @@
     if item.name == 'usa250'
       assign section1bg = item.section1bg
       assign section2bg = item.section2bg
+      assign section21 = item.section21
       assign section31 = item.section31
       assign section32 = item.section32
       assign section33 = item.section33
@@ -22,7 +23,9 @@
       assign section7 = item.section7
       assign section71 = item.section71
       assign section8 = item.section8
+      assign section81 = item.section81
       assign section9 = item.section9
+      assign section91 = item.section91
       assign section10bg = item.section10bg
     endif
   endfor
@@ -125,6 +128,11 @@
       letter-spacing: 0.02em;
     }
 
+    .usa250-landing-hero-title-small {
+      display: inline-block;
+      font-size: 0.68em;
+    }
+
     .usa250-landing-hero-subtitle {
       margin: 16px 0 0;
       color: var(--usa250-accent);
@@ -146,6 +154,14 @@
       color: var(--usa250-text);
       line-height: 1.7;
       font-size: 1rem;
+    }
+
+        .usa250-landing-intro-text{
+        width: 80%;
+      }
+
+    .usa250-landing-hero-text span {
+      color: #c62828;
     }
 
     .usa250-landing-hero-buttons {
@@ -183,7 +199,7 @@
     }
 
       .usa250-landing-cta-button {
-      margin-top: 28px;
+      margin-top: 12px;
     }
 
     .usa250-landing-hero-primary-button:hover,
@@ -272,13 +288,28 @@
       color: #173f72;
       font-size: clamp(1.8rem, 3vw, 3rem);
       line-height: 1.03;
+      white-space: nowrap;
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
 
+    .usa250-landing-intro-title-image {
+      margin-top: 14px;
+      max-width: 520px;
+    }
+
+    .usa250-landing-intro-title-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
     .usa250-landing-intro-text,
     .usa250-landing-intro-text p {
-      color: #213c68;
+      color: #000000;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .usa250-landing-features-section {
@@ -404,6 +435,13 @@
       line-height: 1.04;
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+
+    .usa250-landing-story-title-bar {
+      width: 120px;
+      height: 6px;
+      margin-top: 16px;
+      background: #c62828;
     }
 
     .usa250-landing-story-kicker {
@@ -714,7 +752,18 @@
     }
 
     .usa250-landing-scenes-grid {
+      display: flex;
+      flex-wrap: nowrap;
+    }
 
+    .usa250-landing-scenes-grid img {
+      display: block;
+      flex: 0 0 50%;
+      width: 50%;
+      max-width: 50%;
+      min-width: 0;
+      height: auto;
+      object-fit: cover;
     }
 
     .usa250-landing-scene-card {
@@ -745,6 +794,18 @@
     .usa250-landing-compare-section {
       background: #f8f8f6;
       color: #223758;
+      display: flex;
+      flex-wrap: nowrap;
+    }
+
+    .usa250-landing-compare-section img {
+      display: block;
+      flex: 0 0 50%;
+      width: 50%;
+      max-width: 50%;
+      min-width: 0;
+      height: auto;
+      object-fit: cover;
     }
 
     .usa250-landing-testimonial-panel,
@@ -808,42 +869,49 @@
 
     .usa250-landing-cta-section {
       position: relative;
-      min-height: 250px;
       overflow: hidden;
-      background: linear-gradient(180deg, #081933 0%, #0b2147 100%);
     }
 
-    .usa250-landing-cta-media,
-    .usa250-landing-cta-media img {
+    .usa250-landing-cta-media {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
     }
 
-    .usa250-landing-cta-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(5, 17, 38, 0.82) 0%, rgba(5, 17, 38, 0.52) 100%);
+    .usa250-landing-cta-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
+
+ 
 
     .usa250-landing-cta-content {
       position: relative;
       z-index: 1;
-      min-height: 250px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 32px 20px;
+      padding: 12px;
     }
 
     .usa250-landing-cta-title {
       margin: 0;
       color: var(--usa250-text);
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-size: clamp(1.5rem, 2.6vw, 2.3rem);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+    }
+
+    .usa250-landing-cta-title-underline {
+      text-decoration: underline;
+      text-decoration-color: #c62828;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 0.14em;
     }
 
     .usa250-landing-cta-title-accent {
@@ -854,7 +922,11 @@
     .usa250-landing-cta-text p {
       color: var(--usa250-muted);
       line-height: 1.7;
-      margin: 12px 0 0;
+      margin: 6px 0 0;
+    }
+
+    .usa250-landing-cta-text p {
+      white-space: nowrap;
     }
 
     @media screen and (max-width: 989px) {
@@ -862,8 +934,7 @@
       .usa250-landing-story-section,
       .usa250-landing-values-section,
       .usa250-landing-heritage-section,
-      .usa250-landing-detail-section,
-      .usa250-landing-compare-section {
+      .usa250-landing-detail-section {
         flex-direction: column;
       }
 
@@ -917,9 +988,49 @@
         min-height: 560px;
       }
 
+      .usa250-landing-hero-section {
+        background-position: 62% center, center, 62% center;
+      }
+
       .usa250-landing-hero-content {
-        align-items: flex-end;
-        padding: 30px 18px;
+        padding: 18px 18px 30px;
+      }
+
+      .usa250-landing-hero-copy {
+        max-width: 58%;
+      }
+
+      .usa250-landing-hero-title {
+        font-size: clamp(1.8rem, 8vw, 3rem);
+        line-height: 1;
+      }
+
+      .usa250-landing-hero-title-small {
+        font-size: 0.62em;
+      }
+
+      .usa250-landing-hero-subtitle {
+        margin-top: 12px;
+        font-size: 0.9rem;
+        letter-spacing: 0.04em;
+      }
+
+      .usa250-landing-hero-text,
+      .usa250-landing-hero-text p {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      .usa250-landing-hero-buttons {
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .usa250-landing-hero-secondary-button {
+        min-height: 40px;
+        padding: 10px 14px;
+        font-size: 0.72rem;
       }
 
 
@@ -936,8 +1047,16 @@
       .usa250-landing-features-grid,
       .usa250-landing-heritage-grid,
       .usa250-landing-detail-grid,
-      .usa250-landing-scenes-grid {
+      .usa250-landing-scenes-grid,
+      .usa250-landing-compare-section {
         flex-direction: column;
+      }
+
+      .usa250-landing-scenes-grid img,
+      .usa250-landing-compare-section img {
+        flex-basis: 100%;
+        width: 100%;
+        max-width: 100%;
       }
 
       .usa250-landing-feature-card,
@@ -963,15 +1082,14 @@
     <div
       class="usa250-landing-hero-section"
       {% if section1bg != blank %}
-        style="background-image: radial-gradient(circle at 58% 25%, rgba(88, 132, 212, 0.28), transparent 24%), linear-gradient(180deg, rgba(3, 12, 33, 0.2), rgba(3, 12, 33, 0.55)), url('{{ section1bg | image_url: width: 2400 }}');"
+        style="background: url('{{ section1bg | image_url: width: 2400 }}') no-repeat center center; background-size: cover;"
       {% endif %}
     >
-      <div class="usa250-landing-hero-overlay"></div>
       <div class="usa250-landing-hero-content">
         <div class="usa250-landing-hero-copy">
           {% if section.settings.hero_title_line_1 != blank or section.settings.hero_title_line_2 != blank %}
             <h1 class="usa250-landing-hero-title">
-              {{ section.settings.hero_title_line_1 -}}
+              <span class="usa250-landing-hero-title-small">{{ section.settings.hero_title_line_1 }}</span>
               <br>
               {{ section.settings.hero_title_line_2 }}
             </h1>
@@ -1023,6 +1141,11 @@
           <h2 class="usa250-landing-intro-title">
             {{ section.settings.intro_title_line_2 }}
           </h2>
+          {% if section21 != blank %}
+            <div class="usa250-landing-intro-title-image">
+              {{ section21 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+            </div>
+          {% endif %}
           <div class="usa250-landing-intro-text">{{ section.settings.intro_text1 }}</div>
           <div class="usa250-landing-intro-text">{{ section.settings.intro_text2 }}</div>
           <div class="usa250-landing-intro-text">{{ section.settings.intro_text3 }}</div>
@@ -1106,13 +1229,14 @@
               <br>
               {{ section.settings.story_title_line_2 }}
             </h2>
+            <div class="usa250-landing-story-title-bar"></div>
           {% endif %}
           {% if section.settings.story_text != blank %}
-            <div class="usa250-landing-story-text">{{ section.settings.story_text }}</div>
+            <div class="usa250-landing-story-text">
+              {{ section.settings.story_text | replace: 'Whether crossing oceans, building businesses, or creating your own legacy, the Bathyscaphe belongs on your wrist.', 'Whether crossing oceans,<br>building businesses,<br>or creating your own legacy,<br>the Bathyscaphe belongs on your wrist.' }}
+            </div>
           {% endif %}
-          {% if section.settings.story_kicker != blank %}
-            <p class="usa250-landing-story-kicker">{{ section.settings.story_kicker }}</p>
-          {% endif %}
+         
         </div>
       </div>
     </div>
@@ -1208,7 +1332,12 @@
             </div>
           {% endif %}
           <div class="usa250-landing-scenes-grid">
-            {{ section8 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+            {% if section8 != blank %}
+              {{ section8 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+            {% endif %}
+            {% if section81 != blank %}
+              {{ section81 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+            {% endif %}
           </div>
         </div>
       </div>
@@ -1260,7 +1389,12 @@
     </div>
 
     <div class="usa250-landing-compare-section">
-      {{ section9 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+      {% if section9 != blank %}
+        {{ section9 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+      {% endif %}
+      {% if section91 != blank %}
+        {{ section91 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+      {% endif %}
     </div>
 
     <div class="usa250-landing-cta-section">
@@ -1269,14 +1403,15 @@
           {{ section10bg | image_url: width: 2200 | image_tag: loading: 'lazy' }}
         </div>
       {% endif %}
-      <div class="usa250-landing-cta-overlay"></div>
       <div class="usa250-landing-cta-content">
         <div>
           <h2 class="usa250-landing-cta-title">
-            {{ section.settings.cta_title_line_1 }}
+            {{ section.settings.cta_title_line_12 | replace: ' of ', ' <span class="usa250-landing-cta-title-underline">of</span> ' }}
           </h2>
           {% if section.settings.cta_text != blank %}
-            <div class="usa250-landing-cta-text">{{ section.settings.cta_text }}</div>
+            <div class="usa250-landing-cta-text">
+              {{ section.settings.cta_text | replace: 'American spirit with Swiss mechanical excellence.', 'American spirit</p><p>with Swiss mechanical excellence.' }}
+            </div>
           {% endif %}
           {% if section.settings.cta_button_label != blank %}
             <a
@@ -1770,7 +1905,7 @@
     },
     {
       "type": "text",
-      "id": "cta_title_line_1",
+      "id": "cta_title_line_12",
       "label": "CTA title line 1",
       "default": "Own a piece of Adventure."
     },
