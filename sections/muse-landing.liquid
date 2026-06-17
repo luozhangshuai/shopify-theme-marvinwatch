@@ -513,12 +513,15 @@
         </div>
       </a>
 
+
       <div class="muse-awards-landing__award muse-awards-landing__panel muse-awards-landing__media">
-        {% if usa250_image_3 != blank %}
-          {{ usa250_image_3 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
-        {% else %}
-          <div class="muse-awards-landing__placeholder">Upload award image</div>
-        {% endif %}
+        <a href="https://design.museaward.com/winners-info.php?id=36734" target="_blank">
+          {% if usa250_image_3 != blank %}
+            {{ usa250_image_3 | image_url: width: 1200 | image_tag: loading: 'lazy' }}
+          {% else %}
+            <div class="muse-awards-landing__placeholder">Upload award image</div>
+          {% endif %}
+        </a>
       </div>
 
       <div class="muse-awards-landing__about muse-awards-landing__panel">

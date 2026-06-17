@@ -1,0 +1,1114 @@
+
+{% liquid
+  assign details = page.metafields.custom.details.value
+  assign usa250_target_url = '/products/bathyscaphe-automatic-diver'
+
+  for item in details
+    if item.name == 'awad'
+      assign awad_image_1_1 = item.awad_image_1_1
+      assign awad_image_2_1 = item.awad_image_2_1
+      assign awad_image_2_2 = item.awad_image_2_2
+      assign awad_image_2_3 = item.awad_image_2_3
+      assign awad_image_2_4 = item.awad_image_2_4
+      assign awad_image_3_1 = item.awad_image_3_1
+      assign awad_image_3_2 = item.awad_image_3_2
+      assign awad_image_3_3 = item.awad_image_3_3
+      assign awad_image_4_1 = item.awad_image_4_1
+      assign awad_image_5_1 = item.awad_image_5_1
+      assign awad_image_5_2 = item.awad_image_5_2
+      assign awad_image_5_3 = item.awad_image_5_3
+      assign awad_image_5_4 = item.awad_image_5_4
+    endif
+  endfor
+%}
+
+
+
+<section
+  class="awad-landing"
+  style="
+    --awad-bg: {{ section.settings.background_color }};
+    --awad-surface: {{ section.settings.surface_color }};
+    --awad-surface-soft: {{ section.settings.surface_soft_color }};
+    --awad-accent: {{ section.settings.accent_color }};
+    --awad-text: {{ section.settings.text_color }};
+    --awad-muted: {{ section.settings.muted_text_color }};
+    --awad-border: {{ section.settings.border_color }};
+    --awad-top: {{ section.settings.padding_top }}px;
+    --awad-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <style>
+    .awad-landing {
+      background: var(--awad-bg);
+      color: var(--awad-text);
+      padding: var(--awad-top) 0 var(--awad-bottom);
+    }
+
+    .awad-landing .awad-landing__container {
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .awad-landing .awad-landing__panel {
+      background: var(--awad-surface);
+      border-top: 1px solid var(--awad-border);
+      border-bottom: 1px solid var(--awad-border);
+    }
+
+    .awad-landing .awad-landing__hero {
+      min-height: 760px;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(164, 119, 38, 0.18), transparent 28%),
+        #050505;
+    }
+
+    .awad-landing .awad-landing__hero-media {
+      order: 2;
+      flex: 0 0 52%;
+      min-width: 0;
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 32px 32px 0;
+    }
+
+    .awad-landing .awad-landing__hero-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .awad-landing .awad-landing__hero-media img {
+      object-fit: contain;
+      object-position: 62% center;
+    }
+
+    .awad-landing .awad-landing__hero-content {
+      order: 1;
+      flex: 0 0 48%;
+      display: flex;
+      align-items: center;
+      min-height: 760px;
+      padding: 64px 40px;
+    }
+
+    .awad-landing .awad-landing__hero-copy {
+      width: min(100%, 660px);
+    }
+
+    .awad-landing .awad-landing__eyebrow {
+      margin: 0 0 18px;
+      color: var(--awad-accent);
+      font-size: 0.875rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .awad-landing .awad-landing__title {
+      margin: 0;
+      color: var(--awad-text);
+      font-size: clamp(2.2rem, 6.2vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .awad-landing .awad-landing__title .accent {
+      color: var(--awad-accent);
+    }
+
+    .awad-landing .awad-landing__title-line-nowrap {
+      white-space: nowrap;
+    }
+
+    .awad-landing .awad-landing__divider {
+      width: 92px;
+      height: 2px;
+      background: var(--awad-accent);
+      margin: 24px 0;
+    }
+
+    .awad-landing .awad-landing__copy,
+    .awad-landing .awad-landing__copy p {
+      color: var(--awad-muted);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .awad-landing .awad-landing__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 24px;
+      margin-top: 30px;
+      color: var(--awad-accent);
+      border: 1px solid var(--awad-accent);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.875rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .awad-landing .awad-landing__button:hover {
+      background: var(--awad-accent);
+      color: #111;
+    }
+
+    .awad-landing .awad-landing__features,
+    .awad-landing .awad-landing__perks {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .awad-landing .awad-landing__feature,
+    .awad-landing .awad-landing__perk {
+      flex: 1 1 25%;
+      min-width: 0;
+      padding: 28px 18px;
+      text-align: center;
+      border-right: 1px solid var(--awad-border);
+    }
+
+    .awad-landing .awad-landing__feature:last-child,
+    .awad-landing .awad-landing__perk:last-child {
+      border-right: 0;
+    }
+
+    .awad-landing .awad-landing__perks .awad-landing__perk {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      column-gap: 14px;
+      align-items: center;
+      text-align: left;
+    }
+
+    .awad-landing .awad-landing__perks .awad-landing__icon {
+      grid-row: 1 / span 2;
+      margin: 0;
+    }
+
+    .awad-landing .awad-landing__perks .awad-landing__item-title,
+    .awad-landing .awad-landing__perks .awad-landing__item-text {
+      text-align: left;
+    }
+
+    .awad-landing .awad-landing__perks .awad-landing__item-title,
+    .awad-landing .awad-landing__perks .awad-landing__item-text {
+      grid-column: 2;
+    }
+
+    .awad-landing .awad-landing__perks .awad-landing__item-text {
+      margin-top: 4px;
+    }
+
+    .awad-landing .awad-landing__icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 12px;
+      border: 1px solid rgba(201, 158, 65, 0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--awad-accent);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .awad-landing .awad-landing__icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .awad-landing .awad-landing__item-title {
+      margin: 0;
+      color: var(--awad-text);
+      font-size: 0.95rem;
+      line-height: 1.45;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .awad-landing .awad-landing__item-text {
+      margin: 8px 0 0;
+      color: var(--awad-muted);
+      font-size: 0.82rem;
+      line-height: 1.55;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .awad-landing .awad-landing__section-heading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 18px 16px;
+      text-align: center;
+      color: var(--awad-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 1.125rem;
+      border-top: 1px solid var(--awad-border);
+      border-bottom: 1px solid var(--awad-border);
+      background: var(--awad-surface);
+    }
+
+    .awad-landing .awad-landing__section-heading::before,
+    .awad-landing .awad-landing__section-heading::after {
+      content: "";
+      width: 100px;
+      height: 1px;
+      background: var(--awad-border);
+    }
+
+    .awad-landing .awad-landing__details {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--awad-border);
+    }
+
+    .awad-landing .awad-landing__detail {
+      position: relative;
+      flex: 1 1 16.6667%;
+      min-width: 0;
+      min-height: 290px;
+      background: #111;
+      border-right: 1px solid var(--awad-border);
+      overflow: hidden;
+    }
+
+    .awad-landing .awad-landing__detail:last-child {
+      border-right: 0;
+    }
+
+    .awad-landing .awad-landing__detail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .awad-landing .awad-landing__detail-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px 12px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.86) 100%);
+      color: var(--awad-text);
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+    .awad-landing .awad-landing__split {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      background: var(--awad-surface-soft);
+      border-bottom: 1px solid var(--awad-border);
+    }
+
+    .awad-landing .awad-landing__split-copy {
+      order: 1;
+      flex: 0 0 40%;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+    }
+
+    .awad-landing .awad-landing__split-content {
+    }
+
+    .awad-landing .awad-landing__logo {
+      max-width: 160px;
+      margin-bottom: 24px;
+    }
+
+    .awad-landing .awad-landing__split-title {
+      margin: 0;
+      color: var(--awad-text);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      word-break: keep-all;
+    }
+
+    .awad-landing .awad-landing__split-title .accent {
+      color: var(--awad-accent);
+    }
+
+    .awad-landing .awad-landing__split-media {
+      order: 2;
+      flex: 1;
+      min-height: 420px;
+    }
+
+    .awad-landing .awad-landing__split-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .awad-landing .awad-landing__cta {
+      text-align: center;
+      padding: 36px 20px 32px;
+      border-bottom: 1px solid var(--awad-border);
+      background: var(--awad-surface);
+    }
+
+    .awad-landing .awad-landing__cta-title {
+      margin: 0;
+      color: var(--awad-accent);
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .awad-landing .awad-landing__cta-copy,
+    .awad-landing .awad-landing__cta-copy p {
+      margin: 12px auto 0;
+      max-width: 720px;
+      color: var(--awad-muted);
+      line-height: 1.7;
+    }
+
+    .awad-landing .awad-landing__placeholder {
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      color: var(--awad-muted);
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      text-align: center;
+    }
+
+    @media screen and (max-width: 989px) {
+      .awad-landing .awad-landing__hero {
+        min-height: 620px;
+      }
+
+      .awad-landing .awad-landing__hero-media {
+        min-height: 620px;
+        padding: 24px 24px 24px 0;
+      }
+
+      .awad-landing .awad-landing__hero-content {
+        min-height: 620px;
+        padding: 40px 20px;
+      }
+
+      .awad-landing .awad-landing__feature,
+      .awad-landing .awad-landing__perk,
+      .awad-landing .awad-landing__detail,
+      .awad-landing .awad-landing__split-copy,
+      .awad-landing .awad-landing__split-media {
+        flex-basis: 50%;
+      }
+
+      .awad-landing .awad-landing__detail:nth-child(2n),
+      .awad-landing .awad-landing__feature:nth-child(2n),
+      .awad-landing .awad-landing__perk:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .awad-landing .awad-landing__split-copy,
+      .awad-landing .awad-landing__split-media {
+        min-height: 320px;
+      }
+
+      .awad-landing .awad-landing__section-heading::before,
+      .awad-landing .awad-landing__section-heading::after {
+        width: 56px;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .awad-landing .awad-landing__hero {
+        min-height: 0;
+        flex-direction: column;
+      }
+
+      .awad-landing .awad-landing__hero-media {
+        order: 1;
+        min-height: 320px;
+        padding: 20px 16px 0;
+      }
+
+      .awad-landing .awad-landing__hero-content {
+        order: 2;
+        min-height: 0;
+        align-items: flex-start;
+        padding: 32px 16px;
+      }
+
+      .awad-landing .awad-landing__feature,
+      .awad-landing .awad-landing__perk,
+      .awad-landing .awad-landing__detail,
+      .awad-landing .awad-landing__split-copy,
+      .awad-landing .awad-landing__split-media {
+        flex-basis: 100%;
+        border-right: 0;
+      }
+
+      .awad-landing .awad-landing__features .awad-landing__feature {
+        flex-basis: 50%;
+        max-width: 50%;
+        border-right: 1px solid var(--awad-border);
+      }
+
+      .awad-landing .awad-landing__features .awad-landing__feature:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .awad-landing .awad-landing__perks .awad-landing__perk {
+        flex-basis: 50%;
+        max-width: 50%;
+        border-right: 1px solid var(--awad-border);
+      }
+
+      .awad-landing .awad-landing__perks .awad-landing__perk:nth-child(2n) {
+        border-right: 0;
+      }
+
+      .awad-landing .awad-landing__feature,
+      .awad-landing .awad-landing__perk {
+        border-bottom: 1px solid var(--awad-border);
+      }
+
+      .awad-landing .awad-landing__feature:last-child,
+      .awad-landing .awad-landing__perk:last-child {
+        border-bottom: 0;
+      }
+
+      .awad-landing .awad-landing__detail {
+        min-height: 0;
+        border-bottom: 1px solid var(--awad-border);
+      }
+
+      .awad-landing .awad-landing__detail img {
+        height: auto;
+        object-fit: contain;
+      }
+
+      .awad-landing .awad-landing__split-copy {
+        padding: 32px 20px;
+      }
+
+      .awad-landing .awad-landing__split-media {
+        min-height: 260px;
+      }
+
+      .awad-landing .awad-landing__section-heading {
+        gap: 12px;
+        font-size: 0.95rem;
+      }
+
+      .awad-landing .awad-landing__section-heading::before,
+      .awad-landing .awad-landing__section-heading::after {
+        width: 28px;
+      }
+    }
+  </style>
+
+  <div class="awad-landing__container">
+    <div class="awad-landing__panel awad-landing__hero">
+      <div class="awad-landing__hero-content">
+        <div class="awad-landing__hero-copy">
+          <p class="awad-landing__eyebrow">Award winning</p>
+          <div class="awad-landing__title">
+            <div> A statement</div>
+            <div class="awad-landing__title-line-nowrap">On <span class="accent">your wrist</span></div>
+          </div>
+          <div class="awad-landing__divider"></div>
+          <div class="awad-landing__copy">
+            <p>Marvin Cuff Gold 2011 blends contemporary design with Swiss watchmaking heritage. Inspired by the bold elegance of jewelry, it transforms timekeeping into a distinctive expression of modern masculinity.</p>
+          </div>
+          <a class="awad-landing__button" href="https://daveyawards.com/winners-area/gallery/?event=38&award=99&search=marvin&id=NaN">
+            Explore the collection
+          </a>
+        </div>
+      </div>
+      {% if awad_image_1_1 != blank %}
+        <div class="awad-landing__hero-media">
+          <a href="https://daveyawards.com/winners-area/gallery/?event=38&award=99&search=marvin&id=NaN" target="_blank">
+            {{ awad_image_1_1 | image_url: width: 2200 | image_tag: loading: 'lazy' }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="awad-landing__panel awad-landing__features">
+      <div class="awad-landing__feature">
+        <div class="awad-landing__icon">
+          {% if awad_image_2_1 != blank %}
+            {{ awad_image_2_1 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            01
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">Gold winner</h3>
+        <p class="awad-landing__item-text">Davey Awards 2011</p>
+      </div>
+      <div class="awad-landing__feature">
+        <div class="awad-landing__icon">
+          {% if awad_image_2_2 != blank %}
+            {{ awad_image_2_2 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            02
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">Swiss made</h3>
+        <p class="awad-landing__item-text">Precision and heritage</p>
+      </div>
+      <div class="awad-landing__feature">
+        <div class="awad-landing__icon">
+          {% if awad_image_2_3 != blank %}
+            {{ awad_image_2_3 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            03
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">Bold design</h3>
+        <p class="awad-landing__item-text">Modern masculinity</p>
+      </div>
+      <div class="awad-landing__feature">
+        <div class="awad-landing__icon">
+          {% if awad_image_2_4 != blank %}
+            {{ awad_image_2_4 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            04
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">Timeless quality</h3>
+        <p class="awad-landing__item-text">Crafted to endure</p>
+      </div>
+    </div>
+
+    <div class="awad-landing__section-heading">Details that define</div>
+
+    <div class="awad-landing__panel awad-landing__details">
+      <div class="awad-landing__detail">
+        {% if awad_image_3_1 != blank %}
+          {{ awad_image_3_1 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="awad-landing__placeholder">Upload detail image</div>
+        {% endif %}
+      </div>
+      <div class="awad-landing__detail">
+        {% if awad_image_3_2 != blank %}
+          {{ awad_image_3_2 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="awad-landing__placeholder">Upload detail image</div>
+        {% endif %}
+      </div>
+      <div class="awad-landing__detail">
+        {% if awad_image_3_3 != blank %}
+          {{ awad_image_3_3 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="awad-landing__placeholder">Upload detail image</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="awad-landing__panel awad-landing__split">
+      <div class="awad-landing__split-copy">
+        <div class="awad-landing__split-content">
+          {% if section.settings.recognition_logo != blank %}
+            {{
+              section.settings.recognition_logo
+              | image_url: width: 400
+              | image_tag: class: 'awad-landing__logo', loading: 'lazy'
+            }}
+          {% endif %}
+          <h2 class="awad-landing__split-title">
+            <div>Recognized</div>
+            <div class="awad-landing__title-line-nowrap">For <span class="accent">excellence</span></div>
+          </h2>
+          <div class="awad-landing__divider"></div>
+          <div class="awad-landing__copy">
+            <p>The Gold Winner of the 2011 Davey Awards in Advertising. Celebrated for its creative vision, elegance, and impact.</p>
+          </div>
+          <a class="awad-landing__button" href="/products/cushion-m119-luxury-steel-chrono">
+            shop now
+          </a>
+        </div>
+      </div>
+      <div class="awad-landing__split-media">
+        {% if awad_image_4_1 != blank %}
+          {{ awad_image_4_1 | image_url: width: 1800 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="awad-landing__placeholder">Upload recognition image</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="awad-landing__cta">
+      <h2 class="awad-landing__cta-title">Join a legacy of innovation</h2>
+      <div class="awad-landing__cta-copy">
+        <p>Discover timepieces that blend heritage, creativity, and uncompromising quality.</p>
+      </div>
+      <a class="awad-landing__button" href="/">
+        Discover Marvin
+      </a>
+    </div>
+
+    <div class="awad-landing__panel awad-landing__perks">
+      <div class="awad-landing__perk">
+        <div class="awad-landing__icon">
+          {% if awad_image_5_1 != blank %}
+            {{ awad_image_5_1 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            S1
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">Free shipping</h3>
+        <p class="awad-landing__item-text">On orders over $200</p>
+      </div>
+      <div class="awad-landing__perk">
+        <div class="awad-landing__icon">
+          {% if awad_image_5_2 != blank %}
+            {{ awad_image_5_2 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            S2
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">2-year warranty</h3>
+        <p class="awad-landing__item-text">International coverage</p>
+      </div>
+      <div class="awad-landing__perk">
+        <div class="awad-landing__icon">
+          {% if awad_image_5_3 != blank %}
+            {{ awad_image_5_3 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            S3
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">30-day returns</h3>
+        <p class="awad-landing__item-text">Shop with confidence</p>
+      </div>
+      <div class="awad-landing__perk">
+        <div class="awad-landing__icon">
+          {% if awad_image_5_4 != blank %}
+            {{ awad_image_5_4 | image_url: width: 104 | image_tag: loading: 'lazy' }}
+          {% else %}
+            S4
+          {% endif %}
+        </div>
+        <h3 class="awad-landing__item-title">Secure payment</h3>
+        <p class="awad-landing__item-text">Protected checkout</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Awad landing",
+  "tag": "section",
+  "class": "section-wrapper",
+  "max_blocks": 14,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#040404"
+    },
+    {
+      "type": "color",
+      "id": "surface_color",
+      "label": "Surface",
+      "default": "#070707"
+    },
+    {
+      "type": "color",
+      "id": "surface_soft_color",
+      "label": "Soft surface",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#c89e41"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_text_color",
+      "label": "Muted text",
+      "default": "#b8b8b8"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#3a2d10"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Hero eyebrow",
+      "default": "Award winning"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line_1",
+      "label": "Hero title line 1",
+      "default": "A statement"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_line_2",
+      "label": "Hero title line 2",
+      "default": "On"
+    },
+    {
+      "type": "text",
+      "id": "hero_title_accent",
+      "label": "Hero title accent",
+      "default": "your wrist"
+    },
+    {
+      "type": "richtext",
+      "id": "hero_text",
+      "label": "Hero text",
+      "default": "<p>Marvin Cuff Gold 2011 blends contemporary design with Swiss watchmaking heritage. Inspired by the bold elegance of jewelry, it transforms timekeeping into a distinctive expression of modern masculinity.</p>"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_label",
+      "label": "Hero button label",
+      "default": "Explore the collection"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Hero button link"
+    },
+    {
+      "type": "header",
+      "content": "Details strip"
+    },
+    {
+      "type": "text",
+      "id": "details_heading",
+      "label": "Details heading",
+      "default": "Details that define"
+    },
+    {
+      "type": "header",
+      "content": "Recognition section"
+    },
+    {
+      "type": "image_picker",
+      "id": "recognition_logo",
+      "label": "Recognition logo"
+    },
+    {
+      "type": "text",
+      "id": "recognition_title_line_1",
+      "label": "Recognition title line 1",
+      "default": "Recognized"
+    },
+    {
+      "type": "text",
+      "id": "recognition_title_line_2",
+      "label": "Recognition title line 2",
+      "default": "For"
+    },
+    {
+      "type": "text",
+      "id": "recognition_title_accent",
+      "label": "Recognition title accent",
+      "default": "excellence"
+    },
+    {
+      "type": "richtext",
+      "id": "recognition_text",
+      "label": "Recognition text",
+      "default": "<p>The Gold Winner of the 2011 Davey Awards in Advertising. Celebrated for its creative vision, elegance, and impact.</p>"
+    },
+    {
+      "type": "text",
+      "id": "recognition_button_label",
+      "label": "Recognition button label",
+      "default": "Learn more"
+    },
+    {
+      "type": "url",
+      "id": "recognition_button_link",
+      "label": "Recognition button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "recognition_image",
+      "label": "Recognition image"
+    },
+    {
+      "type": "header",
+      "content": "CTA section"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "CTA title",
+      "default": "Join a legacy of innovation"
+    },
+    {
+      "type": "richtext",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "<p>Discover timepieces that blend heritage, creativity, and uncompromising quality.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_label",
+      "label": "CTA button label",
+      "default": "Discover Marvin"
+    },
+    {
+      "type": "url",
+      "id": "cta_button_link",
+      "label": "CTA button link"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon text",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Gold winner"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Davey Awards 2011"
+        }
+      ]
+    },
+    {
+      "type": "detail_card",
+      "name": "Detail card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Designed with care"
+        }
+      ]
+    },
+    {
+      "type": "perk",
+      "name": "Perk",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Icon text",
+          "default": "P1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "On orders over $200"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Awad landing",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "01",
+            "title": "Gold winner",
+            "text": "Davey Awards 2011"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "02",
+            "title": "Swiss made",
+            "text": "Precision and heritage"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "03",
+            "title": "Bold design",
+            "text": "Modern masculinity"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon_text": "04",
+            "title": "Timeless quality",
+            "text": "Crafted to endure"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Black tie optional"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Distinctive dial"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Designed with care"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Bold and refined"
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Focus. Precision. Time."
+          }
+        },
+        {
+          "type": "detail_card",
+          "settings": {
+            "title": "Built to stand out"
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S1",
+            "title": "Free shipping",
+            "text": "On orders over $200"
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S2",
+            "title": "2-year warranty",
+            "text": "International coverage"
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S3",
+            "title": "30-day returns",
+            "text": "Shop with confidence"
+          }
+        },
+        {
+          "type": "perk",
+          "settings": {
+            "icon_text": "S4",
+            "title": "Secure payment",
+            "text": "Protected checkout"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
