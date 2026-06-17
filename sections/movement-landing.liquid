@@ -1,0 +1,1087 @@
+{% liquid
+  assign details = page.metafields.custom.details.value
+
+  for item in details
+    if item.name == 'movement'
+      assign image1 = item.image1
+      assign image2 = item.image2
+      assign image3 = item.image3
+      assign image4 = item.image4
+      assign image5 = item.image5
+      assign image6 = item.image6
+    endif
+  endfor
+%}
+<section
+  class="movement-landing"
+  style="
+    --movement-bg: {{ section.settings.background_color }};
+    --movement-surface: {{ section.settings.surface_color }};
+    --movement-surface-alt: {{ section.settings.surface_alt_color }};
+    --movement-accent: {{ section.settings.accent_color }};
+    --movement-accent-2: {{ section.settings.accent_secondary_color }};
+    --movement-text: {{ section.settings.text_color }};
+    --movement-muted: {{ section.settings.muted_text_color }};
+    --movement-border: {{ section.settings.border_color }};
+    --movement-top: {{ section.settings.padding_top }}px;
+    --movement-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <style>
+    .movement-landing {
+      background: var(--movement-bg);
+      color: var(--movement-text);
+      padding: var(--movement-top) 0 var(--movement-bottom);
+    }
+
+    .movement-landing__container {
+      width: min(100%, 1240px);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .movement-landing__hero-section {
+      position: relative;
+      min-height: 420px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 56px 24px;
+      border-top: 1px solid var(--movement-border);
+      border-bottom: 1px solid var(--movement-border);
+      background:
+        radial-gradient(circle at center, rgba(194, 161, 87, 0.14), transparent 22%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+        var(--movement-surface);
+    }
+
+    .movement-landing__hero-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.015) 0,
+          rgba(255, 255, 255, 0.015) 2px,
+          transparent 2px,
+          transparent 8px
+        );
+      pointer-events: none;
+    }
+
+    .movement-landing__hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .movement-landing__timeline-section,
+    .movement-landing__archive-section,
+    .movement-landing__influence-section,
+    .movement-landing__signatures-section,
+    .movement-landing__brand-section {
+      margin-top: 16px;
+      border-top: 1px solid var(--movement-border);
+      border-bottom: 1px solid var(--movement-border);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+        var(--movement-surface);
+    }
+
+    .movement-landing__cta-section {
+      margin-top: 16px;
+      border-top: 1px solid var(--movement-border);
+      border-bottom: 1px solid var(--movement-border);
+      background: linear-gradient(180deg, #ff0f3b 0%, #d7092e 100%);
+      color: #fff;
+      text-align: center;
+      padding: 46px 22px;
+    }
+
+    .movement-landing__hero-eyebrow,
+    .movement-landing__timeline-eyebrow,
+    .movement-landing__archive-eyebrow,
+    .movement-landing__influence-eyebrow,
+    .movement-landing__signatures-eyebrow,
+    .movement-landing__brand-eyebrow {
+      margin: 0 0 12px;
+      color: var(--movement-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .movement-landing__cta-eyebrow {
+      margin: 0 0 12px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .movement-landing__hero-title {
+      margin: 0;
+      color: var(--movement-text);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      font-size: clamp(2.2rem, 5vw, 4.4rem);
+    }
+
+    .movement-landing__timeline-title,
+    .movement-landing__archive-title,
+    .movement-landing__influence-title,
+    .movement-landing__signatures-title,
+    .movement-landing__cta-title {
+      margin: 0;
+      color: var(--movement-text);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      text-align: center;
+    }
+
+    .movement-landing__brand-title {
+      margin: 0;
+      color: var(--movement-text);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      text-align: left;
+    }
+
+    .movement-landing__cta-title {
+      color: #fff;
+    }
+
+    .movement-landing__hero-copy,
+    .movement-landing__hero-copy p,
+    .movement-landing__timeline-intro,
+    .movement-landing__timeline-intro p,
+    .movement-landing__archive-intro,
+    .movement-landing__archive-intro p,
+    .movement-landing__influence-intro,
+    .movement-landing__influence-intro p {
+      color: var(--movement-muted);
+      line-height: 1.7;
+      margin: 16px auto 0;
+      max-width: 760px;
+      font-size: 0.95rem;
+    }
+
+    .movement-landing__brand-text,
+    .movement-landing__brand-text p {
+      color: var(--movement-muted);
+      line-height: 1.7;
+      margin: 16px 0 0;
+      max-width: none;
+      font-size: 0.95rem;
+    }
+
+    .movement-landing__cta-text,
+    .movement-landing__cta-text p {
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.7;
+      margin: 16px auto 0;
+      max-width: 780px;
+      font-size: 0.95rem;
+    }
+
+    .movement-landing__hero-actions,
+    .movement-landing__cta-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .movement-landing__hero-button-primary,
+    .movement-landing__hero-button-secondary,
+    .movement-landing__cta-button-primary,
+    .movement-landing__cta-button-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 12px 20px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .movement-landing__hero-button-primary {
+      border: 1px solid var(--movement-accent);
+      background: #fff;
+      color: #111;
+    }
+
+    .movement-landing__hero-button-primary:hover {
+      background: #fff;
+      color: #111;
+    }
+
+    .movement-landing__hero-button-secondary {
+      border: 1px solid var(--movement-accent);
+      color: var(--movement-accent);
+    }
+
+    .movement-landing__hero-button-secondary:hover {
+      background: #fff;
+      color: #111;
+    }
+
+    .movement-landing__cta-button-primary {
+      border: 1px solid #fff;
+      background: #111;
+      color: #fff;
+    }
+
+    .movement-landing__cta-button-primary:hover {
+      background: #111;
+      border-color: #111;
+      color: #fff;
+    }
+
+    .movement-landing__cta-button-secondary {
+      border: 1px solid #fff;
+      color: #fff;
+    }
+
+    .movement-landing__cta-button-secondary:hover {
+      background: #111;
+      border-color: #111;
+      color: #fff;
+    }
+
+    .movement-landing__timeline-header,
+    .movement-landing__archive-header,
+    .movement-landing__influence-header,
+    .movement-landing__signatures-header {
+      text-align: center;
+      padding: 42px 20px 18px;
+    }
+
+    .movement-landing__timeline-wrap {
+      padding: 10px 18px 34px;
+    }
+
+    .movement-landing__timeline-list {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 12px 0;
+    }
+
+    .movement-landing__timeline-list::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--movement-accent) 0%, var(--movement-accent-2) 100%);
+    }
+
+    .movement-landing__timeline-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      min-height: 132px;
+    }
+
+    .movement-landing__timeline-spacer,
+    .movement-landing__timeline-card-left,
+    .movement-landing__timeline-card-right {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .movement-landing__timeline-card-left,
+    .movement-landing__timeline-card-right {
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      min-height: 132px;
+    }
+
+    .movement-landing__timeline-card-left {
+      text-align: right;
+    }
+
+    .movement-landing__timeline-card-right {
+      text-align: left;
+    }
+
+    .movement-landing__timeline-marker {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+      min-height: 16px;
+      margin: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--movement-accent);
+      border: 3px solid rgba(0, 0, 0, 0.65);
+      z-index: 1;
+    }
+
+    .movement-landing__timeline-year,
+    .movement-landing__archive-label,
+    .movement-landing__influence-label {
+      color: var(--movement-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.74rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+
+    .movement-landing__timeline-card-title,
+    .movement-landing__archive-card-title,
+    .movement-landing__influence-card-title,
+    .movement-landing__signature-card-title {
+      margin: 0;
+      color: var(--movement-text);
+      font-size: 1rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .movement-landing__timeline-card-text,
+    .movement-landing__archive-card-text,
+    .movement-landing__influence-card-text,
+    .movement-landing__signature-card-text {
+      margin: 10px 0 0;
+      color: var(--movement-muted);
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
+
+    .movement-landing__archive-grid,
+    .movement-landing__signatures-grid {
+      display: flex;
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .movement-landing__archive-grid {
+      flex-wrap: wrap;
+    }
+
+    .movement-landing__signatures-grid {
+      flex-wrap: nowrap;
+    }
+
+    .movement-landing__archive-card,
+    .movement-landing__signature-card {
+      flex: 1 1 calc(33.333% - 11px);
+      min-width: 0;
+      background: rgba(255, 255, 255, 0.03);
+      overflow: hidden;
+    }
+
+    .movement-landing__archive-card {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .movement-landing__signature-card {
+      flex: 0 0 calc(25% - 12px);
+      background: transparent;
+      border: 0;
+    }
+
+    .movement-landing__influence-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .movement-landing__influence-chart {
+      flex: 1 1 300px;
+      min-height: 280px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0 32%, transparent 32%),
+        conic-gradient(
+          var(--movement-accent) 0 34%,
+          #e91a3a 34% 58%,
+          #d6d6d6 58% 82%,
+          #777 82% 100%
+        );
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .movement-landing__influence-chart::after {
+      content: "";
+      width: 42%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--movement-surface);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .movement-landing__influence-chart-caption {
+      position: absolute;
+      bottom: 18px;
+      left: 18px;
+      right: 18px;
+      color: var(--movement-muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .movement-landing__influence-list {
+      flex: 1 1 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .movement-landing__influence-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .movement-landing__archive-image {
+      aspect-ratio: 1.15;
+      background: #111;
+    }
+
+    .movement-landing__archive-image img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movement-landing__archive-content,
+    .movement-landing__influence-content,
+    .movement-landing__signature-content {
+      padding: 16px;
+    }
+
+    .movement-landing__archive-placeholder {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+      color: var(--movement-muted);
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    }
+
+    .movement-landing__signature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--movement-accent);
+      color: var(--movement-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+    }
+
+    .movement-landing__brand-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 18px;
+      align-items: stretch;
+    }
+
+    .movement-landing__brand-copy-panel,
+    .movement-landing__brand-badge-panel {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .movement-landing__brand-copy-panel {
+      flex: 1 1 60%;
+      min-width: 0;
+      padding: 22px;
+    }
+
+    .movement-landing__brand-badge-panel {
+      flex: 1 1 220px;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .movement-landing__brand-badge-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid var(--movement-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--movement-accent);
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: 0.08em;
+      font-size: 0.85rem;
+      padding: 20px;
+    }
+
+    @media screen and (max-width: 989px) {
+      .movement-landing__archive-card,
+      .movement-landing__signature-card {
+        flex-basis: calc(50% - 8px);
+      }
+
+      .movement-landing__signature-card {
+        flex-basis: calc(25% - 12px);
+      }
+
+      .movement-landing__brand-copy-panel,
+      .movement-landing__brand-badge-panel,
+      .movement-landing__influence-chart,
+      .movement-landing__influence-list {
+        flex-basis: 100%;
+      }
+
+      .movement-landing__timeline-list::before {
+        left: 20px;
+        transform: none;
+      }
+
+      .movement-landing__timeline-item {
+        align-items: flex-start;
+        padding-left: 40px;
+      }
+
+      .movement-landing__timeline-spacer {
+        display: none;
+      }
+
+      .movement-landing__timeline-marker {
+        left: 20px;
+        top: 20px;
+        transform: translate(-50%, 0);
+      }
+
+      .movement-landing__timeline-card-left,
+      .movement-landing__timeline-card-right {
+        flex: 1 1 auto;
+        text-align: left;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .movement-landing__hero-section {
+        min-height: 360px;
+        padding: 44px 18px;
+      }
+
+      .movement-landing__archive-card,
+      .movement-landing__signature-card {
+        flex-basis: 100%;
+      }
+
+      .movement-landing__signature-card {
+        flex-basis: calc(25% - 12px);
+      }
+
+      .movement-landing__timeline-header,
+      .movement-landing__archive-header,
+      .movement-landing__influence-header,
+      .movement-landing__signatures-header {
+        padding: 34px 18px 12px;
+      }
+
+      .movement-landing__timeline-wrap,
+      .movement-landing__archive-grid,
+      .movement-landing__signatures-grid,
+      .movement-landing__influence-layout,
+      .movement-landing__brand-layout {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+    }
+  </style>
+
+  <div class="movement-landing__container">
+    <section class="movement-landing__hero-section">
+      <div class="movement-landing__hero-content">
+        <p class="movement-landing__hero-eyebrow">Crafted for precision</p>
+        <h1 class="movement-landing__hero-title">
+          The engine<br>
+          Behind time
+        </h1>
+        <div class="movement-landing__hero-copy">
+          <p>For over 170 years, Marvin has put finely tuned mechanics at the heart of every watch. From early hand-wound calibers to integrated automatic systems, our legacy breathes life into modern horology.</p>
+        </div>
+        <div class="movement-landing__hero-actions">
+          <a class="movement-landing__hero-button-primary" href="{{ section.settings.hero_button_link | default: '#' }}">
+            Discover the craft
+          </a>
+          <a class="movement-landing__hero-button-secondary" href="{{ section.settings.hero_secondary_link | default: '#' }}">
+            View movement archive
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="movement-landing__timeline-section">
+      <div class="movement-landing__timeline-header">
+        <p class="movement-landing__timeline-eyebrow">Swiss horology journey</p>
+        <h2 class="movement-landing__timeline-title">Mechanical timeline</h2>
+        <div class="movement-landing__timeline-intro">
+          <p>Trace how Marvin evolved from foundational pocket-watch engineering to refined mechanical calibers designed for the modern collector.</p>
+        </div>
+      </div>
+      <div class="movement-landing__timeline-wrap">
+        <div class="movement-landing__timeline-list">
+          <div class="movement-landing__timeline-item">
+            <div class="movement-landing__timeline-card-left">
+              <p class="movement-landing__timeline-year">1890s - 1920s</p>
+              <h3 class="movement-landing__timeline-card-title">Foundation calibers</h3>
+              <p class="movement-landing__timeline-card-text">Entry hand-wound movement platforms establish Marvin's functional architecture.</p>
+            </div>
+            <div class="movement-landing__timeline-marker"></div>
+            <div class="movement-landing__timeline-spacer"></div>
+          </div>
+          <div class="movement-landing__timeline-item">
+            <div class="movement-landing__timeline-spacer"></div>
+            <div class="movement-landing__timeline-marker"></div>
+            <div class="movement-landing__timeline-card-right">
+              <p class="movement-landing__timeline-year">1930s - 1940s</p>
+              <h3 class="movement-landing__timeline-card-title">Dress-watch refinement</h3>
+              <p class="movement-landing__timeline-card-text">Slimmer proportions and improved finishing support elegant daily-wear designs.</p>
+            </div>
+          </div>
+          <div class="movement-landing__timeline-item">
+            <div class="movement-landing__timeline-card-left">
+              <p class="movement-landing__timeline-year">1950s - 1970s</p>
+              <h3 class="movement-landing__timeline-card-title">Automatic evolution</h3>
+              <p class="movement-landing__timeline-card-text">Rotor-driven systems and improved shock protection modernize performance.</p>
+            </div>
+            <div class="movement-landing__timeline-marker"></div>
+            <div class="movement-landing__timeline-spacer"></div>
+          </div>
+          <div class="movement-landing__timeline-item">
+            <div class="movement-landing__timeline-spacer"></div>
+            <div class="movement-landing__timeline-marker"></div>
+            <div class="movement-landing__timeline-card-right">
+              <p class="movement-landing__timeline-year">Present day</p>
+              <h3 class="movement-landing__timeline-card-title">Restored legacy</h3>
+              <p class="movement-landing__timeline-card-text">Modern Marvin designs reconnect archival engineering cues with today's enthusiasts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="movement-landing__archive-section">
+      <div class="movement-landing__archive-header">
+        <p class="movement-landing__archive-eyebrow">Collector reference</p>
+        <h2 class="movement-landing__archive-title">Movement archive</h2>
+        <div class="movement-landing__archive-intro">
+          <p>Reference the calibers, bridges, plates, and finishing details that define Marvin's mechanical language across decades.</p>
+        </div>
+      </div>
+      <div class="movement-landing__archive-grid">
+        <article class="movement-landing__archive-card">
+          <div class="movement-landing__archive-image">
+            {% if image1 != blank %}
+              {{ image1 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="movement-landing__archive-placeholder">Upload movement image</div>
+            {% endif %}
+          </div>
+          <div class="movement-landing__archive-content">
+            <p class="movement-landing__archive-label">Archive</p>
+            <h3 class="movement-landing__archive-card-title">500 series</h3>
+            <p class="movement-landing__archive-card-text">Reliable hand-wound caliber language centered on clarity and durability.</p>
+          </div>
+        </article>
+        <article class="movement-landing__archive-card">
+          <div class="movement-landing__archive-image">
+            {% if image2 != blank %}
+              {{ image2 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="movement-landing__archive-placeholder">Upload movement image</div>
+            {% endif %}
+          </div>
+          <div class="movement-landing__archive-content">
+            <p class="movement-landing__archive-label">Archive</p>
+            <h3 class="movement-landing__archive-card-title">700 series</h3>
+            <p class="movement-landing__archive-card-text">Expanded bridge geometry and refined layout for improved visual symmetry.</p>
+          </div>
+        </article>
+        <article class="movement-landing__archive-card">
+          <div class="movement-landing__archive-image">
+            {% if image3 != blank %}
+              {{ image3 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="movement-landing__archive-placeholder">Upload movement image</div>
+            {% endif %}
+          </div>
+          <div class="movement-landing__archive-content">
+            <p class="movement-landing__archive-label">Archive</p>
+            <h3 class="movement-landing__archive-card-title">900 series</h3>
+            <p class="movement-landing__archive-card-text">A robust mechanical family balancing serviceability and elegant finishing.</p>
+          </div>
+        </article>
+        <article class="movement-landing__archive-card">
+          <div class="movement-landing__archive-image">
+            {% if image4 != blank %}
+              {{ image4 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="movement-landing__archive-placeholder">Upload movement image</div>
+            {% endif %}
+          </div>
+          <div class="movement-landing__archive-content">
+            <p class="movement-landing__archive-label">Archive</p>
+            <h3 class="movement-landing__archive-card-title">Auto evolution</h3>
+            <p class="movement-landing__archive-card-text">Automatic winding marks Marvin's transition into contemporary mechanical wear.</p>
+          </div>
+        </article>
+        <article class="movement-landing__archive-card">
+          <div class="movement-landing__archive-image">
+            {% if image5 != blank %}
+              {{ image5 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="movement-landing__archive-placeholder">Upload movement image</div>
+            {% endif %}
+          </div>
+          <div class="movement-landing__archive-content">
+            <p class="movement-landing__archive-label">Archive</p>
+            <h3 class="movement-landing__archive-card-title">Tour series</h3>
+            <p class="movement-landing__archive-card-text">Complexity-driven architecture with collector-focused details and layered finishing.</p>
+          </div>
+        </article>
+        <article class="movement-landing__archive-card">
+          <div class="movement-landing__archive-image">
+            {% if image6 != blank %}
+              {{ image6 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="movement-landing__archive-placeholder">Upload movement image</div>
+            {% endif %}
+          </div>
+          <div class="movement-landing__archive-content">
+            <p class="movement-landing__archive-label">Archive</p>
+            <h3 class="movement-landing__archive-card-title">Base series</h3>
+            <p class="movement-landing__archive-card-text">Foundational movements that informed later decorative and structural upgrades.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="movement-landing__influence-section">
+      <div class="movement-landing__influence-header">
+        <p class="movement-landing__influence-eyebrow">Cross-era inspiration</p>
+        <h2 class="movement-landing__influence-title">Movement influence network</h2>
+        <div class="movement-landing__influence-intro">
+          <p>See how Marvin's engineering approach intersects with Swiss suppliers, modern finishing standards, and contemporary mechanical expectations.</p>
+        </div>
+      </div>
+      <div class="movement-landing__influence-layout">
+        <div class="movement-landing__influence-chart">
+          <div class="movement-landing__influence-chart-caption">Illustrative split of Marvin movement influence across heritage, finishing, architecture, and modern usability.</div>
+        </div>
+        <div class="movement-landing__influence-list">
+          <article class="movement-landing__influence-card">
+            <div class="movement-landing__influence-content">
+              <p class="movement-landing__influence-label">Influence</p>
+              <h3 class="movement-landing__influence-card-title">Marvin x Zenith</h3>
+              <p class="movement-landing__influence-card-text">Shared Swiss movement vocabulary and overlapping finishing standards inform the visual genealogy.</p>
+            </div>
+          </article>
+          <article class="movement-landing__influence-card">
+            <div class="movement-landing__influence-content">
+              <p class="movement-landing__influence-label">Influence</p>
+              <h3 class="movement-landing__influence-card-title">Marvin x Louis Moinet</h3>
+              <p class="movement-landing__influence-card-text">Mechanical architecture and collector presentation echo across modern enthusiast culture.</p>
+            </div>
+          </article>
+          <article class="movement-landing__influence-card">
+            <div class="movement-landing__influence-content">
+              <p class="movement-landing__influence-label">Influence</p>
+              <h3 class="movement-landing__influence-card-title">Technical crossover</h3>
+              <p class="movement-landing__influence-card-text">Bridge shape, jewel placement, and finishing language reveal broader industry influence.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="movement-landing__signatures-section">
+      <div class="movement-landing__signatures-header">
+        <p class="movement-landing__signatures-eyebrow">Engineering details</p>
+        <h2 class="movement-landing__signatures-title">Mechanical signatures</h2>
+      </div>
+      <div class="movement-landing__signatures-grid">
+        <article class="movement-landing__signature-card">
+          <div class="movement-landing__signature-content">
+            <div class="movement-landing__signature-icon">S1</div>
+            <h3 class="movement-landing__signature-card-title">Thin movement design</h3>
+            <p class="movement-landing__signature-card-text">Elegant proportions preserve visual balance without sacrificing structural clarity.</p>
+          </div>
+        </article>
+        <article class="movement-landing__signature-card">
+          <div class="movement-landing__signature-content">
+            <div class="movement-landing__signature-icon">S2</div>
+            <h3 class="movement-landing__signature-card-title">Engraved markings</h3>
+            <p class="movement-landing__signature-card-text">Historic caliber markings reinforce traceability and collector authenticity.</p>
+          </div>
+        </article>
+        <article class="movement-landing__signature-card">
+          <div class="movement-landing__signature-content">
+            <div class="movement-landing__signature-icon">S3</div>
+            <h3 class="movement-landing__signature-card-title">Clean architecture</h3>
+            <p class="movement-landing__signature-card-text">Bridge layout emphasizes legibility and disciplined engineering rhythm.</p>
+          </div>
+        </article>
+        <article class="movement-landing__signature-card">
+          <div class="movement-landing__signature-content">
+            <div class="movement-landing__signature-icon">S4</div>
+            <h3 class="movement-landing__signature-card-title">Precision adjustment</h3>
+            <p class="movement-landing__signature-card-text">Fine regulation details support stable timekeeping and service longevity.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="movement-landing__brand-section">
+      <div class="movement-landing__brand-layout">
+        <div class="movement-landing__brand-copy-panel">
+          <p class="movement-landing__brand-eyebrow">The Marvin caliber mark</p>
+          <h2 class="movement-landing__brand-title">The Marvin caliber mark</h2>
+          <div class="movement-landing__brand-text">
+            <p>More than a visual cue, the Marvin caliber mark reflects our dedication to disciplined engineering, Swiss mechanical integrity, and distinctive finishing. It appears on movements that carry our standards forward.</p>
+          </div>
+        </div>
+        <div class="movement-landing__brand-badge-panel">
+          <div class="movement-landing__brand-badge-circle">Marvin caliber edition</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="movement-landing__cta-section">
+      <p class="movement-landing__cta-eyebrow">Continue the journey</p>
+      <h2 class="movement-landing__cta-title">Experience the engineering legacy</h2>
+      <div class="movement-landing__cta-text">
+        <p>Explore Marvin's modern watches powered by enduring mechanical philosophy and Swiss craft.</p>
+      </div>
+      <div class="movement-landing__cta-actions">
+        <a class="movement-landing__cta-button-primary" href="{{ section.settings.cta_button_link | default: '#' }}">
+          Shop all mechanical watches
+        </a>
+        <a class="movement-landing__cta-button-secondary" href="{{ section.settings.cta_secondary_link | default: '#' }}">
+          Download archive brochure
+        </a>
+      </div>
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Movement landing",
+  "tag": "section",
+  "class": "section-wrapper",
+  "max_blocks": 24,
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#050505" },
+    { "type": "color", "id": "surface_color", "label": "Surface", "default": "#0a0a0a" },
+    { "type": "color", "id": "surface_alt_color", "label": "Surface alt", "default": "#111111" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#caa354" },
+    { "type": "color", "id": "accent_secondary_color", "label": "Accent secondary", "default": "#d70f37" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#f7f2e8" },
+    { "type": "color", "id": "muted_text_color", "label": "Muted text", "default": "#b9b0a3" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#24201a" },
+
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "hero_eyebrow", "label": "Hero eyebrow", "default": "Crafted for precision" },
+    { "type": "text", "id": "hero_title_line_1", "label": "Hero title line 1", "default": "The engine" },
+    { "type": "text", "id": "hero_title_line_2", "label": "Hero title line 2", "default": "Behind time" },
+    {
+      "type": "richtext",
+      "id": "hero_text",
+      "label": "Hero text",
+      "default": "<p>For over 170 years, Marvin has put finely tuned mechanics at the heart of every watch. From early hand-wound calibers to integrated automatic systems, our legacy breathes life into modern horology.</p>"
+    },
+    { "type": "text", "id": "hero_button_label", "label": "Primary button label", "default": "Discover the craft" },
+    { "type": "url", "id": "hero_button_link", "label": "Primary button link" },
+    { "type": "text", "id": "hero_secondary_label", "label": "Secondary button label", "default": "View movement archive" },
+    { "type": "url", "id": "hero_secondary_link", "label": "Secondary button link" },
+
+    { "type": "header", "content": "Timeline" },
+    { "type": "text", "id": "timeline_eyebrow", "label": "Timeline eyebrow", "default": "Swiss horology journey" },
+    { "type": "text", "id": "timeline_heading", "label": "Timeline heading", "default": "Mechanical timeline" },
+    {
+      "type": "richtext",
+      "id": "timeline_intro",
+      "label": "Timeline intro",
+      "default": "<p>Trace how Marvin evolved from foundational pocket-watch engineering to refined mechanical calibers designed for the modern collector.</p>"
+    },
+
+    { "type": "header", "content": "Archive" },
+    { "type": "text", "id": "archive_eyebrow", "label": "Archive eyebrow", "default": "Collector reference" },
+    { "type": "text", "id": "archive_heading", "label": "Archive heading", "default": "Movement archive" },
+    {
+      "type": "richtext",
+      "id": "archive_intro",
+      "label": "Archive intro",
+      "default": "<p>Reference the calibers, bridges, plates, and finishing details that define Marvin's mechanical language across decades.</p>"
+    },
+
+    { "type": "header", "content": "Influence" },
+    { "type": "text", "id": "influence_eyebrow", "label": "Influence eyebrow", "default": "Cross-era inspiration" },
+    { "type": "text", "id": "influence_heading", "label": "Influence heading", "default": "Movement influence network" },
+    {
+      "type": "richtext",
+      "id": "influence_intro",
+      "label": "Influence intro",
+      "default": "<p>See how Marvin's engineering approach intersects with Swiss suppliers, modern finishing standards, and contemporary mechanical expectations.</p>"
+    },
+    { "type": "text", "id": "chart_caption", "label": "Chart caption", "default": "Illustrative split of Marvin movement influence across heritage, finishing, architecture, and modern usability." },
+
+    { "type": "header", "content": "Signatures" },
+    { "type": "text", "id": "signature_eyebrow", "label": "Signature eyebrow", "default": "Engineering details" },
+    { "type": "text", "id": "signature_heading", "label": "Signature heading", "default": "Mechanical signatures" },
+
+    { "type": "header", "content": "Brand" },
+    { "type": "text", "id": "brand_eyebrow", "label": "Brand eyebrow", "default": "The Marvin caliber mark" },
+    { "type": "text", "id": "brand_heading", "label": "Brand heading", "default": "The Marvin caliber mark" },
+    {
+      "type": "richtext",
+      "id": "brand_text",
+      "label": "Brand text",
+      "default": "<p>More than a visual cue, the Marvin caliber mark reflects our dedication to disciplined engineering, Swiss mechanical integrity, and distinctive finishing. It appears on movements that carry our standards forward.</p>"
+    },
+    { "type": "text", "id": "brand_badge", "label": "Brand badge", "default": "Marvin caliber edition" },
+
+    { "type": "header", "content": "CTA" },
+    { "type": "text", "id": "cta_eyebrow", "label": "CTA eyebrow", "default": "Continue the journey" },
+    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "Experience the engineering legacy" },
+    {
+      "type": "richtext",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "<p>Explore Marvin's modern watches powered by enduring mechanical philosophy and Swiss craft.</p>"
+    },
+    { "type": "text", "id": "cta_button_label", "label": "CTA button label", "default": "Shop all mechanical watches" },
+    { "type": "url", "id": "cta_button_link", "label": "CTA button link" },
+    { "type": "text", "id": "cta_secondary_label", "label": "CTA secondary label", "default": "Download archive brochure" },
+    { "type": "url", "id": "cta_secondary_link", "label": "CTA secondary link" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "blocks": [
+    {
+      "type": "timeline_event",
+      "name": "Timeline event",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
+        },
+        { "type": "text", "id": "year", "label": "Year", "default": "1890s" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Foundation calibers" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Simple hand-wound calibers establish Marvin's early mechanical identity." }
+      ]
+    },
+    {
+      "type": "archive_item",
+      "name": "Archive item",
+      "limit": 9,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Series" },
+        { "type": "text", "id": "title", "label": "Title", "default": "500 series" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Bridge architecture and hand-finished details designed for durability and serviceability." }
+      ]
+    },
+    {
+      "type": "influence_card",
+      "name": "Influence card",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Heritage node" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Marvin x Zenith" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Document influence, supplier overlap, or finishing philosophy related to this movement family." }
+      ]
+    },
+    {
+      "type": "signature",
+      "name": "Signature",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "icon_text", "label": "Icon text", "default": "M1" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Thin bridges" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Balanced bridge geometry designed for clean visual rhythm and efficient service access." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Movement landing",
+      "blocks": [
+        { "type": "timeline_event", "settings": { "position": "left", "year": "1890s - 1920s", "title": "Foundation calibers", "text": "Entry hand-wound movement platforms establish Marvin's functional architecture." } },
+        { "type": "timeline_event", "settings": { "position": "right", "year": "1930s - 1940s", "title": "Dress-watch refinement", "text": "Slimmer proportions and improved finishing support elegant daily-wear designs." } },
+        { "type": "timeline_event", "settings": { "position": "left", "year": "1950s - 1970s", "title": "Automatic evolution", "text": "Rotor-driven systems and improved shock protection modernize performance." } },
+        { "type": "timeline_event", "settings": { "position": "right", "year": "Present day", "title": "Restored legacy", "text": "Modern Marvin designs reconnect archival engineering cues with today's enthusiasts." } },
+
+        { "type": "archive_item", "settings": { "label": "Archive", "title": "500 series", "text": "Reliable hand-wound caliber language centered on clarity and durability." } },
+        { "type": "archive_item", "settings": { "label": "Archive", "title": "700 series", "text": "Expanded bridge geometry and refined layout for improved visual symmetry." } },
+        { "type": "archive_item", "settings": { "label": "Archive", "title": "900 series", "text": "A robust mechanical family balancing serviceability and elegant finishing." } },
+        { "type": "archive_item", "settings": { "label": "Archive", "title": "Auto evolution", "text": "Automatic winding marks Marvin's transition into contemporary mechanical wear." } },
+        { "type": "archive_item", "settings": { "label": "Archive", "title": "Tour series", "text": "Complexity-driven architecture with collector-focused details and layered finishing." } },
+        { "type": "archive_item", "settings": { "label": "Archive", "title": "Base series", "text": "Foundational movements that informed later decorative and structural upgrades." } },
+
+        { "type": "influence_card", "settings": { "label": "Influence", "title": "Marvin x Zenith", "text": "Shared Swiss movement vocabulary and overlapping finishing standards inform the visual genealogy." } },
+        { "type": "influence_card", "settings": { "label": "Influence", "title": "Marvin x Louis Moinet", "text": "Mechanical architecture and collector presentation echo across modern enthusiast culture." } },
+        { "type": "influence_card", "settings": { "label": "Influence", "title": "Technical crossover", "text": "Bridge shape, jewel placement, and finishing language reveal broader industry influence." } },
+
+        { "type": "signature", "settings": { "icon_text": "S1", "title": "Thin movement design", "text": "Elegant proportions preserve visual balance without sacrificing structural clarity." } },
+        { "type": "signature", "settings": { "icon_text": "S2", "title": "Engraved markings", "text": "Historic caliber markings reinforce traceability and collector authenticity." } },
+        { "type": "signature", "settings": { "icon_text": "S3", "title": "Clean architecture", "text": "Bridge layout emphasizes legibility and disciplined engineering rhythm." } },
+        { "type": "signature", "settings": { "icon_text": "S4", "title": "Precision adjustment", "text": "Fine regulation details support stable timekeeping and service longevity." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
