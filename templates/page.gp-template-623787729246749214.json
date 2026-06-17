@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_623787850579575542": {
+      "settings": {
+        "checksum": "9cb5b5cdc74820e98a192d013013dae7dc1e6ca4d1c44d4c502af886e36aa380_1_1_0_0__1",
+        "gg03djMYhCA_text": "<p>Lorem ipsum dolor sit amet</p>",
+        "ggLNiSuIb5r_text": "<p>Lorem ipsum</p>",
+        "ggZR_BCpUs6_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-9a302469-3a91-4a94-bf0b-564f2486a9f9.png",
+        "ggdUN6MLe2j_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-1b13c10f-dc7c-494a-9dbb-ce3dd680f887.png",
+        "ggibeXbCsnk_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br><br>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>",
+        "ggnvTVkJHoQ_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-0fae58d0-dd31-4973-9cea-5cc6bfd8276a.png",
+        "ggwQVqqTLXI_text": "Lorem ipsum dolor sit amet",
+        "section_preload": "true"
+      },
+      "type": "gp-section-623787850579575542"
+    },
+    "gp_section_623787908360307668": {
+      "settings": {
+        "checksum": "af30d84e6ce11587f90f76cc34dada796f082b664482104f234b729f7fe46819_1_1_0_0__1",
+        "ggUIALlGYYO_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>",
+        "gg_sfi-oOun_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>",
+        "ggdAl_SuEia_text": "Lorem ipsum dolor sit amet, consectetur&nbsp;",
+        "ggoNrJj1Ufl_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-4b8c2391-5a4b-498c-8daa-758ecc9c30d4.png",
+        "ggoNrJj1Ufl_srcSet_mobile_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-d9db39f0-76af-4f26-b36b-3d7487f4cc61.png"
+      },
+      "type": "gp-section-623787908360307668"
+    },
+    "gp_section_623787935036080670": {
+      "settings": {
+        "checksum": "f45898e125c6f04845a1c1ee8d96fd9d67bc46768e42abd45ea7361f909fb5fa_1_1_0_0__1",
+        "gg11jQfyC0Z_html5Url": "https://cdn.shopify.com/videos/c/o/v/31cbd8d73b114e62a9df534684c49c07.mp4",
+        "gg11jQfyC0Z_poster_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-420837df-843a-4524-9150-8d301944bb55.png",
+        "gg11jQfyC0Z_vimeoUrl": "https://vimeo.com/347119375",
+        "gg11jQfyC0Z_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "gg8sO07Afz1_text": "Lorem ipsum dolor sit amet consectetur",
+        "ggHkyBE06Cj_html5Url": "https://cdn.shopify.com/videos/c/o/v/8432697ab1a3415c977a819aa651739e.mp4",
+        "ggHkyBE06Cj_poster_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-cf4b4844-27d5-4fe3-bd8c-e9a34a93f94a.png",
+        "ggHkyBE06Cj_vimeoUrl": "https://vimeo.com/347119375",
+        "ggHkyBE06Cj_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggHp0lj99Qz_html5Url": "https://cdn.shopify.com/videos/c/o/v/31cbd8d73b114e62a9df534684c49c07.mp4",
+        "ggHp0lj99Qz_poster_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-420837df-843a-4524-9150-8d301944bb55.png",
+        "ggHp0lj99Qz_vimeoUrl": "https://vimeo.com/347119375",
+        "ggHp0lj99Qz_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggQp247lBq8_html5Url": "https://cdn.shopify.com/videos/c/o/v/8432697ab1a3415c977a819aa651739e.mp4",
+        "ggQp247lBq8_poster_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-cf4b4844-27d5-4fe3-bd8c-e9a34a93f94a.png",
+        "ggQp247lBq8_vimeoUrl": "https://vimeo.com/347119375",
+        "ggQp247lBq8_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggUgq0T1h19_label": "LEARN MORE",
+        "gga47LZW3hd_text": "<p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness</p>",
+        "ggdi2hP8_IM_text": "<p>The standard Lorem</p>"
+      },
+      "type": "gp-section-623787935036080670"
+    },
+    "gp_section_623787963406352926": {
+      "settings": {
+        "checksum": "3ac807f5fc5c56d50b44a1bb7462e3ff0d33bd210b316ae60ef4d186ee8a2a61_1_1_0_0__1",
+        "gg-KhGk4Mxe_text": "SEE THE VIDEO",
+        "gg1EK6pvUu1_text": "<p>The standard Lorem Ipsum</p>",
+        "gg9PA5jw8cB_text": "<p>On the other hand, we denounce with righteous indignation and dislike men.</p>",
+        "ggUbq-hggrA_text": "<p>In a free hour, when our power of choice is untrammelled and when nothing prevents our being.</p>",
+        "ggs3x4UBDRu_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggs3x4UBDRu_poster_src": "https://cdn.shopify.com/s/files/1/2005/9307/files/432750572815254551-01137bf8-4df3-4538-84bb-8aa25024c50d.png",
+        "ggs3x4UBDRu_vimeoUrl": "https://vimeo.com/347119375",
+        "ggs3x4UBDRu_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "gguoZR3PflU_label": "READ MORE"
+      },
+      "type": "gp-section-623787963406352926"
+    }
+  },
+  "order": [
+    "gp_section_623787850579575542",
+    "gp_section_623787963406352926",
+    "gp_section_623787908360307668",
+    "gp_section_623787935036080670"
+  ]
+}
