@@ -1,0 +1,1044 @@
+{% liquid
+  assign details = page.metafields.custom.details.value
+
+  for item in details
+    if item.name == 'luminous'
+      assign luminous_image_1_1 = item.luminous_image_1_1
+      assign luminous_image_2_1 = item.luminous_image_2_1
+      assign luminous_image_3_1 = item.luminous_image_3_1
+    endif
+  endfor
+%}
+
+<section
+  class="luminous-landing"
+  style="
+    --luminous-bg: {{ section.settings.background_color }};
+    --luminous-surface: {{ section.settings.surface_color }};
+    --luminous-accent: {{ section.settings.accent_color }};
+    --luminous-accent-2: {{ section.settings.accent_secondary_color }};
+    --luminous-text: {{ section.settings.text_color }};
+    --luminous-muted: {{ section.settings.muted_text_color }};
+    --luminous-border: {{ section.settings.border_color }};
+    --luminous-top: {{ section.settings.padding_top }}px;
+    --luminous-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <style>
+    .luminous-landing {
+      background: var(--luminous-bg);
+      color: var(--luminous-text);
+      padding: var(--luminous-top) 0 var(--luminous-bottom);
+    }
+
+    .luminous-landing__container {
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    .luminous-landing__topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: 66px;
+      padding: 0 24px;
+      border-top: 1px solid var(--luminous-border);
+      border-bottom: 1px solid var(--luminous-border);
+      background: rgba(4, 8, 11, 0.94);
+    }
+
+    .luminous-landing__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .luminous-landing__brand-mark {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--luminous-accent-2);
+      box-shadow: 0 0 0 4px rgba(243, 18, 69, 0.18);
+    }
+
+    .luminous-landing__nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .luminous-landing__nav a,
+    .luminous-landing__nav span {
+      color: var(--luminous-text);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+      opacity: 0.82;
+    }
+
+    .luminous-landing__nav a:hover {
+      opacity: 1;
+    }
+
+    .luminous-landing__panel {
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
+        var(--luminous-surface);
+      border-top: 1px solid var(--luminous-border);
+      border-bottom: 1px solid var(--luminous-border);
+      overflow: hidden;
+    }
+
+    .luminous-landing__hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: center;
+      padding: 40px;
+      min-height: 620px;
+      background:
+        radial-gradient(circle at 30% 35%, rgba(0, 208, 255, 0.08), transparent 26%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.08)),
+        var(--luminous-surface);
+    }
+
+    .luminous-landing__hero-content {
+      flex: 1 1 420px;
+      min-width: 0;
+    }
+
+    .luminous-landing__eyebrow {
+      margin: 0 0 16px;
+      color: var(--luminous-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .luminous-landing__title {
+      margin: 0;
+      color: var(--luminous-text);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 0.96;
+      font-size: clamp(2.4rem, 6vw, 4.6rem);
+    }
+
+    .luminous-landing__copy,
+    .luminous-landing__copy p {
+      margin: 18px 0 0;
+      color: var(--luminous-muted);
+      line-height: 1.8;
+      font-size: 1rem;
+      max-width: 640px;
+    }
+
+    .luminous-landing__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .luminous-landing__badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(17, 37, 48, 0.92);
+      border: 1px solid rgba(38, 200, 255, 0.18);
+      color: var(--luminous-accent);
+      font-size: 0.88rem;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .luminous-landing__badge::before {
+      content: "✓";
+      margin-right: 8px;
+      color: var(--luminous-accent);
+    }
+
+    .luminous-landing__hero-media {
+      position: relative;
+      flex: 0.6 1 240px;
+      min-height: 320px;
+      background: #111;
+      overflow: hidden;
+    }
+
+    .luminous-landing__hero-media img,
+    .luminous-landing__feature-media img,
+    .luminous-landing__spotlight-media img,
+    .luminous-landing__card-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .luminous-landing__hero-tag {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      padding: 16px 24px;
+      background: var(--luminous-accent-2);
+      color: #fff;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .luminous-landing__feature {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      flex-wrap: wrap;
+      background: #02070a;
+    }
+
+    .luminous-landing__feature-copy {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      flex: 1 1 320px;
+      padding: 44px 40px;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.34) 65%, transparent 100%);
+    }
+
+    .luminous-landing__feature-title {
+      margin: 0;
+      color: var(--luminous-text);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 0.95;
+      font-size: clamp(1.05rem, 2.5vw, 2.1rem);
+    }
+
+    .luminous-landing__feature-title .accent {
+      color: var(--luminous-accent);
+      word-break: keep-all;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .luminous-landing__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
+      margin-top: 26px;
+      background: var(--luminous-accent-2);
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: opacity 0.2s ease;
+    }
+
+    .luminous-landing__button:hover {
+      opacity: 0.88;
+    }
+
+    .luminous-landing__feature-media {
+      position: relative;
+      flex: 1 1 420px;
+      min-height: 520px;
+    }
+
+    .luminous-landing__spotlight {
+      position: relative;
+      min-height: 620px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .luminous-landing__spotlight-media {
+      position: absolute;
+      inset: 0;
+    }
+
+    .luminous-landing__spotlight-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0.64) 100%);
+    }
+
+    .luminous-landing__spotlight-copy {
+      position: relative;
+      z-index: 1;
+      flex: 0 0 46%;
+      max-width: none;
+      margin-left: auto;
+     display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .luminous-landing__spotlight-copy > div {
+      width: min(100%, 400px);
+      height: auto;
+      min-height: 0;
+      padding: 30px;
+      background: rgba(0,0,0,0.38);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .luminous-landing__spotlight-copy .luminous-landing__feature-title,
+    .luminous-landing__spotlight-copy .luminous-landing__copy,
+    .luminous-landing__spotlight-copy .luminous-landing__copy p {
+      text-align: center;
+      max-width: none;
+    }
+
+    .luminous-landing__spotlight-copy .luminous-landing__button {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .luminous-landing__section-label {
+      margin: 0 0 18px;
+      color: var(--luminous-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .luminous-landing__collection {
+      padding: 64px 28px 72px;
+      background:
+        linear-gradient(180deg, rgba(2, 7, 10, 0.96), rgba(4, 9, 12, 1)),
+        var(--luminous-surface);
+    }
+
+    .luminous-landing__collection-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .luminous-landing__collection-title {
+      margin: 0;
+      color: var(--luminous-text);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: clamp(2rem, 4.8vw, 3.6rem);
+      line-height: 1;
+    }
+
+    .luminous-landing__collection-underline {
+      width: 88px;
+      height: 3px;
+      margin: 18px auto 0;
+      background: var(--luminous-accent-2);
+    }
+
+    .luminous-landing__collection-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .luminous-landing__tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .luminous-landing__tab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--luminous-text);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .luminous-landing__tab.is-active {
+      border-color: var(--luminous-accent-2);
+      background: var(--luminous-accent-2);
+      color: #fff;
+    }
+
+    .luminous-landing__sort {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--luminous-muted);
+      font-size: 0.82rem;
+    }
+
+    .luminous-landing__sort select {
+      min-width: 150px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.36);
+      color: var(--luminous-text);
+    }
+
+    .luminous-landing__cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+
+    .luminous-landing__card {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 calc(25% - 14px);
+      min-width: 220px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .luminous-landing__card-media {
+      min-height: 250px;
+      background: #0b0f12;
+    }
+
+    .luminous-landing__card-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 18px 18px 20px;
+      flex: 1 1 auto;
+    }
+
+    .luminous-landing__card-title {
+      margin: 0;
+      color: var(--luminous-text);
+      font-size: 0.98rem;
+      line-height: 1.35;
+      min-height: 2.7em;
+    }
+
+    .luminous-landing__card-meta {
+      color: var(--luminous-muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .luminous-landing__card-price {
+      color: var(--luminous-accent);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .luminous-landing__card-button {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 10px 18px;
+      background: var(--luminous-accent-2);
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .luminous-landing__cta {
+      padding: 58px 24px 64px;
+      text-align: center;
+      background: #31dce2;
+      color: #071012;
+    }
+
+    .luminous-landing__cta-title {
+      margin: 0;
+      color: #071012;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .luminous-landing__cta-copy {
+      max-width: 760px;
+      margin: 16px auto 0;
+      color: rgba(7, 16, 18, 0.84);
+      line-height: 1.8;
+      font-size: 0.98rem;
+    }
+
+    .luminous-landing__cta .luminous-landing__button {
+      background: #071012;
+      margin-top: 28px;
+    }
+
+    .luminous-landing__footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+      padding: 36px 28px;
+      border-top: 1px solid var(--luminous-border);
+      background: #05080a;
+    }
+
+    .luminous-landing__footer-brand {
+      max-width: 280px;
+    }
+
+    .luminous-landing__footer-copy {
+      margin: 14px 0 0;
+      color: var(--luminous-muted);
+      line-height: 1.8;
+      font-size: 0.88rem;
+    }
+
+    .luminous-landing__footer-columns {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .luminous-landing__footer-title {
+      margin: 0 0 12px;
+      color: var(--luminous-text);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+    }
+
+    .luminous-landing__footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .luminous-landing__footer-links a {
+      color: var(--luminous-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .luminous-landing__footer-links a:hover {
+      color: var(--luminous-text);
+    }
+
+    .luminous-landing__footer-bottom {
+      padding: 18px 28px 0;
+      color: rgba(193, 200, 203, 0.66);
+      text-align: center;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+    }
+
+    .luminous-landing__placeholder {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      text-align: center;
+      color: var(--luminous-muted);
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    }
+
+    @media screen and (max-width: 989px) {
+      .luminous-landing__topbar {
+        padding: 16px 18px;
+      }
+
+      .luminous-landing__hero,
+      .luminous-landing__feature {
+        flex-direction: column;
+      }
+
+      .luminous-landing__hero {
+        min-height: auto;
+        padding: 28px 24px;
+      }
+
+      .luminous-landing__hero-content,
+      .luminous-landing__hero-media,
+      .luminous-landing__feature-copy,
+      .luminous-landing__feature-media {
+        flex-basis: 100%;
+        width: 100%;
+      }
+
+      .luminous-landing__feature-copy {
+        background: rgba(0, 0, 0, 0.62);
+      }
+
+      .luminous-landing__spotlight {
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .luminous-landing__spotlight-media {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-height: 340px;
+      }
+
+      .luminous-landing__spotlight-overlay {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto;
+        height: 340px;
+      }
+
+      .luminous-landing__spotlight-copy {
+        width: 100%;
+        max-width: none;
+        min-height: auto;
+        padding: 38px 28px;
+        margin-left: 0;
+        background: rgba(0, 0, 0, 0.72);
+      }
+
+      .luminous-landing__card {
+        flex-basis: calc(50% - 9px);
+      }
+
+      .luminous-landing__footer {
+        padding: 28px 20px;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .luminous-landing__topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .luminous-landing__nav {
+        gap: 14px;
+      }
+
+      .luminous-landing__hero {
+        padding: 24px 18px;
+        gap: 22px;
+      }
+
+      .luminous-landing__hero-media {
+        min-height: auto;
+      }
+
+      .luminous-landing__hero-tag {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+
+      .luminous-landing__feature-copy {
+        padding: 28px 18px;
+      }
+
+      .luminous-landing__feature,
+      .luminous-landing__feature-media {
+        min-height: auto;
+      }
+
+      .luminous-landing__spotlight {
+        min-height: auto;
+      }
+
+      .luminous-landing__spotlight-media {
+        min-height: auto;
+      }
+
+      .luminous-landing__spotlight-overlay {
+        display: none;
+      }
+
+      .luminous-landing__spotlight-copy {
+        min-height: auto;
+        padding: 32px 18px;
+      }
+
+      .luminous-landing__feature-copy .luminous-landing__feature-title div + div,
+      .luminous-landing__spotlight-copy .luminous-landing__feature-title div + div {
+        margin-top: 16px;
+      }
+
+      .luminous-landing__hero-media img,
+      .luminous-landing__feature-media img,
+      .luminous-landing__spotlight-media img {
+        height: auto;
+      }
+
+      .luminous-landing__collection {
+        padding: 42px 18px 48px;
+      }
+
+      .luminous-landing__collection-toolbar {
+        align-items: flex-start;
+      }
+
+      .luminous-landing__sort {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .luminous-landing__sort select {
+        min-width: 0;
+        width: 160px;
+      }
+
+      .luminous-landing__card {
+        flex-basis: 100%;
+      }
+
+      .luminous-landing__cta {
+        padding: 42px 18px 48px;
+      }
+
+      .luminous-landing__footer {
+        padding: 24px 18px;
+      }
+
+      .luminous-landing__footer-columns {
+        gap: 24px;
+      }
+
+      .luminous-landing__footer-bottom {
+        padding: 16px 18px 0;
+      }
+    }
+  </style>
+
+  <div class="luminous-landing__container">
+    
+
+    <section class="luminous-landing__panel luminous-landing__hero">
+      <div class="luminous-landing__hero-content">
+        <p class="luminous-landing__eyebrow">Swiss technology</p>
+        <h1 class="luminous-landing__title">
+          How does it Work
+        </h1>
+        <div class="luminous-landing__copy">
+          <p>Swiss Super-LumiNova is the industry-leading technology that gives our Luminous dials their brilliant glow. It is a premium phosphorescent pigment applied in multiple precision layers that charges automatically from natural or artificial light as you wear your watch.</p>
+          <p>When fully charged, your Marvin watch will glow brightly in complete darkness for up to 8 hours, ensuring you can always read the time no matter how dark your surroundings.</p>
+        </div>
+        <div class="luminous-landing__badges">
+          <span class="luminous-landing__badge">Swiss Made</span>
+          <span class="luminous-landing__badge">8+ Hour Glow</span>
+          <span class="luminous-landing__badge">Automatic Movement</span>
+          <span class="luminous-landing__badge">Water Resistant</span>
+        </div>
+      </div>
+
+      <div class="luminous-landing__hero-media">
+        {% if luminous_image_1_1 != blank %}
+          {{ luminous_image_1_1 | image_url: width: 1600 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="luminous-landing__placeholder">Upload hero image</div>
+        {% endif %}
+        <div class="luminous-landing__hero-tag">Full luminosity</div>
+      </div>
+    </section>
+
+    <section class="luminous-landing__panel luminous-landing__feature">
+      <div class="luminous-landing__feature-copy">
+        <div>
+          <h2 class="luminous-landing__feature-title">
+            <div class="accent">Full lume</div>
+            <div>Timepieces</div>
+          </h2>
+          <div class="luminous-landing__copy">
+            <p>Our collection of full-lume watches have everything you need to view time seamlessly, day or night.</p>
+          </div>
+          <a class="luminous-landing__button" href="{{ section.settings.feature_button_link | default: '#' }}">
+            Shop now
+          </a>
+        </div>
+      </div>
+
+      <div class="luminous-landing__feature-media">
+        {% if luminous_image_2_1 != blank %}
+          {{ luminous_image_2_1 | image_url: width: 2000 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="luminous-landing__placeholder">Upload feature image</div>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="luminous-landing__panel luminous-landing__spotlight">
+      <div class="luminous-landing__spotlight-media">
+        {% if luminous_image_3_1 != blank %}
+          {{ luminous_image_3_1 | image_url: width: 2200 | image_tag: loading: 'lazy' }}
+        {% else %}
+          <div class="luminous-landing__placeholder">Upload spotlight image</div>
+        {% endif %}
+      </div>
+      <div class="luminous-landing__spotlight-overlay"></div>
+      <div class="luminous-landing__spotlight-copy">
+        <div>
+          <div class="luminous-landing__feature-title">
+            <div class="accent">Full lume</div>
+            <div>Timepieces</div>
+          </div>
+          <div class="luminous-landing__copy">
+            <p>Our timepieces are assembled and finished with a meticulous focus on contrast, texture, and long-lasting luminosity.</p>
+          </div>
+          <a class="luminous-landing__button" href="{{ section.settings.spotlight_button_link | default: '#' }}">
+            Shop now
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="luminous-landing__panel luminous-landing__collection">
+      <div class="luminous-landing__collection-header">
+        <p class="luminous-landing__section-label">It is time</p>
+        <h2 class="luminous-landing__collection-title">Luminous collection</h2>
+        <div class="luminous-landing__collection-underline"></div>
+      </div>
+
+      {% comment %} <div class="luminous-landing__collection-toolbar">
+        <div class="luminous-landing__tabs" aria-label="Collection filters">
+          <span class="luminous-landing__tab is-active">All</span>
+          <span class="luminous-landing__tab">Automatic</span>
+          <span class="luminous-landing__tab">GMT</span>
+          <span class="luminous-landing__tab">Chronograph</span>
+        </div>
+        <label class="luminous-landing__sort">
+          <span>Sort by</span>
+          <select aria-label="Sort products">
+            <option selected>Featured</option>
+            <option>Price, low to high</option>
+            <option>Price, high to low</option>
+            <option>Newest</option>
+          </select>
+        </label>
+      </div> {% endcomment %}
+
+      <div class="luminous-landing__cards">
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_1 != blank %}
+              {{ section.settings.collection_image_1 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 1</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">Expedition 1760th Anniversary</h3>
+            <div class="luminous-landing__card-meta">Automatic</div>
+            <div class="luminous-landing__card-price">$649.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_2 != blank %}
+              {{ section.settings.collection_image_2 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 2</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">DNB Neo-Cyber Square</h3>
+            <div class="luminous-landing__card-meta">Luminous Series</div>
+            <div class="luminous-landing__card-price">$599.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_3 != blank %}
+              {{ section.settings.collection_image_3 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 3</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
+            <div class="luminous-landing__card-meta">Luminous Series</div>
+            <div class="luminous-landing__card-price">$699.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_4 != blank %}
+              {{ section.settings.collection_image_4 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 4</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
+            <div class="luminous-landing__card-meta">Limited Edition</div>
+            <div class="luminous-landing__card-price">$649.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_5 != blank %}
+              {{ section.settings.collection_image_5 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 5</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">Expedition 1760th Anniversary</h3>
+            <div class="luminous-landing__card-meta">Automatic</div>
+            <div class="luminous-landing__card-price">$649.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_6 != blank %}
+              {{ section.settings.collection_image_6 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 6</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">DNB Neo-Cyber Square</h3>
+            <div class="luminous-landing__card-meta">Luminous Series</div>
+            <div class="luminous-landing__card-price">$599.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_7 != blank %}
+              {{ section.settings.collection_image_7 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 7</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
+            <div class="luminous-landing__card-meta">Explorer Line</div>
+            <div class="luminous-landing__card-price">$699.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+
+        <article class="luminous-landing__card">
+          <div class="luminous-landing__card-media">
+            {% if section.settings.collection_image_8 != blank %}
+              {{ section.settings.collection_image_8 | image_url: width: 900 | image_tag: loading: 'lazy' }}
+            {% else %}
+              <div class="luminous-landing__placeholder">Upload collection image 8</div>
+            {% endif %}
+          </div>
+          <div class="luminous-landing__card-body">
+            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
+            <div class="luminous-landing__card-meta">Luminous Series</div>
+            <div class="luminous-landing__card-price">$699.00</div>
+            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="luminous-landing__cta">
+      <h2 class="luminous-landing__cta-title">Glow in the dark. Stand out in the crowd</h2>
+      <div class="luminous-landing__cta-copy">
+        Engineered for people accustomed to always moving and innovating, luminous technology gives Marvin timepieces a distinct identity at any light level.
+      </div>
+      <a class="luminous-landing__button" href="{{ section.settings.cta_button_link | default: '#' }}">
+        Shop all luminous watches
+      </a>
+    </section>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Luminous landing",
+  "tag": "section",
+  "class": "section-wrapper",
+  "settings": [
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#040708" },
+    { "type": "color", "id": "surface_color", "label": "Surface", "default": "#0a0f11" },
+    { "type": "color", "id": "accent_color", "label": "Accent cyan", "default": "#11dfff" },
+    { "type": "color", "id": "accent_secondary_color", "label": "Accent red", "default": "#f31245" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#f5f7f8" },
+    { "type": "color", "id": "muted_text_color", "label": "Muted text", "default": "#c1c8cb" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#141a1d" },
+
+    { "type": "header", "content": "Hero section" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+
+    { "type": "header", "content": "Feature section" },
+    { "type": "url", "id": "feature_button_link", "label": "Feature button link" },
+    { "type": "image_picker", "id": "feature_image", "label": "Feature image" },
+
+    { "type": "header", "content": "Spotlight section" },
+    { "type": "url", "id": "spotlight_button_link", "label": "Spotlight button link" },
+    { "type": "image_picker", "id": "spotlight_image", "label": "Spotlight image" },
+
+    { "type": "header", "content": "Collection section" },
+    { "type": "url", "id": "collection_link", "label": "Collection product link" },
+    { "type": "image_picker", "id": "collection_image_1", "label": "Collection image 1" },
+    { "type": "image_picker", "id": "collection_image_2", "label": "Collection image 2" },
+    { "type": "image_picker", "id": "collection_image_3", "label": "Collection image 3" },
+    { "type": "image_picker", "id": "collection_image_4", "label": "Collection image 4" },
+    { "type": "image_picker", "id": "collection_image_5", "label": "Collection image 5" },
+    { "type": "image_picker", "id": "collection_image_6", "label": "Collection image 6" },
+    { "type": "image_picker", "id": "collection_image_7", "label": "Collection image 7" },
+    { "type": "image_picker", "id": "collection_image_8", "label": "Collection image 8" },
+
+    { "type": "header", "content": "CTA section" },
+    { "type": "url", "id": "cta_button_link", "label": "CTA button link" },
+
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    {
+      "name": "Luminous landing"
+    }
+  ]
+}
+{% endschema %}
