@@ -1,11 +1,14 @@
 {% liquid
   assign details = page.metafields.custom.details.value
-
+ 
   for item in details
     if item.name == 'luminous'
       assign luminous_image_1_1 = item.luminous_image_1_1
       assign luminous_image_2_1 = item.luminous_image_2_1
       assign luminous_image_3_1 = item.luminous_image_3_1
+    endif
+    if item.name == 'luminous_products'
+     assign _products = item.products.value
     endif
   endfor
 %}
@@ -743,8 +746,7 @@
   </style>
 
   <div class="luminous-landing__container">
-    
-
+    <a href="/products/malton-cushion-day-date-automatic">
     <section class="luminous-landing__panel luminous-landing__hero">
       <div class="luminous-landing__hero-content">
         <p class="luminous-landing__eyebrow">Swiss technology</p>
@@ -772,7 +774,7 @@
         <div class="luminous-landing__hero-tag">Full luminosity</div>
       </div>
     </section>
-
+    </a>
     <section class="luminous-landing__panel luminous-landing__feature">
       <div class="luminous-landing__feature-copy">
         <div>
@@ -783,7 +785,7 @@
           <div class="luminous-landing__copy">
             <p>Our collection of full-lume watches have everything you need to view time seamlessly, day or night.</p>
           </div>
-          <a class="luminous-landing__button" href="{{ section.settings.feature_button_link | default: '#' }}">
+          <a class="luminous-landing__button" href="/products/malton-round-m130-celestial-edition">
             Shop now
           </a>
         </div>
@@ -797,7 +799,6 @@
         {% endif %}
       </div>
     </section>
-
     <section class="luminous-landing__panel luminous-landing__spotlight">
       <div class="luminous-landing__spotlight-media">
         {% if luminous_image_3_1 != blank %}
@@ -816,13 +817,12 @@
           <div class="luminous-landing__copy">
             <p>Our timepieces are assembled and finished with a meticulous focus on contrast, texture, and long-lasting luminosity.</p>
           </div>
-          <a class="luminous-landing__button" href="{{ section.settings.spotlight_button_link | default: '#' }}">
+          <a class="luminous-landing__button" href="/products/bathyscaphe-automatic-diver">
             Shop now
           </a>
         </div>
       </div>
     </section>
-
     <section class="luminous-landing__panel luminous-landing__collection">
       <div class="luminous-landing__collection-header">
         <p class="luminous-landing__section-label">It is time</p>
@@ -849,133 +849,33 @@
       </div> {% endcomment %}
 
       <div class="luminous-landing__cards">
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_1 != blank %}
-              {{ section.settings.collection_image_1 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 1</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">Expedition 1760th Anniversary</h3>
-            <div class="luminous-landing__card-meta">Automatic</div>
-            <div class="luminous-landing__card-price">$649.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_2 != blank %}
-              {{ section.settings.collection_image_2 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 2</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">DNB Neo-Cyber Square</h3>
-            <div class="luminous-landing__card-meta">Luminous Series</div>
-            <div class="luminous-landing__card-price">$599.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_3 != blank %}
-              {{ section.settings.collection_image_3 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 3</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
-            <div class="luminous-landing__card-meta">Luminous Series</div>
-            <div class="luminous-landing__card-price">$699.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_4 != blank %}
-              {{ section.settings.collection_image_4 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 4</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
-            <div class="luminous-landing__card-meta">Limited Edition</div>
-            <div class="luminous-landing__card-price">$649.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_5 != blank %}
-              {{ section.settings.collection_image_5 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 5</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">Expedition 1760th Anniversary</h3>
-            <div class="luminous-landing__card-meta">Automatic</div>
-            <div class="luminous-landing__card-price">$649.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_6 != blank %}
-              {{ section.settings.collection_image_6 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 6</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">DNB Neo-Cyber Square</h3>
-            <div class="luminous-landing__card-meta">Luminous Series</div>
-            <div class="luminous-landing__card-price">$599.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_7 != blank %}
-              {{ section.settings.collection_image_7 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 7</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
-            <div class="luminous-landing__card-meta">Explorer Line</div>
-            <div class="luminous-landing__card-price">$699.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
-
-        <article class="luminous-landing__card">
-          <div class="luminous-landing__card-media">
-            {% if section.settings.collection_image_8 != blank %}
-              {{ section.settings.collection_image_8 | image_url: width: 900 | image_tag: loading: 'lazy' }}
-            {% else %}
-              <div class="luminous-landing__placeholder">Upload collection image 8</div>
-            {% endif %}
-          </div>
-          <div class="luminous-landing__card-body">
-            <h3 class="luminous-landing__card-title">Cushion M119 Urban Explorer</h3>
-            <div class="luminous-landing__card-meta">Luminous Series</div>
-            <div class="luminous-landing__card-price">$699.00</div>
-            <a class="luminous-landing__card-button" href="{{ section.settings.collection_link | default: '#' }}">Add to cart</a>
-          </div>
-        </article>
+        {% if _products != blank %}
+          {% for _product in _products %}
+            <article class="luminous-landing__card">
+              <div class="luminous-landing__card-media">
+                {% if _product.featured_media != blank %}
+                  {{
+                    _product.featured_media
+                    | image_url: width: 900
+                    | image_tag: loading: 'lazy', alt: _product.title
+                  }}
+                {% else %}
+                  <div class="luminous-landing__placeholder">No product image</div>
+                {% endif %}
+              </div>
+              <div class="luminous-landing__card-body">
+                <h3 class="luminous-landing__card-title">{{ _product.title }}</h3>
+                <div class="luminous-landing__card-meta">
+                  {{ _product.type | default: _product.vendor | default: 'Product' }}
+                </div>
+                <div class="luminous-landing__card-price">{{ _product.price | money }}</div>
+                <a class="luminous-landing__card-button" href="{{ _product.url }}">View product</a>
+              </div>
+            </article>
+          {% endfor %}
+        {% else %}
+          <div class="luminous-landing__placeholder">Please select products in Luminous collection.</div>
+        {% endif %}
       </div>
     </section>
 
@@ -995,8 +895,14 @@
 {
   "name": "Luminous landing",
   "tag": "section",
-  "class": "section-wrapper",
   "settings": [
+    
+    {
+      "type": "metaobject",
+      "id": "products_list",
+      "label": "Luminous collection",
+      "metaobject_type": "colletion_luminous"
+    },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "background_color", "label": "Background", "default": "#040708" },
     { "type": "color", "id": "surface_color", "label": "Surface", "default": "#0a0f11" },
