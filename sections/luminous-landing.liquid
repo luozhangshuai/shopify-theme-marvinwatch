@@ -432,6 +432,18 @@
       background: #0b0f12;
     }
 
+    .luminous-landing__card-media-link,
+    .luminous-landing__card-title-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .luminous-landing__card-title-link:hover .luminous-landing__card-title,
+    .luminous-landing__card-media-link:hover + .luminous-landing__card-body .luminous-landing__card-title {
+      color: var(--luminous-accent);
+    }
+
     .luminous-landing__card-body {
       display: flex;
       flex-direction: column;
@@ -477,6 +489,50 @@
       letter-spacing: 0.08em;
       font-size: 0.72rem;
       font-weight: 700;
+    }
+
+    .luminous-landing__toast {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: min(360px, calc(100vw - 32px));
+      padding: 14px 18px;
+      border: 1px solid rgba(38, 200, 255, 0.24);
+      background: rgba(7, 16, 18, 0.96);
+      color: var(--luminous-text);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, calc(-50% + 12px));
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .luminous-landing__toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    .luminous-landing__toast-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: var(--luminous-accent);
+      color: #071012;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .luminous-landing__toast-text {
+      font-size: 0.88rem;
+      line-height: 1.45;
     }
 
     .luminous-landing__cta {
@@ -742,6 +798,11 @@
       .luminous-landing__footer-bottom {
         padding: 16px 18px 0;
       }
+
+      .luminous-landing__toast {
+        max-width: calc(100vw - 24px);
+        padding: 12px 14px;
+      }
     }
   </style>
 
@@ -852,24 +913,49 @@
         {% if _products != blank %}
           {% for _product in _products %}
             <article class="luminous-landing__card">
-              <div class="luminous-landing__card-media">
-                {% if _product.featured_media != blank %}
-                  {{
-                    _product.featured_media
-                    | image_url: width: 900
-                    | image_tag: loading: 'lazy', alt: _product.title
-                  }}
-                {% else %}
-                  <div class="luminous-landing__placeholder">No product image</div>
-                {% endif %}
-              </div>
+             
+              <a class="luminous-landing__card-media-link" href="{{ _product.url }}">
+                <div class="luminous-landing__card-media">
+                   {% if _product.metafields.custom.luminous_image.value != blank %}
+                    {{
+                      _product.metafields.custom.luminous_image.value
+                      | image_url: width: 900
+                      | image_tag: loading: 'lazy', alt: _product.title
+                    }}
+                  {% else %}
+                      {% if _product.featured_media != blank %}
+                        {{
+                          _product.featured_media
+                          | image_url: width: 900
+                          | image_tag: loading: 'lazy', alt: _product.title
+                        }}
+                      {% else %}
+                        <div class="luminous-landing__placeholder">No product image</div>
+                      {% endif %}
+                  {% endif %}
+                </div>
+              </a>
               <div class="luminous-landing__card-body">
-                <h3 class="luminous-landing__card-title">{{ _product.title }}</h3>
+                <a class="luminous-landing__card-title-link" href="{{ _product.url }}">
+                  <h3 class="luminous-landing__card-title">{{ _product.title }}</h3>
+                </a>
                 <div class="luminous-landing__card-meta">
                   {{ _product.type | default: _product.vendor | default: 'Product' }}
                 </div>
                 <div class="luminous-landing__card-price">{{ _product.price | money }}</div>
-                <a class="luminous-landing__card-button" href="{{ _product.url }}">View product</a>
+                {% assign luminous_variant = _product.selected_or_first_available_variant %}
+                <a
+                  class="luminous-landing__card-button"
+                  href="{{ _product.url }}"
+                  data-luminous-add-to-cart
+                  data-product-id="{{ _product.id }}"
+                  data-product-title="{{ _product.title | escape }}"
+                  {% if luminous_variant %}
+                    data-variant-id="{{ luminous_variant.id }}"
+                  {% endif %}
+                >
+                  Add to cart
+                </a>
               </div>
             </article>
           {% endfor %}
@@ -884,11 +970,158 @@
       <div class="luminous-landing__cta-copy">
         Engineered for people accustomed to always moving and innovating, luminous technology gives Marvin timepieces a distinct identity at any light level.
       </div>
-      <a class="luminous-landing__button" href="{{ section.settings.cta_button_link | default: '#' }}">
+      <a class="luminous-landing__button" href="/collections/luminous">
         Shop all luminous watches
       </a>
     </section>
   </div>
+
+  <div class="luminous-landing__toast" data-luminous-toast aria-live="polite" aria-atomic="true" hidden>
+    <span class="luminous-landing__toast-icon">+</span>
+    <span class="luminous-landing__toast-text" data-luminous-toast-text>Added to cart</span>
+  </div>
+
+  <script>
+    (function () {
+      var currentScript = document.currentScript;
+      var root = currentScript ? currentScript.closest('.luminous-landing') : null;
+      if (!root) return;
+
+      var buttons = root.querySelectorAll('[data-luminous-add-to-cart]');
+      var toast = root.querySelector('[data-luminous-toast]');
+      var toastText = root.querySelector('[data-luminous-toast-text]');
+      var toastTimer = null;
+      if (!buttons.length) return;
+
+      function getCartSectionIds() {
+        var sectionIds = [];
+        var cartItemsComponents = document.querySelectorAll('cart-items-component');
+
+        cartItemsComponents.forEach(function (item) {
+          if (item instanceof HTMLElement && item.dataset.sectionId) {
+            sectionIds.push(item.dataset.sectionId);
+          }
+        });
+
+        return sectionIds;
+      }
+
+      async function fetchCart() {
+        var response = await fetch(Theme.routes.cart_url + '.js', {
+          headers: {
+            Accept: 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch cart');
+        }
+
+        return response.json();
+      }
+
+      function showToast(message) {
+        if (!toast || !toastText) return;
+
+        if (toastTimer) {
+          clearTimeout(toastTimer);
+        }
+
+        toastText.textContent = message;
+        toast.hidden = false;
+
+        requestAnimationFrame(function () {
+          toast.classList.add('is-visible');
+        });
+
+        toastTimer = setTimeout(function () {
+          toast.classList.remove('is-visible');
+          setTimeout(function () {
+            toast.hidden = true;
+          }, 200);
+        }, 2200);
+      }
+
+      buttons.forEach(function (button) {
+        button.addEventListener('click', async function (event) {
+          var variantId = button.dataset.variantId;
+          if (!variantId) return;
+
+          event.preventDefault();
+
+          if (button.getAttribute('aria-disabled') === 'true') return;
+
+          var originalText = button.textContent.trim();
+          button.setAttribute('aria-disabled', 'true');
+          button.textContent = 'Adding...';
+
+          try {
+            var sectionIds = getCartSectionIds();
+            var payload = {
+              items: [
+                {
+                  id: Number(variantId),
+                  quantity: 1
+                }
+              ]
+            };
+
+            if (sectionIds.length) {
+              payload.sections = sectionIds.join(',');
+            }
+
+            var addResponse = await fetch(Theme.routes.cart_add_url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+              },
+              body: JSON.stringify(payload)
+            });
+
+            var addData = await addResponse.json();
+            if (!addResponse.ok || addData.status) {
+              throw new Error(addData.description || addData.message || 'Failed to add product to cart');
+            }
+
+            var cart = await fetchCart();
+
+            document.dispatchEvent(
+              new CustomEvent('cart:update', {
+                bubbles: true,
+                detail: {
+                  resource: cart,
+                  sourceId: 'luminous-landing',
+                  data: {
+                    source: 'luminous-landing',
+                    productId: button.dataset.productId,
+                    variantId: variantId,
+                    itemCount: 1,
+                    sections: addData.sections || {}
+                  }
+                }
+              })
+            );
+
+            showToast(button.dataset.productTitle ? button.dataset.productTitle + ' added to cart' : 'Added to cart');
+            button.textContent = 'Added';
+            setTimeout(function () {
+              button.textContent = originalText;
+              button.removeAttribute('aria-disabled');
+            }, 1200);
+          } catch (error) {
+            console.error(error);
+            showToast('Unable to add this product right now');
+            button.textContent = 'Unavailable';
+            setTimeout(function () {
+              button.textContent = originalText;
+              button.removeAttribute('aria-disabled');
+            }, 1200);
+          }
+        });
+      });
+    })();
+  </script>
 </section>
 
 {% schema %}
