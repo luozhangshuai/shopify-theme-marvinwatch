@@ -56,18 +56,40 @@
         -%}
 
         {%- if product_option.values.size == 1 and variant_style != 'swatch' -%}
-          <div
-            class="variant-option"
-            data-testid="variant-option-single"
-          >
-            {{- product_option.name | escape -}}
-            <span
-              class="variant-option__swatch-value"
-              data-testid="variant-option-single-value"
-            >
-              {{- product_option.selected_value -}}
-            </span>
-          </div>
+           
+
+
+       
+
+
+              <div
+                class="variant-option"
+                data-testid="variant-option-single"
+              >
+                {{- product_option.name | escape -}}
+                  {%- for product_option_value in product_option.values -%}
+                    {% liquid
+                      assign featured_media = product_option_value.variant.featured_media
+                    %}
+                  {% endfor %}
+                  {% if featured_media %}
+                    {{-
+                      featured_media
+                      | image_url: width: 500
+                      | image_tag:
+                        class: 'variant-option__button-label__image',
+                        loading: 'lazy'
+                    -}}
+                  {% else %}
+                    <span
+                      class="variant-option__swatch-value"
+                      data-testid="variant-option-single-value"
+                    >
+                      {{- product_option.selected_value -}}
+                    </span>
+                  {% endif %}
+              </div>
+        
         {%- elsif variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
           {%- assign fieldset_index = forloop.index0 -%}
           <fieldset
@@ -82,12 +104,31 @@
                 <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
               {%- endif %}
             </legend>
+            <div class="variant-option__scroll-wrapper">
             {%- for product_option_value in product_option.values -%}
               {% if product_option_value.size > longest_value and option_id_attribute %}
                 {% assign longest_value = product_option_value.size %}
               {% endif %}
+               {% liquid
+                  assign featured_media = product_option_value.variant.featured_media
+
+                  # If the variant has no featured media, and we have a combined listing product, then fall back to
+                  # using the featured media of the child product that is linked to this option value.
+                  if featured_media == blank and product_option_value.product_url
+                    assign featured_media = product_option_value.variant.product.featured_media
+                  endif
+                %}
+
+
               <label
-                class="variant-option__button-label{% if variant_style == 'swatch' %} variant-option__button-label--has-swatch{% endif %}"
+                class="variant-option__button-label
+                {% if variant_style == 'swatch' %} variant-option__button-label--has-swatch{% endif %}
+                {% if featured_media %} variant-option__button-label--has-image
+                  {% if product_option_value.selected %}
+                    selected
+                  {% endif %}
+                {% endif %}
+                "
               >
                 <input
                   type="radio"
@@ -114,6 +155,7 @@
                     data-current-checked="false"
                   {% endif %}
                 >
+
                 {% if variant_style == 'swatch' %}
                   {% liquid
                     assign featured_media = product_option_value.variant.featured_media
@@ -131,22 +173,36 @@
                     mode: 'unscaled'
                   %}
                 {% else %}
-                  {% if product_option_value.available == true %}
+
+                  {% if featured_media %}
+                    {{-
+                      featured_media
+                      | image_url: width: 500
+                      | image_tag:
+                        class: 'variant-option__button-label__image',
+                        alt: product_option_value.name,
+                        loading: 'lazy'
+                    -}}
+                  {% else %}
+                        {% if product_option_value.available == true %}
+                        <span
+                          class="variant-option__button-label__pill"
+                          data-key="variant-option-pill"
+                        ></span>
+                      {% endif %}
+
                     <span
-                      class="variant-option__button-label__pill"
-                      data-key="variant-option-pill"
-                    ></span>
+                      class="variant-option__button-label__text"
+                      data-key="variant-option-text"
+                    >
+                      {{- product_option_value | escape -}}
+                    </span>
                   {% endif %}
-                  <span
-                    class="variant-option__button-label__text"
-                    data-key="variant-option-text"
-                  >
-                    {{- product_option_value | escape -}}
-                  </span>
                 {% endif %}
                 {% render 'strikethrough-variant', product_option: product_option_value %}
               </label>
             {%- endfor -%}
+            </div>
             {% if option_id_attribute %}
               {% style %}
                 [data-option-id="{{ fieldset_id }}"] {
@@ -308,5 +364,57 @@
   .variant-picker--right .variant-option {
     text-align: right;
     justify-content: right;
+  }
+  .variant-option__button-label:has(.variant-option__button-label__image) {
+    overflow: visible;
+  }
+  .variant-option__button-label--has-image{
+    padding: 0 !important;
+    border: none !important;
+  }
+  .variant-option__button-label--has-image::before{
+    border: none !important;
+  }
+   .variant-option__button-label--has-image.selected::before{
+    border: 3px solid #ee0547ff !important;
+    border-radius: 0 !important;
+   }
+  .variant-option__button-label__image{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 0;
+  }
+
+  .variant-option__scroll-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--padding-xs);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-block: var(--padding-xs);
+    max-width: 100%;
+  }
+
+  .variant-option__scroll-wrapper > .variant-option__button-label {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .variant-option__scroll-wrapper::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .variant-option__scroll-wrapper::-webkit-scrollbar-track {
+    background: rgb(var(--color-foreground-rgb) / 0.1);
+    border-radius: 2px;
+  }
+
+  .variant-option__scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-foreground-rgb) / 0.3);
+    border-radius: 2px;
   }
 {% endstylesheet %}

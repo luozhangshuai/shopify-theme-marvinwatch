@@ -51,12 +51,17 @@
     assign render_slideshow_controls = true
   endif
 
+  assign mobile_slideshow_controls_style = block_settings.slideshow_mobile_controls_style
+  if mobile_slideshow_controls_style != 'thumbnails'
+    assign mobile_slideshow_controls_style = 'thumbnails'
+  endif
+
   assign render_mobile_slideshow_controls = false
 
-  if block_settings.slideshow_controls_style != block_settings.slideshow_mobile_controls_style
+  if block_settings.slideshow_controls_style != mobile_slideshow_controls_style
     assign slideshow_controls_class = 'mobile:hidden'
 
-    if block_settings.slideshow_mobile_controls_style != 'hint'
+    if mobile_slideshow_controls_style != 'hint'
       assign render_mobile_slideshow_controls = true
     endif
   endif
@@ -416,7 +421,7 @@
         {% if render_mobile_slideshow_controls %}
           {%- render 'slideshow-controls',
             class: 'desktop:hidden media-gallery__mobile-controls',
-            style: block_settings.slideshow_mobile_controls_style,
+            style: mobile_slideshow_controls_style,
             item_count: sorted_media.size,
             thumbnails: sorted_media,
             controls_on_media: mobile_controls_on_media,
