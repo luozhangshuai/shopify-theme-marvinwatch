@@ -2040,8 +2040,10 @@ deferred-media[class] :is(.deferred-media__poster-button img, .deferred-media__p
   position: relative;
   padding-block: var(--padding-sm);
   padding-inline: var(--padding-lg);
-  border: var(--options-border-width) solid var(--color-variant-border);
-  border-radius: var(--options-border-radius);
+  /* border: var(--options-border-width) solid var(--color-variant-border); */
+  border: none;
+  /* border-radius: var(--options-border-radius); */
+  border-radius: 0;
   overflow: clip;
   justify-content: center;
   min-height: 3.25em;

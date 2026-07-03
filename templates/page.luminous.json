@@ -21,39 +21,7 @@
         "feature_button_label": "Shop now",
         "padding_top": 0,
         "padding_bottom": 0
-      },
-      "blocks": {
-        "badge_1": {
-          "type": "badge",
-          "settings": {
-            "text": "Swiss Made"
-          }
-        },
-        "badge_2": {
-          "type": "badge",
-          "settings": {
-            "text": "8+ Hour Glow"
-          }
-        },
-        "badge_3": {
-          "type": "badge",
-          "settings": {
-            "text": "Automatic Movement"
-          }
-        },
-        "badge_4": {
-          "type": "badge",
-          "settings": {
-            "text": "Water Resistant"
-          }
-        }
-      },
-      "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4"
-      ]
+      }
     }
   },
   "order": [

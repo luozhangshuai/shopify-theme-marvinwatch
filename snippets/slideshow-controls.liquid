@@ -329,16 +329,28 @@
 
   @media screen and (min-width: 750px) {
     slideshow-component:has(slideshow-controls[thumbnails]) {
+      display: grid !important;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: minmax(0, 1fr);
+      grid-template-areas: "controls container";
       position: relative;
+      overflow: hidden !important;
+    }
+
+    slideshow-component:has(slideshow-controls[thumbnails]) > slideshow-container {
+      grid-area: container;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
     }
 
     slideshow-controls[thumbnails] {
-      position: absolute !important;
-      top: 50% !important;
-      left: 20px !important;
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
       right: auto !important;
       bottom: auto !important;
-      z-index: var(--layer-raised);
+      z-index: auto !important;
       display: flex !important;
       flex-direction: column !important;
       justify-content: flex-start !important;
@@ -346,11 +358,13 @@
       width: auto !important;
       max-width: none !important;
       min-height: 0 !important;
-      height: auto !important;
-      max-height: calc(100% - var(--padding-sm) * 2) !important;
-      transform: translateY(-50%) !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      transform: none !important;
       margin: 0 !important;
-      padding: 0 !important;
+      padding: var(--padding-sm) var(--padding-xs) !important;
+      grid-area: controls;
+      overflow: hidden !important;
     }
 
     slideshow-controls[thumbnails] .slideshow-controls__thumbnails-container {
@@ -359,6 +373,12 @@
       max-height: 100% !important;
       overflow-x: hidden !important;
       overflow-y: auto !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+
+    slideshow-controls[thumbnails] .slideshow-controls__thumbnails-container::-webkit-scrollbar {
+      display: none !important;
     }
 
     slideshow-controls[thumbnails] .slideshow-controls__thumbnails {

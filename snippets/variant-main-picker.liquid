@@ -103,7 +103,7 @@
               class="variant-option__swatch-value"
               data-testid="variant-option-single-value"
             >
-              {{- product_option.selected_value -}}
+              {{- product_option.selected_value -}} 
             </span>
           </div>
         {%- elsif variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
@@ -116,16 +116,17 @@
           >
             <legend>
               {{ product_option.name | escape -}}
-              {%- if variant_style == 'swatch' -%}
+              {% comment %} {%- if variant_style == 'swatch' -%} {% endcomment %}
                 <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
-              {%- endif %}
+              {% comment %} {%- endif %} {% endcomment %}
             </legend>
             {%- for product_option_value in product_option.values -%}
               {% if product_option_value.size > longest_value and option_id_attribute %}
                 {% assign longest_value = product_option_value.size %}
               {% endif %}
               <label
-                class=" label-0701 variant-option__button-label{% if variant_style == 'swatch' %} variant-option__button-label--has-swatch{% endif %}"
+                {% comment %} class=" label-0701 variant-option__button-label  {% if variant_style == 'swatch' %} variant-option__button-label--has-swatch{% endif %}" {% endcomment %}
+                class=" label-0701 variant-option__button-label  variant-option__button-label--has-swatch "
               >
                 <input
                   type="radio"
@@ -152,7 +153,7 @@
                     data-current-checked="false"
                   {% endif %}
                 >
-                {% if variant_style == 'swatch' %}
+                  {% comment %} ----1---- {% endcomment %}
                   {% liquid
                     assign featured_media = product_option_value.variant.featured_media
 
@@ -169,7 +170,8 @@
                     mode: 'unscaled'
                   %} {% endcomment %}
 
-                 {% if featured_media %}
+
+                  {% if featured_media %}
                     {{-
                       featured_media
                       | image_url: width: 500
@@ -192,20 +194,43 @@
                         {{- product_option_value | escape -}}
                       </span>
                   {% endif %} 
+                  {% comment %} ----1---- {% endcomment %}
+
+                {% comment %} {% if variant_style == 'swatch' %}
+                  {% comment %} ----1---- 这一块  {% endcomment %}
                 {% else %}
-                  {% if product_option_value.available == true %}
+                  {% liquid
+                    assign featured_media = product_option_value.variant.featured_media
+
+                    # If the variant has no featured media, and we have a combined listing product, then fall back to
+                    # using the featured media of the child product that is linked to this option value.
+                    if featured_media == blank and product_option_value.product_url
+                      assign featured_media = product_option_value.variant.product.featured_media
+                    endif
+                  %}
+                  {% if featured_media %}
+                    {{-
+                      featured_media
+                      | image_url: width: 500
+                      | image_tag:
+                        alt: product_option_value.name,
+                        loading: 'lazy'
+                    -}}
+                  {% else %}
+                    {% if product_option_value.available == true %}
+                      <span
+                        class="variant-option__button-label__pill"
+                        data-key="variant-option-pill"
+                      ></span>
+                    {% endif %}
                     <span
-                      class="variant-option__button-label__pill"
-                      data-key="variant-option-pill"
-                    ></span>
-                  {% endif %}
-                  <span
-                    class="variant-option__button-label__text"
-                    data-key="variant-option-text"
-                  >
-                    {{- product_option_value | escape -}}
-                  </span>
-                {% endif %}
+                      class="variant-option__button-label__text"
+                      data-key="variant-option-text"
+                    >
+                      {{- product_option_value | escape -}}
+                    </span>
+                  {% endif %} 
+                {% endif %} {% endcomment %}
                 {% render 'strikethrough-variant', product_option: product_option_value %}
               </label>
             {%- endfor -%}
@@ -452,12 +477,8 @@
     object-fit: cover;
   }
 
-  /* .variant-option:first-child img{
-    display: none;
-  } */
-  .variant-option:not(:first-child) .swatch{
-    display: none !important;
-  }
+ 
+  
   .variant-option .label-0701 {
     border-radius: 5px !important;
   }
@@ -465,7 +486,7 @@
     width: 100px;
     height: 100px;
   }
-   
+ 
 
 {% endstylesheet %}
 

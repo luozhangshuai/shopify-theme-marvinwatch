@@ -584,10 +584,14 @@ export class Slideshow extends Component {
             visibleSlidesAmount = 1;
           }
         }
+
+        this.#syncThumbnailsHeight();
       });
 
       this.#resizeObserver = new ResizeObserver(async () => {
         if (viewTransition.current) await viewTransition.current;
+
+        this.#syncThumbnailsHeight();
 
         if (visibleSlidesAmount > 1) {
           this.#updateVisibleSlides();
@@ -844,6 +848,28 @@ export class Slideshow extends Component {
     if (!(slideshowControls instanceof HTMLElement)) return;
 
     slideshowControls.hidden = scroller.scrollWidth <= scroller.offsetWidth;
+  }
+
+  /**
+   * Syncs the thumbnails controls height to match the first slide's height.
+   */
+  #syncThumbnailsHeight() {
+    const { slideshowControls, slides, thumbnailsContainer } = this.refs;
+    if (!(slideshowControls instanceof HTMLElement) || !slideshowControls.hasAttribute('thumbnails')) return;
+    if (!slides?.length) return;
+
+    const firstSlide = slides[0];
+    if (!firstSlide) return;
+
+    const slideHeight = firstSlide.offsetHeight;
+    if (slideHeight > 0) {
+      slideshowControls.style.height = slideHeight + 'px';
+      slideshowControls.style.maxHeight = slideHeight + 'px';
+      if (thumbnailsContainer instanceof HTMLElement) {
+        thumbnailsContainer.style.height = slideHeight + 'px';
+        thumbnailsContainer.style.maxHeight = slideHeight + 'px';
+      }
+    }
   }
 
   /**
