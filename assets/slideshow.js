@@ -862,12 +862,19 @@ export class Slideshow extends Component {
     if (!firstSlide) return;
 
     const slideHeight = firstSlide.offsetHeight;
-    if (slideHeight > 0) {
+    if (slideHeight > 0 && mediaQueryLarge.matches) {
       slideshowControls.style.height = slideHeight + 'px';
       slideshowControls.style.maxHeight = slideHeight + 'px';
       if (thumbnailsContainer instanceof HTMLElement) {
         thumbnailsContainer.style.height = slideHeight + 'px';
         thumbnailsContainer.style.maxHeight = slideHeight + 'px';
+      }
+    }else{
+      slideshowControls.style.height = '';
+      slideshowControls.style.maxHeight = '';
+      if (thumbnailsContainer instanceof HTMLElement) {
+        thumbnailsContainer.style.height = '';
+        thumbnailsContainer.style.maxHeight = '';
       }
     }
   }
