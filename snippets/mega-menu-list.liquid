@@ -76,75 +76,123 @@ Renders mega menu list markup and optional featured content.
       assign menu_content_type = 'text'
     endif
   endif
+
+  assign marvin_has_category_links = false
+  assign marvin_has_top_level_products = false
+  assign marvin_has_leaf_links = false
+  assign marvin_default_panel_index = 0
+
+  if marvin-set == true
+    for link in parent_link.links
+      if link.links != blank
+        assign marvin_has_category_links = true
+        if marvin_default_panel_index == 0
+          assign marvin_default_panel_index = forloop.index
+        endif
+      elsif link.type == 'product_link'
+        assign marvin_has_top_level_products = true
+      else
+        assign marvin_has_leaf_links = true
+      endif
+    endfor
+  endif
 %}
 <ul data-menu-list-id="{{ id }}"
-    class="mega-menu__list list-unstyled"
+    class="mega-menu__list list-unstyled{% if marvin-set == true %} mega-menu__list--marvin{% if marvin_has_category_links %} mega-menu__list--marvin-shell{% elsif marvin_has_top_level_products and marvin_has_leaf_links == false %} mega-menu__list--marvin-products-only{% endif %}{% endif %}"
     style="--menu-image-border-radius: {{ image_border_radius }}px;
+        --marvin-products-columns: 6;
+        --marvin-card-aspect-ratio: 5 / 3;
         grid-template-columns: repeat({{ block.settings.menu_products_limit_column }}, 1fr);
         justify-items: center;">
   {% if marvin-set == true %}
-    {% if parent_link.type == 'collection_link' %}
-      {% for link in parent_link.links limit: block.settings.menu_products_limit_column %}
-        {% if link.links == blank %}
-          <li class="mega-menu__menu-item">
-            {% if link.type == 'product_link' %}
-              {% render 'resource-card', resource: link.object, resource_type: 'product', price_v: false, image_aspect_ratio: '1' %}
-            {% else %}
-              <a href="{{ link.url }}" class="mega-menu__list-item">
-                <span>{{ link.title }}</span>
-              </a>
-            {% endif %}
-          </li>
-        {% elsif link.links != blank %}
-          <li class="mega-menu__column">
-            <div class="mega-menu__list-title">
-              {{ link.title }}
-            </div>
-          </li>
-          <ul class="mega-menu__column-list list-unstyled">
-            {% for childlink in link.links %}
-              <li>
-                <a href="{{ childlink.url }}">
-                  <span>{{ childlink.title }}</span>
+    {% if marvin_has_category_links %}
+      <li class="mega-menu__marvin-sidebar">
+        <ul class="mega-menu__marvin-categories list-unstyled">
+          {% for link in parent_link.links %}
+            {% unless link.type == 'product_link' and link.links == blank %}
+              {%- capture marvin_featured_image -%}
+                {% render 'link-featured-image', link: link, class: 'mega-menu__marvin-image', sizes: '72px' %}
+              {%- endcapture -%}
+              <li class="mega-menu__marvin-category-item{% if link.links != blank %} mega-menu__marvin-category-item--has-panel{% endif %}{% if forloop.index == marvin_default_panel_index %} is-default{% endif %}"
+                  {% if link.links != blank %}data-marvin-panel="{{ forloop.index }}"{% endif %}>
+                <a href="{{ link.url }}"
+                   class="mega-menu__marvin-trigger mega-menu__link{% if link.links != blank %} mega-menu__link--parent{% endif %}"
+                   {% if link.links != blank %}data-marvin-panel="{{ forloop.index }}"{% endif %}>
+                  {% if marvin_featured_image != blank %}
+                    <span class="mega-menu__marvin-image-link">
+                      {{ marvin_featured_image }}
+                    </span>
+                  {% endif %}
+                  <span class="mega-menu__marvin-title">
+                    <span class="wrap-text">{{ link.title }}</span>
+                  </span>
                 </a>
               </li>
-            {% endfor %}
-          </ul>
+            {% endunless %}
+          {% endfor %}
+        </ul>
+      </li>
+      <li class="mega-menu__marvin-panels">
+        {% for link in parent_link.links %}
+          {% if link.links != blank %}
+            <div class="mega-menu__marvin-panel{% if forloop.index == marvin_default_panel_index %} is-default{% endif %}"
+                 data-marvin-panel="{{ forloop.index }}">
+              <div class="mega-menu__marvin-panel-header">
+                <a href="{{ link.url }}" class="mega-menu__marvin-panel-title mega-menu__link mega-menu__link--parent">
+                  <span class="wrap-text">{{ link.title }}</span>
+                </a>
+              </div>
+              <ul class="mega-menu__marvin-products list-unstyled">
+                {% for childlink in link.links limit: 6 %}
+                  <li class="mega-menu__marvin-product-item{% unless childlink.type == 'product_link' and childlink.object != blank %} mega-menu__marvin-product-item--link{% endunless %}">
+                    {% if childlink.type == 'product_link' and childlink.object != blank %}
+                      {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: childlink.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
+                    {% else %}
+                      {%- capture marvin_child_featured_image -%}
+                        {% render 'link-featured-image', link: childlink, class: 'mega-menu__marvin-child-image', sizes: '(min-width: 990px) 180px, 30vw' %}
+                      {%- endcapture -%}
+                      <a href="{{ childlink.url }}" class="mega-menu__marvin-child-link mega-menu__link{% if marvin_child_featured_image != blank %} mega-menu__marvin-child-link--with-image{% endif %}">
+                        {% if marvin_child_featured_image != blank %}
+                          <span class="mega-menu__marvin-child-image-wrap">
+                            {{ marvin_child_featured_image }}
+                          </span>
+                        {% endif %}
+                        <span class="mega-menu__marvin-child-title wrap-text">{{ childlink.title }}</span>
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </li>
+    {% elsif marvin_has_top_level_products and marvin_has_leaf_links == false %}
+      {% for link in parent_link.links %}
+        {% if link.type == 'product_link' %}
+          <li class="mega-menu__menu-item mega-menu__marvin-product">
+            {% render 'resource-card', resource: link.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: link.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
+          </li>
         {% endif %}
       {% endfor %}
     {% else %}
-      <li class="mega-menu__split-layout">
-        <div class="mega-menu__split-left">
-          <div class="mega-menu__link-list" style="grid-template-rows: repeat({{ parent_link.links.size }}, 1fr);">
-            {% for link in parent_link.links %}
-              <div data-menu-trigger="{{ forloop.index }}"
-                   class="mega-menu__list-item {%- if forloop.first %} is-active{%- endif -%}"
-                   aria-expanded="{%- if forloop.first -%}true{%- else -%}false{%- endif -%}">
-                <a href="{{ link.url }}" class="mega-menu__link-item">
-                  <span class="mega-menu__link-text">{{ link.title }}</span>
-                </a>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        <div class="mega-menu__split-right">
-          {% for link in parent_link.links %}
-            <div data-menu-panel="{{ forloop.index }}"
-                 class="mega-menu__panel-list {%- unless forloop.first %} hidden{%- endunless -%}">
-              {% for child in link.links limit: block.settings.menu_products_limit_right %}
-                {% if child.type == 'product_link' %}
-                  {% render 'resource-card', resource: child.object, resource_type: 'product', price_v: false, image_aspect_ratio: '1' %}
-                {% else %}
-                  <a href="{{ child.url }}" class="mega-menu__panel-item">
-                    <span>{{ child.title }}</span>
-                  </a>
-                {% endif %}
-              {% endfor %}
-            </div>
-          {% endfor %}
-        </div>
-      </li>
+      {% for link in parent_link.links %}
+        {%- capture marvin_featured_image -%}
+          {% render 'link-featured-image', link: link, class: 'mega-menu__marvin-image', sizes: '72px' %}
+        {%- endcapture -%}
+        <li class="mega-menu__marvin-category">
+          <a href="{{ link.url }}" class="mega-menu__marvin-trigger mega-menu__link{% if link.links != blank %} mega-menu__link--parent{% endif %}">
+            {% if marvin_featured_image != blank %}
+              <span class="mega-menu__marvin-image-link">
+                {{ marvin_featured_image }}
+              </span>
+            {% endif %}
+            <span class="mega-menu__marvin-title">
+              <span class="wrap-text">{{ link.title }}</span>
+            </span>
+          </a>
+        </li>
+      {% endfor %}
     {% endif %}
   {% else %}
     {% for link in parent_link.links %}
@@ -313,6 +361,258 @@ Renders mega menu list markup and optional featured content.
     --menu-columns-tablet: {{ max_menu_columns_tablet }};
   {%- endif %}
   }
+
+  .mega-menu__list--marvin {
+    justify-items: stretch !important;
+    align-items: start;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category,
+  .mega-menu__list--marvin .mega-menu__marvin-product,
+  .mega-menu__list--marvin .mega-menu__marvin-sidebar,
+  .mega-menu__list--marvin .mega-menu__marvin-panels {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mega-menu__list--marvin-shell {
+    grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr) !important;
+    gap: 2rem;
+    justify-items: stretch !important;
+  }
+
+  .mega-menu__list--marvin-products-only {
+    grid-template-columns: repeat(var(--marvin-products-columns, 6), minmax(0, 1fr)) !important;
+    gap: 1.5rem;
+  }
+
+  .mega-menu__list--marvin-products-only .resource-card__media,
+  .mega-menu__list--marvin-shell .mega-menu__marvin-product-item .resource-card__media {
+    width: 100%;
+    margin-inline: 0;
+    overflow: hidden;
+    border-radius: calc(var(--menu-image-border-radius) * 0.75);
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-trigger,
+  .mega-menu__list--marvin .mega-menu__marvin-trigger:hover {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    color: inherit;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category-item--has-panel > .mega-menu__marvin-trigger::after {
+    content: '›';
+    margin-left: auto;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-image-link {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-image {
+    aspect-ratio: 1 / 1;
+    width: 2rem;
+    object-fit: cover;
+    border-radius: calc(var(--menu-image-border-radius) * 0.75);
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-title {
+    display: block;
+    padding: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category-item:hover .mega-menu__marvin-title,
+  .mega-menu__list--marvin .mega-menu__marvin-category-item:focus-within .mega-menu__marvin-title {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-panels {
+    position: relative;
+    min-height: 100%;
+  }
+
+  .mega-menu__list--marvin .resource-card {
+    row-gap: 0.875rem;
+  }
+
+  .mega-menu__list--marvin .resource-card__media {
+    width: 100%;
+  }
+
+  .mega-menu__list--marvin .resource-card__image,
+  .mega-menu__list--marvin .resource-card__image--secondary {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: calc(var(--menu-image-border-radius) * 0.75);
+  }
+
+  .mega-menu__list--marvin .resource-card__content {
+    width: 100%;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-panel {
+    display: none;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-panel.is-default {
+    display: block;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-panel-title {
+    display: inline-flex;
+    padding: 0 0 1rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-products {
+    display: grid;
+    grid-template-columns: repeat(var(--marvin-products-columns, 4), minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-product-item {
+    min-width: 0;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-product-item--link .mega-menu__marvin-child-link,
+  .mega-menu__list--marvin .mega-menu__marvin-product-item--link .mega-menu__marvin-child-link:hover {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    height: 100%;
+    padding: 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-child-image-wrap {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--marvin-card-aspect-ratio);
+    overflow: hidden;
+    border-radius: calc(var(--menu-image-border-radius) * 0.75);
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-child-image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: var(--marvin-card-aspect-ratio);
+    object-fit: cover;
+    border-radius: calc(var(--menu-image-border-radius) * 0.75);
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-child-title {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .mega-menu__list--marvin .resource-card__title {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .mega-menu__list--marvin .resource-card__content,
+  .mega-menu__list--marvin .resource-card__content .price,
+  .mega-menu__list--marvin .resource-card__content .price * {
+    font-size: 0.875rem;
+    font-weight: 400;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category .mega-menu__marvin-trigger,
+  .mega-menu__list--marvin .mega-menu__marvin-category .mega-menu__marvin-trigger:hover {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category .mega-menu__marvin-image-link {
+    display: block;
+    width: 66.6667%;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category .mega-menu__marvin-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--marvin-card-aspect-ratio);
+    object-fit: cover;
+    border-radius: calc(var(--menu-image-border-radius) * 0.75);
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-category .mega-menu__marvin-title {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  {% for link in parent_link.links %}
+    {% if link.links != blank %}
+      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:hover) .mega-menu__marvin-panel,
+      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:focus-within) .mega-menu__marvin-panel {
+        display: none;
+      }
+
+      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:hover) .mega-menu__marvin-panel[data-marvin-panel="{{ forloop.index }}"],
+      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:focus-within) .mega-menu__marvin-panel[data-marvin-panel="{{ forloop.index }}"] {
+        display: block;
+      }
+    {% endif %}
+  {% endfor %}
+
+  @media screen and (max-width: 989px) {
+    .mega-menu__list--marvin-shell,
+    .mega-menu__list--marvin-products-only,
+    .mega-menu__list--marvin .mega-menu__marvin-products {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .mega-menu__list--marvin-shell {
+      gap: 1.25rem;
+    }
+
+    .mega-menu__list--marvin .mega-menu__marvin-sidebar,
+    .mega-menu__list--marvin .mega-menu__marvin-panels {
+      grid-column: 1 / -1;
+    }
+
+    .mega-menu__list--marvin .mega-menu__marvin-trigger,
+    .mega-menu__list--marvin .mega-menu__marvin-trigger:hover {
+      padding-inline: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+  }
 {% endstyle %}
 
 {% case menu_content_type %}
@@ -328,7 +628,7 @@ Renders mega menu list markup and optional featured content.
           {% paginate collection_object.products by max_featured_products %}
             {% for item in collection_object.products %}
               <li class="mega-menu__content-list-item {% if forloop.index > max_featured_products_tablet %} mega-menu__content-list-item--hidden-tablet{% endif %}">
-                {% render 'resource-card', resource: item, resource_type: 'product', image_hover: true, image_aspect_ratio: content_aspect_ratio, image_sizes: image_sizes %}
+                {% render 'resource-card', resource: item, resource_type: 'product', image_hover: true, image_aspect_ratio: '5 / 3', image_sizes: image_sizes, featured_image_override: item.metafields.custom.menu_image.value, show_menu_small_text: true %}
               </li>
             {% endfor %}
           {% endpaginate %}
@@ -356,7 +656,7 @@ Renders mega menu list markup and optional featured content.
             {% assign collection_object = collections[handle] %}
           {% endif %}
           <li class="mega-menu__content-list-item{% if forloop.index > max_featured_collections_tablet %} mega-menu__content-list-item--hidden-tablet{% endif %}">
-            {% render 'resource-card', resource: collection_object, resource_type: 'collection', style: 'overlay', image_aspect_ratio: content_aspect_ratio, image_sizes: image_sizes %}
+            {% render 'resource-card', resource: collection_object, resource_type: 'collection', style: 'overlay', image_aspect_ratio: content_aspect_ratio, image_sizes: image_sizes, featured_image_override: collection_object.metafields.custom.menu_image.value %}
           </li>
         {% endfor %}
       </ul>

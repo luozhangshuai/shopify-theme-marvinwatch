@@ -9,28 +9,45 @@ Renders a card for displaying various resource types (products, collections, art
 @param {string} [image_aspect_ratio] - The aspect ratio to display the image. Defaults to image's natural ratio
 @param {boolean} [image_hover] - Whether to show a secondary image on hover and focus
 @param {string} [image_sizes] - The sizes attribute for responsive images. Defaults to 'auto'
-@param {boolean} [price_v] - 价格显示，默认显示
+@param {object} [featured_image_override] - Optional override image for product or collection cards.
+@param {boolean} [show_menu_small_text] - Whether to show the product menu small text metafield.
+@param {boolean} [price_v] - 浠锋牸鏄剧ず锛岄粯璁ゆ樉绀?
 {%- enddoc -%}
 
 {% liquid
 
   assign price_v = price_v | default: true
+  assign single_thumbnail_collection = false
+  if resource_type == 'collection' and collection_thumbnails != 'multiple'
+    assign single_thumbnail_collection = true
+  endif
+  assign primary_card_image = blank
+  if resource_type == 'product' or single_thumbnail_collection
+    assign primary_card_image = featured_image_override | default: resource.featured_media.preview_image | default: resource.featured_image
+  endif
+  assign menu_small_text = blank
+  if resource_type == 'product' and show_menu_small_text
+    assign menu_small_text = resource.metafields.custom.menu_small_text.value
+  endif
 
   if image_aspect_ratio == blank or image_aspect_ratio == 'adapt'
-    assign ratio = resource.featured_image.aspect_ratio
+    if primary_card_image != blank
+      assign ratio = primary_card_image.aspect_ratio
+    else
+      assign ratio = resource.featured_image.aspect_ratio
+    endif
   else
     assign ratio = image_aspect_ratio
   endif
   assign image_width = image_width | default: 1200
   assign widths = '240, 352, 832, 1200'
   assign image_sizes = image_sizes | default: 'auto'
-  assign single_thumbnail_collection = false
-  if resource_type == 'collection' and collection_thumbnails != 'multiple'
-    assign single_thumbnail_collection = true
-  endif
 
   if resource_type == 'product' and settings.transition_to_main_product
-    assign featured_media_url = resource.selected_or_first_available_variant.featured_image | image_url: width: image_width
+    assign featured_media_url = primary_card_image | image_url: width: image_width
+    if featured_media_url == blank
+      assign featured_media_url = resource.selected_or_first_available_variant.featured_image | image_url: width: image_width
+    endif
     if featured_media_url == blank
       assign featured_media_url = resource.featured_media.preview_image | image_url: width: image_width
     endif
@@ -43,7 +60,7 @@ Renders a card for displaying various resource types (products, collections, art
     data-product-transition="true"
     on:click="/handleViewTransition">
   {%- endif -%}
-  <div class="resource-card{% if style == 'overlay' %} resource-card--overlay{% endif %}"
+  <div class="resource-card{% if style == 'overlay' %} resource-card--overlay{% endif %}{% if resource_type == 'product' and show_menu_small_text %} resource-card--menu-details{% endif %}"
        data-resource-type="{{ resource_type }}">
     <a class="resource-card__link" href="{{ resource.url }}">
       <span class="visually-hidden">{{ resource.title }}</span>
@@ -61,22 +78,32 @@ Renders a card for displaying various resource types (products, collections, art
 
           resource.featured_image is needed for collections with a single thumbnail
         {% endcomment %}
-        {% assign featured_image = resource.featured_media.preview_image | default: resource.featured_image %}
-        {% liquid assign primary_focal_point_style = ''
-          if resource.media[0].presentation.focal_point != blank
+        {% if resource_type == 'product' or single_thumbnail_collection %}
+          {% assign featured_image = primary_card_image %}
+        {% else %}
+          {% assign featured_image = resource.featured_media.preview_image | default: resource.featured_image %}
+        {% endif %}
+        {% liquid
+          assign primary_focal_point_style = ''
+          if featured_image_override == blank and resource.media[0].presentation.focal_point != blank
             assign primary_focal_point_style = 'object-position: ' | append: resource.media[0].presentation.focal_point | append: ';'
-          endif %}
+          endif
+        %}
         {%- if featured_image != blank -%}
-          {% liquid assign ref_image_to_transition = ''
+          {% liquid
+            assign ref_image_to_transition = ''
             if settings.transition_to_main_product
               assign ref_image_to_transition = 'imagesToTransition[]'
-            endif %}
+            endif
+          %}
           {{ featured_image | image_url: width: image_width | image_tag: loading: 'lazy', class: 'resource-card__image', widths: widths, sizes: image_sizes, ref: ref_image_to_transition, data-media-id: featured_image.id, style: primary_focal_point_style }}
-          {%- if image_hover and resource.media.size > 1 -%}
-            {% liquid assign secondary_focal_point_style = ''
+          {%- if image_hover and resource.media.size > 1 and featured_image_override == blank -%}
+            {% liquid
+              assign secondary_focal_point_style = ''
               if resource.media[1].presentation.focal_point != blank
                 assign secondary_focal_point_style = 'object-position: ' | append: resource.media[1].presentation.focal_point | append: ';'
-              endif %}
+              endif
+            %}
             {{ resource.media[1] | image_url: width: image_width | image_tag: loading: 'lazy', class: 'resource-card__image resource-card__image--secondary', widths: widths, sizes: image_sizes, ref: ref_image_to_transition, data-media-id: resource.media[1].id, style: secondary_focal_point_style }}
           {%- endif -%}
         {%- else -%}
@@ -98,6 +125,9 @@ Renders a card for displaying various resource types (products, collections, art
 
     <div class="resource-card__content">
       <p class="resource-card__title{% if style == 'overlay' %} h5{% else %} paragraph{% endif %}">{{- resource.title -}}</p>
+      {% if menu_small_text != blank %}
+        <p class="resource-card__menu-small-text">{{- menu_small_text -}}</p>
+      {% endif %}
 
       {% if resource_type == 'product' %}
         {% if price_v != true %}
@@ -167,7 +197,15 @@ color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
 gap: var(--padding-xs);
 }
 
+.resource-card__media {
+position: relative;
+aspect-ratio: var(--resource-card-aspect-ratio, auto);
+overflow: hidden;
+}
+
 .resource-card__image {
+width: 100%;
+height: 100%;
 aspect-ratio: var(--resource-card-aspect-ratio, auto);
 object-fit: cover;
 border-radius: var(--resource-card-corner-radius);
@@ -176,7 +214,7 @@ opacity: var(--resource-card-primary-image-opacity);
 
 .resource-card__image--secondary {
 position: absolute;
-top: 0;
+inset: 0;
 opacity: var(--resource-card-secondary-image-opacity);
 border-radius: var(--resource-card-corner-radius);
 }
@@ -209,6 +247,30 @@ overflow-wrap: break-word;
 
 .resource-card__title.paragraph {
 line-height: 1.3;
+}
+
+.resource-card__menu-small-text {
+margin-block: 0;
+font-size: var(--font-size--body-sm);
+line-height: var(--line-height--body-tight);
+color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+transition: color var(--animation-speed) var(--animation-easing);
+}
+
+.resource-card--menu-details .resource-card__title,
+.resource-card--menu-details .resource-card__menu-small-text {
+transition: color var(--animation-speed) var(--animation-easing);
+}
+
+.resource-card--menu-details .resource-card__link:hover ~ .resource-card__content .resource-card__title,
+.resource-card--menu-details .resource-card__link:hover ~ .resource-card__content .resource-card__menu-small-text,
+.resource-card--menu-details .resource-card__link:focus-visible ~ .resource-card__content .resource-card__title,
+.resource-card--menu-details .resource-card__link:focus-visible ~ .resource-card__content .resource-card__menu-small-text,
+.resource-card--menu-details:hover .resource-card__title,
+.resource-card--menu-details:hover .resource-card__menu-small-text,
+.resource-card--menu-details:focus-within .resource-card__title,
+.resource-card--menu-details:focus-within .resource-card__menu-small-text {
+color: #e55129 !important;
 }
 
 .resource-card--overlay {

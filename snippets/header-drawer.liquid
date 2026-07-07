@@ -103,10 +103,7 @@ Renders a header drawer menu triggered by the top details element.
                           By KemuriAme
                         {%- endcomment -%}
                         <span class="menu-drawer__mark size-25">
-                          {% if link.type == 'collection_link' %}
-                            <img src="{{ link.object.featured_image | image_url }}" alt="{{ link.title | escape }}"
-                                 loading="eager"/>
-                          {% endif %}
+                          {% render 'link-featured-image', link: link, class: 'w-full h-full object-cover', sizes: '100px', loading: 'eager' %}
                         </span>
                         <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
                         <span class="svg-wrapper icon-plus">
@@ -132,7 +129,7 @@ Renders a header drawer menu triggered by the top details element.
                                class="menu-drawer__menu-item menu-drawer__menu-item--child focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
                                {% if childlink.current %}aria-current="page"{% endif %}>
                               {% if childlink.type == 'product_link' %}
-                                {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false %}
+                                {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: childlink.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
                               {% else %}
                                 {% if render_link_image %}
                                   {% render 'link-featured-image', link: childlink, class: 'menu-drawer__link-image', sizes: 'auto, 400px' %}
@@ -159,10 +156,7 @@ Renders a header drawer menu triggered by the top details element.
                       By KemuriAme
                     {%- endcomment -%}
                     <span class="menu-drawer__mark size-25">
-                      {% if link.type == 'collection_link' %}
-                        <img src="{{ link.object.featured_image | image_url }}" alt="{{ link.title | escape }}"
-                             loading="eager"/>
-                      {% endif %}
+                      {% render 'link-featured-image', link: link, class: 'w-full h-full object-cover', sizes: '100px', loading: 'eager' %}
                     </span>
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
                   </a>
@@ -192,10 +186,7 @@ Renders a header drawer menu triggered by the top details element.
                             By KemuriAme
                           {%- endcomment -%}
                           <span class="menu-drawer__mark size-20">
-                            {% if childlink.type == 'collection_link' %}
-                              <img src="{{ childlink.object.featured_image | image_url }}"
-                                   alt="{{ childlink.title | escape }}" loading="eager"/>
-                            {% endif %}
+                            {% render 'link-featured-image', link: childlink, class: 'w-full h-full object-cover', sizes: '80px', loading: 'eager' %}
                           </span>
                           <span class="menu-drawer__menu-item-text wrap-text">{{ childlink.title | escape }}</span>
                         </a>
@@ -215,10 +206,7 @@ Renders a header drawer menu triggered by the top details element.
                       By KemuriAme
                     {%- endcomment -%}
                     <span class="menu-drawer__mark size-25">
-                      {% if link.type == 'collection_link' %}
-                        <img src="{{ link.object.featured_image | image_url }}" alt="{{ link.title | escape }}"
-                             loading="eager"/>
-                      {% endif %}
+                      {% render 'link-featured-image', link: link, class: 'w-full h-full object-cover', sizes: '100px', loading: 'eager' %}
                     </span>
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
                   </a>
@@ -247,10 +235,7 @@ Renders a header drawer menu triggered by the top details element.
                         By KemuriAme
                       {%- endcomment -%}
                       <span class="menu-drawer__mark size-25">
-                      {% if link.type == 'collection_link' %}
-                        <img src="{{ link.object.featured_image | image_url }}" alt="{{ link.title }}"
-                             loading="eager"/>
-                      {% endif %}
+                        {% render 'link-featured-image', link: link, class: 'w-full h-full object-cover', sizes: '100px', loading: 'eager' %}
                       </span>
                       <span class="menu-drawer__menu-item-text wrap-text text-lg">{{ link.title | escape }}</span>
                       <span
@@ -303,7 +288,7 @@ Renders a header drawer menu triggered by the top details element.
                                 {%- if block_settings.drawer_dividers %} menu-drawer__list-item--divider{%- endif -%}">
                               {%- if childlink.links == blank -%}
                                 {% if childlink.type == 'product_link' %}
-                                  {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false %}
+                                  {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: childlink.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
                                 {% else %}
                                   {%- comment -%}
                                 Simple links for links with no children (regardless of accordion setting), in menus with 3 levels of links
@@ -339,10 +324,7 @@ Renders a header drawer menu triggered by the top details element.
                                           By KemuriAme
                                          {%- endcomment -%}
                                         <span class="menu-drawer__mark size-20">
-                                          {% if childlink.type == 'collection_link' %}
-                                            <img src="{{ childlink.object.featured_image | image_url }}"
-                                                 alt="{{ childlink.title | escape }}" loading="eager"/>
-                                          {% endif %}
+                                          {% render 'link-featured-image', link: childlink, class: 'w-full h-full object-cover', sizes: '80px', loading: 'eager' %}
                                         </span>
                                         <span
                                             class="menu-drawer__menu-item-text wrap-text">{{- childlink.title | escape -}}</span>
@@ -363,7 +345,7 @@ Renders a header drawer menu triggered by the top details element.
                                           <li class="menu-drawer__list-item justify-center{% if forloop.last != true %} mb-4{% endif %}"
                                               style="--menu-drawer-animation-index: {{ forloop.index }};">
                                             {% if grandchildlink.type == 'product_link' %}
-                                              {% render 'resource-card', resource: grandchildlink.object, resource_type: 'product', price_v: false %}
+                                              {% render 'resource-card', resource: grandchildlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: grandchildlink.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
                                             {% else %}
                                               <a id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
                                                  href="{{ grandchildlink.url }}"
@@ -417,7 +399,7 @@ Renders a header drawer menu triggered by the top details element.
                                             {% endif %}
                                             <span class="menu-drawer__menu-item-text wrap-text">{{- grandchildlink.title | escape -}}</span>
                                           {% endcomment %}
-                                          {% render 'resource-card', resource: grandchildlink.object, resource_type: 'product', price_v: false %}
+                                          {% render 'resource-card', resource: grandchildlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: grandchildlink.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
                                         </a>
                                       </li>
                                     {%- endfor -%}
@@ -448,14 +430,14 @@ Renders a header drawer menu triggered by the top details element.
                               {% if featured_collections.size > 0 %}
                                 {%- for collection in featured_collections limit: max_featured_items -%}
                                   <li class="menu-drawer__featured-content-list-item menu-drawer__featured-content-list-item--collection">
-                                    {% render 'resource-card', resource: collection.object, resource_type: 'collection', style: 'overlay', image_aspect_ratio: ratio, image_sizes: 'auto, 400px' %}
+                                    {% render 'resource-card', resource: collection.object, resource_type: 'collection', style: 'overlay', image_aspect_ratio: ratio, image_sizes: 'auto, 400px', featured_image_override: collection.object.metafields.custom.menu_image.value %}
                                   </li>
                                 {%- endfor -%}
                               {% else %}
                                 {% paginate featured_products_collection.products by max_featured_items %}
                                   {%- for product in featured_products_collection.products limit: max_featured_items -%}
                                     <li class="menu-drawer__featured-content-list-item menu-drawer__featured-content-list-item--product">
-                                      {% render 'resource-card', resource: product, resource_type: 'product', image_aspect_ratio: ratio, image_sizes: 'auto, 400px' %}
+                                      {% render 'resource-card', resource: product, resource_type: 'product', image_aspect_ratio: '5 / 3', image_sizes: 'auto, 400px', featured_image_override: product.metafields.custom.menu_image.value, show_menu_small_text: true %}
                                     </li>
                                   {%- endfor -%}
                                 {% endpaginate %}
@@ -478,10 +460,7 @@ Renders a header drawer menu triggered by the top details element.
                       By KemuriAme
                     {%- endcomment -%}
                     <span class="menu-drawer__mark size-25">
-                      {% if link.type == 'collections_link' %}
-                        <img src="{{ link.object.featured_image | image_url }}" alt="{{ link.title | escape }}"
-                             loading="eager"/>
-                      {% endif %}
+                      {% render 'link-featured-image', link: link, class: 'w-full h-full object-cover', sizes: '100px', loading: 'eager' %}
                     </span>
                     <span class="menu-drawer__menu-item-text wrap-text">{{ link.title | escape }}</span>
                   </a>
@@ -608,14 +587,14 @@ Renders a header drawer menu triggered by the top details element.
             {% if top_level_featured_collections.size > 0 %}
               {%- for collection in top_level_featured_collections limit: max_featured_items -%}
                 <li class="menu-drawer__featured-content-list-item menu-drawer__featured-content-list-item--collection">
-                  {% render 'resource-card', resource: collection.object, resource_type: 'collection', style: 'overlay', image_aspect_ratio: ratio, image_sizes: 'auto, 400px' %}
+                  {% render 'resource-card', resource: collection.object, resource_type: 'collection', style: 'overlay', image_aspect_ratio: ratio, image_sizes: 'auto, 400px', featured_image_override: collection.object.metafields.custom.menu_image.value %}
                 </li>
               {%- endfor -%}
             {% elsif top_level_featured_products_collection.products_count > 0 %}
               {% paginate top_level_featured_products_collection.products by max_featured_items %}
                 {%- for product in top_level_featured_products_collection.products limit: max_featured_items -%}
                   <li class="menu-drawer__featured-content-list-item menu-drawer__featured-content-list-item--product">
-                    {% render 'resource-card', resource: product, resource_type: 'product', image_aspect_ratio: ratio, image_sizes: 'auto, 400px' %}
+                    {% render 'resource-card', resource: product, resource_type: 'product', image_aspect_ratio: '5 / 3', image_sizes: 'auto, 400px', featured_image_override: product.metafields.custom.menu_image.value, show_menu_small_text: true %}
                   </li>
                 {%- endfor -%}
               {% endpaginate %}
