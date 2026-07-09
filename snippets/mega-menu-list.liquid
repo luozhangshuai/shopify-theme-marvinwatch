@@ -99,6 +99,7 @@ Renders mega menu list markup and optional featured content.
 %}
 <ul data-menu-list-id="{{ id }}"
     class="mega-menu__list list-unstyled{% if marvin-set == true %} mega-menu__list--marvin{% if marvin_has_category_links %} mega-menu__list--marvin-shell{% elsif marvin_has_top_level_products and marvin_has_leaf_links == false %} mega-menu__list--marvin-products-only{% endif %}{% endif %}"
+    {% if marvin-set == true and marvin_has_category_links %}data-marvin-shell{% endif %}
     style="--menu-image-border-radius: {{ image_border_radius }}px;
         --marvin-products-columns: 6;
         --marvin-card-aspect-ratio: 5 / 3;
@@ -445,6 +446,7 @@ Renders mega menu list markup and optional featured content.
   }
 
   .mega-menu__list--marvin .mega-menu__marvin-category-item:hover .mega-menu__marvin-title,
+  .mega-menu__list--marvin .mega-menu__marvin-category-item.is-active .mega-menu__marvin-title,
   .mega-menu__list--marvin .mega-menu__marvin-category-item:focus-within .mega-menu__marvin-title {
     text-decoration: underline;
     text-underline-offset: 0.18em;
@@ -480,6 +482,14 @@ Renders mega menu list markup and optional featured content.
   }
 
   .mega-menu__list--marvin .mega-menu__marvin-panel.is-default {
+    display: block;
+  }
+
+  .mega-menu__list--marvin-shell.has-active-panel .mega-menu__marvin-panel.is-default:not(.is-active) {
+    display: none;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-panel.is-active {
     display: block;
   }
 
@@ -576,20 +586,6 @@ Renders mega menu list markup and optional featured content.
     line-height: 1.4;
   }
 
-  {% for link in parent_link.links %}
-    {% if link.links != blank %}
-      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:hover) .mega-menu__marvin-panel,
-      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:focus-within) .mega-menu__marvin-panel {
-        display: none;
-      }
-
-      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:hover) .mega-menu__marvin-panel[data-marvin-panel="{{ forloop.index }}"],
-      .mega-menu__list--marvin-shell:has(.mega-menu__marvin-category-item[data-marvin-panel="{{ forloop.index }}"]:focus-within) .mega-menu__marvin-panel[data-marvin-panel="{{ forloop.index }}"] {
-        display: block;
-      }
-    {% endif %}
-  {% endfor %}
-
   @media screen and (max-width: 989px) {
     .mega-menu__list--marvin-shell,
     .mega-menu__list--marvin-products-only,
@@ -614,6 +610,78 @@ Renders mega menu list markup and optional featured content.
     }
   }
 {% endstyle %}
+
+{% if marvin-set == true and marvin_has_category_links %}
+  <script>
+    (() => {
+      const menuShells = document.querySelectorAll('[data-marvin-shell]');
+
+      menuShells.forEach((shell) => {
+        const categoryItems = shell.querySelectorAll('.mega-menu__marvin-category-item[data-marvin-panel]');
+        const panels = shell.querySelectorAll('.mega-menu__marvin-panel[data-marvin-panel]');
+
+        if (!categoryItems.length || !panels.length) return;
+
+        const setActivePanel = (panelId) => {
+          shell.classList.add('has-active-panel');
+
+          categoryItems.forEach((item) => {
+            item.classList.toggle('is-active', item.dataset.marvinPanel === panelId);
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.toggle('is-active', panel.dataset.marvinPanel === panelId);
+          });
+        };
+
+        const resetPanels = () => {
+          shell.classList.remove('has-active-panel');
+
+          categoryItems.forEach((item) => {
+            item.classList.remove('is-active');
+          });
+
+          panels.forEach((panel) => {
+            panel.classList.remove('is-active');
+          });
+        };
+
+        shell.addEventListener('pointerover', (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+
+          const trigger = target.closest('[data-marvin-panel]');
+          if (!trigger || !shell.contains(trigger)) return;
+
+          const panelId = trigger.getAttribute('data-marvin-panel');
+          if (!panelId) return;
+
+          setActivePanel(panelId);
+        });
+
+        shell.addEventListener('focusin', (event) => {
+          const target = event.target;
+          if (!(target instanceof Element)) return;
+
+          const trigger = target.closest('[data-marvin-panel]');
+          if (!trigger || !shell.contains(trigger)) return;
+
+          const panelId = trigger.getAttribute('data-marvin-panel');
+          if (!panelId) return;
+
+          setActivePanel(panelId);
+        });
+
+        shell.addEventListener('mouseleave', resetPanels);
+        shell.addEventListener('focusout', (event) => {
+          if (!shell.contains(event.relatedTarget)) {
+            resetPanels();
+          }
+        });
+      });
+    })();
+  </script>
+{% endif %}
 
 {% case menu_content_type %}
   {% when 'featured_products' %}
