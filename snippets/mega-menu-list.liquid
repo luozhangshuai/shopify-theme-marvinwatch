@@ -12,7 +12,7 @@ Renders mega menu list markup and optional featured content.
 @param {number} [content_aspect_ratio] - Aspect ratio for content images.
 @param {number} [image_border_radius] - Border radius for content images.
 @param {object} [section] - The section object.
-@param {boolean} [marvin-set] - 桌面端菜单导航，默认不启用
+@param {boolean} [marvin-set] - 妗岄潰绔彍鍗曞鑸紝榛樿涓嶅惎鐢?
 
 @example
 {% render 'mega-menu-list', parent_link: link, id: 'MegaMenuList-1', grid_columns_count: 6, menu_content_type: 'featured_products' %}
@@ -143,39 +143,136 @@ Renders mega menu list markup and optional featured content.
                   <span class="wrap-text">{{ link.title }}</span>
                 </a>
               </div>
-              <ul class="mega-menu__marvin-products list-unstyled">
-                {% for childlink in link.links limit: 6 %}
-                  <li class="mega-menu__marvin-product-item{% unless childlink.type == 'product_link' and childlink.object != blank %} mega-menu__marvin-product-item--link{% endunless %}">
-                    {% if childlink.type == 'product_link' and childlink.object != blank %}
-                      {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: childlink.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
-                    {% else %}
-                      {%- capture marvin_child_featured_image -%}
-                        {% render 'link-featured-image', link: childlink, class: 'mega-menu__marvin-child-image', sizes: '(min-width: 990px) 180px, 30vw' %}
-                      {%- endcapture -%}
-                      <a href="{{ childlink.url }}" class="mega-menu__marvin-child-link mega-menu__link{% if marvin_child_featured_image != blank %} mega-menu__marvin-child-link--with-image{% endif %}">
-                        {% if marvin_child_featured_image != blank %}
+              {% capture marvin_media_items %}
+                {% for childlink in link.links %}
+                  {% liquid
+                    assign child_menu_image = blank
+                    if childlink.object != blank
+                      assign child_menu_image = childlink.object.metafields.custom.menu_image.value
+                    endif
+                    assign has_visual = false
+                    if childlink.type == 'product_link' and child_menu_image != blank
+                      assign has_visual = true
+                    endif
+                  %}
+                  {%- capture marvin_child_featured_image -%}
+                    {% render 'link-featured-image', link: childlink, class: 'mega-menu__marvin-child-image', sizes: '(min-width: 990px) 180px, 30vw' %}
+                  {%- endcapture -%}
+                  {% if has_visual == false and marvin_child_featured_image != blank %}
+                    {% assign has_visual = true %}
+                  {% endif %}
+                  {% if has_visual %}
+                    <li class="mega-menu__marvin-product-item{% unless childlink.type == 'product_link' and childlink.object != blank %} mega-menu__marvin-product-item--link{% endunless %}">
+                      {% if childlink.type == 'product_link' and childlink.object != blank %}
+                        {% render 'resource-card', resource: childlink.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: childlink.object.metafields.custom.menu_image.value, featured_image_override_only: true, show_menu_small_text: true %}
+                      {% else %}
+                        <a href="{{ childlink.url }}" class="mega-menu__marvin-child-link mega-menu__link mega-menu__marvin-child-link--with-image">
                           <span class="mega-menu__marvin-child-image-wrap">
                             {{ marvin_child_featured_image }}
                           </span>
-                        {% endif %}
-                        <span class="mega-menu__marvin-child-title wrap-text">{{ childlink.title }}</span>
-                      </a>
-                    {% endif %}
-                  </li>
+                          <span class="mega-menu__marvin-child-title wrap-text">{{ childlink.title }}</span>
+                        </a>
+                      {% endif %}
+                    </li>
+                  {% endif %}
                 {% endfor %}
-              </ul>
+              {% endcapture %}
+              {% capture marvin_text_items %}
+                {% for childlink in link.links %}
+                  {% liquid
+                    assign child_menu_image = blank
+                    if childlink.object != blank
+                      assign child_menu_image = childlink.object.metafields.custom.menu_image.value
+                    endif
+                    assign has_visual = false
+                    if childlink.type == 'product_link' and child_menu_image != blank
+                      assign has_visual = true
+                    endif
+                  %}
+                  {%- capture marvin_child_featured_image -%}
+                    {% render 'link-featured-image', link: childlink, class: 'mega-menu__marvin-child-image', sizes: '(min-width: 990px) 180px, 30vw' %}
+                  {%- endcapture -%}
+                  {% if has_visual == false and marvin_child_featured_image != blank %}
+                    {% assign has_visual = true %}
+                  {% endif %}
+                  {% unless has_visual %}
+                    <li class="mega-menu__marvin-text-item">
+                      <a href="{{ childlink.url }}" class="mega-menu__marvin-text-link mega-menu__link">
+                        <span class="mega-menu__marvin-text-title wrap-text">{{ childlink.title }}</span>
+                        {% if childlink.type == 'product_link' and childlink.object != blank and childlink.object.metafields.custom.menu_small_text.value != blank %}
+                          <span class="mega-menu__marvin-text-subtitle">{{ childlink.object.metafields.custom.menu_small_text.value }}</span>
+                        {% endif %}
+                      </a>
+                    </li>
+                  {% endunless %}
+                {% endfor %}
+              {% endcapture %}
+              {% if marvin_media_items != blank and marvin_text_items == blank %}
+                <ul class="mega-menu__marvin-products list-unstyled">
+                  {{ marvin_media_items }}
+                </ul>
+              {% elsif marvin_text_items != blank and marvin_media_items == blank %}
+                <ul class="mega-menu__marvin-text-list list-unstyled">
+                  {{ marvin_text_items }}
+                </ul>
+              {% else %}
+                <div class="mega-menu__marvin-panel-layout">
+                  <ul class="mega-menu__marvin-media-list list-unstyled">
+                    {{ marvin_media_items }}
+                  </ul>
+                  <ul class="mega-menu__marvin-text-list list-unstyled">
+                    {{ marvin_text_items }}
+                  </ul>
+                </div>
+              {% endif %}
             </div>
           {% endif %}
         {% endfor %}
       </li>
     {% elsif marvin_has_top_level_products and marvin_has_leaf_links == false %}
-      {% for link in parent_link.links %}
-        {% if link.type == 'product_link' %}
-          <li class="mega-menu__menu-item mega-menu__marvin-product">
-            {% render 'resource-card', resource: link.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: link.object.metafields.custom.menu_image.value, show_menu_small_text: true %}
-          </li>
+      {% capture marvin_top_media_items %}
+        {% for link in parent_link.links %}
+          {% if link.type == 'product_link' and link.object != blank and link.object.metafields.custom.menu_image.value != blank %}
+            <li class="mega-menu__marvin-product-item">
+              {% render 'resource-card', resource: link.object, resource_type: 'product', price_v: false, image_aspect_ratio: '5 / 3', featured_image_override: link.object.metafields.custom.menu_image.value, featured_image_override_only: true, show_menu_small_text: true %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+      {% capture marvin_top_text_items %}
+        {% for link in parent_link.links %}
+          {% if link.type == 'product_link' and link.object != blank and link.object.metafields.custom.menu_image.value == blank %}
+            <li class="mega-menu__marvin-text-item">
+              <a href="{{ link.url }}" class="mega-menu__marvin-text-link mega-menu__link">
+                <span class="mega-menu__marvin-text-title wrap-text">{{ link.title }}</span>
+                {% if link.object.metafields.custom.menu_small_text.value != blank %}
+                  <span class="mega-menu__marvin-text-subtitle">{{ link.object.metafields.custom.menu_small_text.value }}</span>
+                {% endif %}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% endcapture %}
+      <li class="mega-menu__marvin-products-shell">
+        {% if marvin_top_media_items != blank and marvin_top_text_items == blank %}
+          <ul class="mega-menu__marvin-products list-unstyled">
+            {{ marvin_top_media_items }}
+          </ul>
+        {% elsif marvin_top_text_items != blank and marvin_top_media_items == blank %}
+          <ul class="mega-menu__marvin-text-list list-unstyled">
+            {{ marvin_top_text_items }}
+          </ul>
+        {% else %}
+          <div class="mega-menu__marvin-panel-layout">
+            <ul class="mega-menu__marvin-media-list list-unstyled">
+              {{ marvin_top_media_items }}
+            </ul>
+            <ul class="mega-menu__marvin-text-list list-unstyled">
+              {{ marvin_top_text_items }}
+            </ul>
+          </div>
         {% endif %}
-      {% endfor %}
+      </li>
     {% else %}
       {% for link in parent_link.links %}
         {%- capture marvin_featured_image -%}
@@ -370,10 +467,15 @@ Renders mega menu list markup and optional featured content.
 
   .mega-menu__list--marvin .mega-menu__marvin-category,
   .mega-menu__list--marvin .mega-menu__marvin-product,
+  .mega-menu__list--marvin .mega-menu__marvin-products-shell,
   .mega-menu__list--marvin .mega-menu__marvin-sidebar,
   .mega-menu__list--marvin .mega-menu__marvin-panels {
     width: 100%;
     min-width: 0;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-products-shell {
+    grid-column: 1 / -1;
   }
 
   .mega-menu__list--marvin-shell {
@@ -415,7 +517,7 @@ Renders mega menu list markup and optional featured content.
   }
 
   .mega-menu__list--marvin .mega-menu__marvin-category-item--has-panel > .mega-menu__marvin-trigger::after {
-    content: '›';
+    content: '>';
     margin-left: auto;
     font-size: 1rem;
     line-height: 1;
@@ -501,14 +603,65 @@ Renders mega menu list markup and optional featured content.
     text-underline-offset: 0.18em;
   }
 
+  .mega-menu__list--marvin .mega-menu__marvin-panel-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.9fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-media-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .mega-menu__list--marvin .mega-menu__marvin-products {
     display: grid;
     grid-template-columns: repeat(var(--marvin-products-columns, 4), minmax(0, 1fr));
     gap: 1.25rem;
   }
 
+  .mega-menu__list--marvin .mega-menu__marvin-text-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-top: 0.25rem;
+  }
+
   .mega-menu__list--marvin .mega-menu__marvin-product-item {
     min-width: 0;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-text-item {
+    min-width: 0;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-text-link,
+  .mega-menu__list--marvin .mega-menu__marvin-text-link:hover {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.35rem 0;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-text-title {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-text-subtitle {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .mega-menu__list--marvin .mega-menu__marvin-text-link:hover .mega-menu__marvin-text-title,
+  .mega-menu__list--marvin .mega-menu__marvin-text-link:focus-visible .mega-menu__marvin-text-title {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
   }
 
   .mega-menu__list--marvin .mega-menu__marvin-product-item--link .mega-menu__marvin-child-link,
@@ -589,6 +742,10 @@ Renders mega menu list markup and optional featured content.
   @media screen and (max-width: 989px) {
     .mega-menu__list--marvin-shell,
     .mega-menu__list--marvin-products-only,
+    .mega-menu__list--marvin .mega-menu__marvin-panel-layout {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
     .mega-menu__list--marvin .mega-menu__marvin-products {
       grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     }
@@ -694,10 +851,25 @@ Renders mega menu list markup and optional featured content.
       <ul class="mega-menu__content-list mega-menu__content-list--products list-unstyled">
         {% if eager_loading %}
           {% paginate collection_object.products by max_featured_products %}
-            {% for item in collection_object.products %}
-              <li class="mega-menu__content-list-item {% if forloop.index > max_featured_products_tablet %} mega-menu__content-list-item--hidden-tablet{% endif %}">
-                {% render 'resource-card', resource: item, resource_type: 'product', image_hover: true, image_aspect_ratio: '5 / 3', image_sizes: image_sizes, featured_image_override: item.metafields.custom.menu_image.value, show_menu_small_text: true %}
-              </li>
+            {% assign featured_product_index = 0 %}
+            {% assign menu_image_states = 'with,without' | split: ',' %}
+            {% for menu_image_state in menu_image_states %}
+              {% for item in collection_object.products %}
+                {% liquid
+                  assign include_featured_product = false
+                  if menu_image_state == 'with' and item.metafields.custom.menu_image.value != blank
+                    assign include_featured_product = true
+                  elsif menu_image_state == 'without' and item.metafields.custom.menu_image.value == blank
+                    assign include_featured_product = true
+                  endif
+                %}
+                {% if include_featured_product %}
+                  {% assign featured_product_index = featured_product_index | plus: 1 %}
+                  <li class="mega-menu__content-list-item {% if featured_product_index > max_featured_products_tablet %} mega-menu__content-list-item--hidden-tablet{% endif %}">
+                    {% render 'resource-card', resource: item, resource_type: 'product', image_hover: true, image_aspect_ratio: '5 / 3', image_sizes: image_sizes, featured_image_override: item.metafields.custom.menu_image.value, featured_image_override_only: true, show_menu_small_text: true %}
+                  </li>
+                {% endif %}
+              {% endfor %}
             {% endfor %}
           {% endpaginate %}
         {% endif %}
