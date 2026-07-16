@@ -119,11 +119,11 @@ Renders mega menu list markup and optional featured content.
                 <a href="{{ link.url }}"
                    class="mega-menu__marvin-trigger mega-menu__link{% if link.links != blank %} mega-menu__link--parent{% endif %}"
                    {% if link.links != blank %}data-marvin-panel="{{ forloop.index }}"{% endif %}>
-                  {% if marvin_featured_image != blank %}
+                  {% comment %} {% if marvin_featured_image != blank %}
                     <span class="mega-menu__marvin-image-link">
                       {{ marvin_featured_image }}
                     </span>
-                  {% endif %}
+                  {% endif %} {% endcomment %}
                   <span class="mega-menu__marvin-title">
                     <span class="wrap-text">{{ link.title }}</span>
                   </span>
